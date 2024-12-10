@@ -76,7 +76,7 @@
                         </form>
                         <p class="text-center m-4">
                             Not a member?
-                            <a data-toggle="tab" href="register.html"> Sign Up</a>
+                            <a data-toggle="tab" href="{{ route('register') }}"> Sign Up</a>
                         </p>
                     </div>
                 </div>

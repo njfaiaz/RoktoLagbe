@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -51,7 +52,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'lowercase', 'max:255', 'unique:users'],
             'password' => [
                 'required',
                 'confirmed',
@@ -74,6 +75,8 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'role' => UserRole::USER->value,
+            'username' => User::generateUniqueUsername($data['name']),
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
