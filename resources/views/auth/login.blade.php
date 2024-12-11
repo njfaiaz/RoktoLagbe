@@ -20,12 +20,12 @@
                             </div>
                             <div class="w-100">
                                 <p class="social-media d-flex justify-content-end">
-                                    <a href="#"
+                                    <a href="@"
                                         class="social-icon d-flex align-items-center justify-content-center"><span
                                             class="fa fa-facebook"></span></a>
-                                    <a href="#"
+                                    <a href="{{ route('auth.google') }}"
                                         class="social-icon d-flex align-items-center justify-content-center"><span
-                                            class="fa fa-twitter"></span></a>
+                                            class="fa fa-google"></span></a>
                                 </p>
                             </div>
                         </div>
