@@ -32,7 +32,7 @@ class SocialiteController extends Controller
 
             if ($user) {
                 Auth::login($user);
-                return redirect()->route('home');
+                return redirect()->route('user.dashboard');
             } else {
                 $userData = User::create([
                     'name' => $googleUser->name,
@@ -45,7 +45,7 @@ class SocialiteController extends Controller
 
             if ($userData) {
                 Auth::login($userData);
-                return redirect()->route('home');
+                return redirect()->route('user.dashboard');
             }
         } catch (Exception $e) {
             dd($e);
@@ -75,7 +75,7 @@ class SocialiteController extends Controller
 
             if ($user) {
                 Auth::login($user);
-                return redirect()->route('home');
+                return redirect()->route('user.dashboard');
             } else {
                 $userData = User::create([
                     'name' => $facebookUser->name,
@@ -88,7 +88,7 @@ class SocialiteController extends Controller
 
             if ($userData) {
                 Auth::login($userData);
-                return redirect()->route('home');
+                return redirect()->route('user.dashboard');
             }
         } catch (Exception $e) {
             dd($e);

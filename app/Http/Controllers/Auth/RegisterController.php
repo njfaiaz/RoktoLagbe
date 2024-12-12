@@ -31,6 +31,14 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+    protected function redirectTo()
+    {
+        if (Auth()->user()->role == '1') {
+            return route('admin.dashboard');
+        } elseif (Auth()->user()->role == '2') {
+            return route('user.dashboard');
+        }
+    }
 
     /**
      * Create a new controller instance.

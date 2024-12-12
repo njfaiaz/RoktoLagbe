@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SocialiteController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +30,14 @@ Route::get('auth/google', [SocialiteController::class, 'googleLogin'])->name('au
 Route::get('auth/google-callback', [SocialiteController::class, 'googleAuthentication'])->name('auth.google-callback');
 Route::get('auth/facebook', [SocialiteController::class, 'facebookLogin'])->name('auth.facebook');
 Route::get('auth/facebook-callback', [SocialiteController::class, 'facebookAuthentication'])->name('auth.facebook-callback');
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace' => 'Admin'], function () {
+
+    // ------------------------------ Admin Home Page----------------------------------
+    Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+});
+
+Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {
+    Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
+});
