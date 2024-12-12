@@ -25,4 +25,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('auth/google', [SocialiteController::class, 'googleLogin'])->name('auth.google');
-Route::get('auth/google-callback', [SocialiteController::class, 'googleAuthentication']);
+Route::get('auth/google-callback', [SocialiteController::class, 'googleAuthentication'])->name('auth.google-callback');
+Route::get('auth/facebook', [SocialiteController::class, 'facebookLogin'])->name('auth.facebook');
+Route::get('auth/facebook-callback', [SocialiteController::class, 'facebookAuthentication'])->name('auth.facebook-callback');

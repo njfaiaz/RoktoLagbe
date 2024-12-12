@@ -22,6 +22,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(UserStatus::ACTIVE->value);
             $table->string('profile_image')->nullable();
             $table->string('google_id')->nullable();
+            $table->string('facebook_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
