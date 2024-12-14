@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AddressController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SocialiteController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
 
     // ------------------------------ Admin Home Page----------------------------------
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    // ------------------------------ Admin Profile Page----------------------------------
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile');
 
     // ------------------------------ Admin Address Page----------------------------------
     Route::get('address', [AddressController::class, 'index'])->name('address');
