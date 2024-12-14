@@ -49,4 +49,28 @@ class User extends Authenticatable
 
         return $username;
     }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function upazila()
+    {
+        return $this->belongsTo(Upazila::class);
+    }
+
+    public function union()
+    {
+        return $this->belongsTo(Union::class);
+    }
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
 }
