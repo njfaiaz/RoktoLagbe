@@ -9,22 +9,23 @@
           <ul class="list">
               <li>
                   <div class="user-info">
-                      <a class="image" href="{{ route('profile') }}"><img
-                              src="{{ asset('assets/admin/images/profile_av.jpg') }}" alt="User"></a>
+                      <a class="image" href="#"><img src="{{ asset('assets/admin/images/profile_av.jpg') }}"
+                              alt="User"></a>
                       <div class="detail">
                           <h4>Michael</h4>
                           <small>Super Admin</small>
                       </div>
                   </div>
               </li>
-              <li class="active open"><a href=""><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
-              <li><a href="javascript:void(0);" class="menu-toggle"><i
+              <li class="active open"><a href="{{ route('admin.dashboard') }}"><i
+                          class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
+              {{-- <li><a href="javascript:void(0);" class="menu-toggle"><i
                           class="zmdi zmdi-hc-fw"></i><span>Members</span></a>
                   <ul class="ml-menu">
                       <li><a href="{{ route('user-list') }}">User List</a></li>
                       <li><a href="{{ route('block-user-list') }}">Block User List</a></li>
                   </ul>
-              </li>
+              </li> --}}
               <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-hc-fw"></i>
                       <span>Address</span></a>
                   <ul class="ml-menu">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AddressController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SocialiteController;
 use App\Http\Controllers\User\UserController;
@@ -36,6 +37,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
 
     // ------------------------------ Admin Home Page----------------------------------
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    // ------------------------------ Admin Address Page----------------------------------
+    Route::get('address', [AddressController::class, 'index'])->name('address');
+
+
+
+    // Route::get('service', [ServiceController::class, 'index'])->name('service');
+    // Route::get('service/create', [ServiceController::class, 'create'])->name('service.create');
+    // Route::post('service/store', [ServiceController::class, 'Store'])->name('service.store');
+    // Route::get('service/edit/{id}', [ServiceController::class, 'Edit'])->name('service.edit');
+    // Route::post('service/update/{id}', [ServiceController::class, 'Update'])->name('service.update');
+    // Route::get('service/destroy/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+
 });
 
 Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {

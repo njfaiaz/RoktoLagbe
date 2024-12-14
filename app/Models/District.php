@@ -10,7 +10,7 @@ class District extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function upazila()
+    public function upazilas()
     {
         return $this->hasMany(Upazila::class);
     }
