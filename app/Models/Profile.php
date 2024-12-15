@@ -11,21 +11,6 @@ class Profile extends Model
 
     protected $guarded = ['id'];
 
-    public function district()
-    {
-        return $this->belongsTo(District::class);
-    }
-
-    public function upazila()
-    {
-        return $this->belongsTo(Upazila::class);
-    }
-
-    public function union()
-    {
-        return $this->belongsTo(Union::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);

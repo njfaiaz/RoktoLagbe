@@ -22,11 +22,11 @@ class ProfileController extends Controller
 
     public function Edit($username)
     {
-        $profile = User::with('profile', 'district', 'upazila', 'union', 'address')->where('username', $username)->firstOrFail();
+        $profile = User::with('profile', 'address')->where('username', $username)->get();
         $districts = District::all();
-        $upazila = Upazila::where('district_id', $profile->district_id)->get();
-        $unions = Union::where('upazila_id', $profile->upazila_id)->get();
-        return response()->json($profile);
-        return view('admin.profile.edit', compact('profile', 'districts', 'upazila', 'unions'));
+        // $upazila = Upazila::where('district_id', $profile->district_id)->get();
+        // $unions = Union::where('upazila_id', $profile->upazila_id)->get();
+        // return response()->json($profile);
+        return view('admin.profile.edit', compact('profile'));
     }
 }

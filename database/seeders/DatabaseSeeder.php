@@ -13,7 +13,9 @@ class DatabaseSeeder extends Seeder
             UserCreateSeeder::class,
             DistrictSeeder::class,
             UpazilaSeeder::class,
-            UnionSeeder::class
+            UnionSeeder::class,
+            AddressSeeder::class,
+            ProfileSeeder::class
         ]);
     }
 }
