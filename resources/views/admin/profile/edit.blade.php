@@ -38,17 +38,19 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="card mcard_3">
                         <div class="body">
-                            <div>
+                            <form action="">
+                                <div>
 
-                                <input type="file" id="dropify-event"
-                                    data-default-file="{{ asset('assets/admin/images/profile_av.jpg') }}"
-                                    class="rounded-circle shadow ">
+                                    <input type="file" id="dropify-event"
+                                        data-default-file="{{ asset('assets/admin/images/profile_av.jpg') }}"
+                                        class="rounded-circle shadow ">
 
-                                @error('profile_image')
-                                    <span class='text-danger'>{{ $message }}</span>
-                                @enderror
-                            </div><br>
-                            <button class="btn btn-info">Save Changes</button>
+                                    @error('profile_image')
+                                        <span class='text-danger'>{{ $message }}</span>
+                                    @enderror
+                                </div><br>
+                                <button class="btn btn-info">Save Changes</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -58,64 +60,64 @@
                             <h2><strong>Basic Information</strong> Settings</h2>
                         </div>
                         <div class="body">
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address">Username :</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username">
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address">User Phone Number :</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Phone Number">
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address">Select Your Gender :</label>
-                                <div class="form-group">
-                                    <div class="radio inlineblock m-r-20">
-                                        <input type="radio" name="gender" class="with-gap" value="option1"
-                                            checked="">
-                                        <label for="male">Male</label>
-                                    </div>
-                                    <div class="radio inlineblock">
-                                        <input type="radio" name="gender" class="with-gap" value="option2">
-                                        <label for="Female">Female</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address">Select Your Blood Group :</label>
-                                <div class="form-group">
-                                    <select class="form-control">
-                                        <option selected disabled>Select Your Blood Group</option>
-                                        <option value="A+">A+</option>
-                                        <option value="A-">A-</option>
-                                        <option value="B+">B+</option>
-                                        <option value="B-">B-</option>
-                                        <option value="O+">O+</option>
-                                        <option value="O-">O-</option>
-                                        <option value="AB+">AB+</option>
-                                        <option value="AB-">AB-</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <form action="">
 
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address"> All Donation Time :</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="All Donation Time">
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="email_address">Username :</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Username">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address">Previous Donation Date :</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="dateInput"
-                                        placeholder="Previous Donation Date" onfocus="(this.type='date')"
-                                        onblur="(this.type='text')">
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="email_address">User Phone Number :</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Phone Number">
+                                    </div>
                                 </div>
-                            </div>
-                            <button class="btn btn-info">Update Information</button>
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="email_address">Select Your Gender :</label>
+                                    <div class="form-group">
+                                        <div class="radio inlineblock m-r-20">
+                                            <input type="radio" name="gender" class="with-gap" value="option1"
+                                                checked="">
+                                            <label for="male">Male</label>
+                                        </div>
+                                        <div class="radio inlineblock">
+                                            <input type="radio" name="gender" class="with-gap" value="option2">
+                                            <label for="Female">Female</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="email_address">Select Your Blood Group :</label>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option selected disabled>Select Your Blood Group</option>
+                                            @foreach ($bloods as $blood)
+                                                <option
+                                                    {{ in_array($blood->blood_name, old('bloods', [])) ? 'selected' : '' }}
+                                                    value="{{ $blood->blood_name }}"> {{ $blood->blood_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="email_address"> All Donation Time :</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="All Donation Time">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="email_address">Previous Donation Date :</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="dateInput"
+                                            placeholder="Previous Donation Date" onfocus="(this.type='date')"
+                                            onblur="(this.type='text')">
+                                    </div>
+                                </div>
+                                <button class="btn btn-info">Update Information</button>
+                            </form>
                         </div>
                     </div>
                     <div class="card">
