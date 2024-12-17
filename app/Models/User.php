@@ -73,8 +73,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(Address::class);
     }
-    public function blood()
-    {
-        return $this->hasOne(Blood::class);
-    }
 }

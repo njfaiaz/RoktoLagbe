@@ -81,45 +81,94 @@
                             <h2><strong>Basic Information</strong> Settings</h2>
                         </div>
                         <div class="body">
-                            <form action="">
+                            <form action="{{ route('profileInfo.update', $profile->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                <input type="hidden" name="id" value="{{ $profile->id }}">
+                                @csrf
                                 <div class="col-lg-12 col-md-12">
-                                    <label for="email_address">User Phone Number :</label>
+                                    <label for="phone_number">User Phone Number :</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Phone Number">
+                                        <input type="text" name="phone_number"
+                                            class="form-control @error('phone_number') border border-danger @enderror"
+                                            placeholder="Phone Number" value="{{ $profile->profile->phone_number ?? '' }}">
+                                        @if ($errors->has('phone_number'))
+                                            <span class="text-danger">{{ $errors->first('phone_number') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
-                                    <label for="email_address">Select Your Gender :</label>
                                     <div class="form-group">
-                                        <div class="radio inlineblock m-r-20">
-                                            <input type="radio" name="gender" class="with-gap" value="option1"
-                                                checked="">
-                                            <label for="male">Male</label>
-                                        </div>
-                                        <div class="radio inlineblock">
-                                            <input type="radio" name="gender" class="with-gap" value="option2">
-                                            <label for="Female">Female</label>
-                                        </div>
+                                        <select name="gender" id="gender" class="form-control">
+                                            <option value="" disabled
+                                                {{ optional($profile->profile)->gender ? '' : 'selected' }}>
+                                                Select Gender
+                                            </option>
+                                            <option value="Male"
+                                                {{ old('gender', optional($profile->profile)->gender) === 'Male' ? 'selected' : '' }}>
+                                                Male
+                                            </option>
+                                            <option value="Female"
+                                                {{ old('gender', optional($profile->profile)->gender) === 'Female' ? 'selected' : '' }}>
+                                                Female
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <label for="email_address">Select Your Blood Group :</label>
                                     <div class="form-group">
-                                        <select class="form-control">
+                                        <select name="blood_group" id="blood_group" class="form-control">
                                             <option selected disabled>Select Your Blood Group</option>
-                                            @foreach ($bloods as $blood)
-                                                <option
-                                                    {{ in_array($blood->blood_name, old('bloods', [])) ? 'selected' : '' }}
-                                                    value="{{ $blood->blood_name }}"> {{ $blood->blood_name }}</option>
-                                            @endforeach
+                                            <option value="A+"
+                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'A+' ? 'selected' : '' }}>
+                                                A+
+                                            </option>
+                                            <option value="B+"
+                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'B+' ? 'selected' : '' }}>
+                                                B+
+                                            </option>
+                                            <option value="A-"
+                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'A-' ? 'selected' : '' }}>
+                                                A-
+                                            </option>
+                                            <option value="B-"
+                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'B-' ? 'selected' : '' }}>
+                                                B-
+                                            </option>
+                                            <option value="AB+"
+                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'AB+' ? 'selected' : '' }}>
+                                                AB+
+                                            </option>
+                                            <option value="AB-"
+                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'AB-' ? 'selected' : '' }}>
+                                                AB-
+                                            </option>
+                                            <option value="O-"
+                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'O-' ? 'selected' : '' }}>
+                                                O-
+                                            </option>
+                                            <option value="O+"
+                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'O+' ? 'selected' : '' }}>
+                                                O+
+                                            </option>
+
                                         </select>
+
+                                        @if ($errors->has('blood_name'))
+                                            <span class="text-danger">{{ $errors->first('blood_name') }}</span>
+                                        @endif
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12 col-md-12">
-                                    <label for="email_address"> All Donation Time :</label>
+                                    <label for="all_donation_time"> All Donation Time :</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="All Donation Time">
+                                        <input type="text" class="form-control" placeholder="All Donation Time"
+                                            name="all_donation_time"
+                                            value="{{ $profile->profile->all_donation_time ?? '' }}">
+                                        @if ($errors->has('all_donation_time'))
+                                            <span class="text-danger">{{ $errors->first('all_donation_time') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
@@ -127,10 +176,11 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="dateInput"
                                             placeholder="Previous Donation Date" onfocus="(this.type='date')"
-                                            onblur="(this.type='text')">
+                                            onblur="(this.type='text')" name="previous_donation_date"
+                                            value="{{ $profile->profile->previous_donation_date ?? '' }}">
                                     </div>
                                 </div>
-                                <button class="btn btn-info">Update Information</button>
+                                <button type="submit" class="btn btn-info">Update Information</button>
                             </form>
                         </div>
                     </div>
@@ -159,25 +209,43 @@
                             <h2><strong>Password Change</strong> Settings</h2>
                         </div>
                         <div class="body">
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address">Old Password :</label>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Old Password ">
+                            <form action="{{ route('profile.ChangePassword') }}" method="POST">
+                                @csrf
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="email_address">Old Password :</label>
+                                    <div class="form-group">
+                                        <input type="password" name="old_password"
+                                            class="form-control @error('old_password') border border-danger @enderror"
+                                            placeholder="Old Password ">
+                                        @error('old_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address">New Password :</label>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="New Password">
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="email_address">New Password :</label>
+                                    <div class="form-group">
+                                        <input type="password"
+                                            class="form-control @error('new_password') border border-danger @enderror"
+                                            placeholder="New Password" name="new_password">
+                                        @error('new_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address">Confirm password :</label>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Confirm password">
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="email_address">Confirm password :</label>
+                                    <div class="form-group">
+                                        <input type="password"
+                                            class="form-control @error('con_password') border border-danger @enderror"
+                                            name="con_password" placeholder="Confirm password">
+                                    </div>
+                                    @error('con_password')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                            </div>
-                            <button class="btn btn-info">Update Password</button>
+                                <button type="submit" class="btn btn-info">Update Password</button>
+                            </form>
                         </div>
                     </div>
                 </div>

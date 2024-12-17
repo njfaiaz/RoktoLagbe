@@ -9,6 +9,7 @@ use App\Models\District;
 use App\Models\Profile;
 use App\Models\Union;
 use App\Models\Upazila;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,11 +32,10 @@ class ProfileController extends Controller
 
         $profile = User::with('profile', 'address')->where('username', $username)->firstOrFail();
         $districts = District::all();
-        $bloods = Blood::all();
         // $upazila = Upazila::where('district_id', $profile->district_id)->get();
         // $unions = Union::where('upazila_id', $profile->upazila_id)->get();
         // return response()->json($profile);
-        return view('admin.profile.edit', compact('profile', 'bloods'));
+        return view('admin.profile.edit', compact('profile'));
     }
 
     public function updateProfile(Request $request)
@@ -75,21 +75,52 @@ class ProfileController extends Controller
             ]);
             return redirect()->back();
         }
-
-        // $request->validate([
-        //     'profile_image' => 'image|mimes:png,jpg,jpeg'
-        // ]);
-        // $profile_id = $request->id;
-        // $profile = Profile::findOrFail($profile_id);
-
-        // $image = $request->file('profile_image');
-        // $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-        // Image::make($image)->resize(180, 180)->save(public_path('images/profile' . $name_gen));
-        // $save_url = ('images/profile/' . $name_gen);
-        // // return response()->json($save_url);
-        // $profile->update([
-        //     'profile_image' => $request->save_url,
-        // ]);
-        // return redirect()->back();
     }
+
+    public function updateProfileInfo(Request $request)
+    {
+        // return response()->json($request);
+        $request->validate([
+            'phone_number' => 'digits:11',
+            'all_donation_time' => 'integer',
+            'previous_donation_date' => 'date',
+            'gender' => 'nullable|in:Male,Female'
+        ]);
+
+        $profile_id = $request->id;
+
+        Profile::findOrFail($profile_id)->update([
+            'user_id' => Auth()->id(),
+            'gender' => $request->gender,
+            'blood_group' => $request->blood_group,
+            'phone_number' => $request->phone_number,
+            'previous_donation_date' => $request->previous_donation_date,
+            'all_donation_time' => $request->all_donation_time,
+        ]);
+        return redirect()->back();
+    }
+
+
+
+    // public function updateProfileInfo(Request $request, $id)
+    // {
+    //     $profile = Profile::findOrFail($id);
+    //     // return response()->json($request);
+    //     $request->validate([
+    //         'phone_number' => 'digits:11',
+    //         'all_donation_time' => 'integer',
+    //         'previous_donation_date' => 'date',
+    //         'gender' => 'nullable|in:Male,Female'
+    //     ]);
+
+
+    //     $profile->update([
+    //         'gender' => $request->gender,
+    //         'blood_group' => $request->blood_group,
+    //         'phone_number' => $request->phone_number,
+    //         'previous_donation_date' => $request->previous_donation_date,
+    //         'all_donation_time' => $request->all_donation_time,
+    //     ]);
+    //     return redirect()->back();
+    // }
 }

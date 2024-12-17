@@ -15,8 +15,4 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function blood()
-    {
-        return $this->belongsTo(Blood::class);
-    }
 }
