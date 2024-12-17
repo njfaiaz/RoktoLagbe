@@ -42,7 +42,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     // ------------------------------ Admin Profile Page----------------------------------
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('profile/{username}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('profile/store', [ProfileController::class, 'Update'])->name('profile.store');
+    Route::post('profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
 
 
 

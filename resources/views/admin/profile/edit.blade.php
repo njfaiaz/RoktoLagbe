@@ -38,18 +38,39 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="card mcard_3">
                         <div class="body">
-                            <form action="">
-                                <div>
-
-                                    <input type="file" id="dropify-event"
-                                        data-default-file="{{ asset('assets/admin/images/profile_av.jpg') }}"
-                                        class="rounded-circle shadow ">
-
-                                    @error('profile_image')
-                                        <span class='text-danger'>{{ $message }}</span>
-                                    @enderror
-                                </div><br>
-                                <button class="btn btn-info">Save Changes</button>
+                            <form action="{{ route('profile.update', $profile->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                <input type="hidden" name="id" value="{{ $profile->id }}">
+                                @csrf
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="file" name="profile_image" id="dropify-event"
+                                            data-default-file="{{ $profile->profile_image ? asset($profile->profile_image) : asset('assets/admin/images/profile_av.jpg') }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Username"
+                                            value="{{ $profile->username ?? '' }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Full Name" name="name"
+                                            value="{{ $profile->name ?? '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="text"
+                                            class="form-control @error('email') border border-danger @enderror"
+                                            placeholder="Email Address" name="email" value="{{ $profile->email ?? '' }}">
+                                        @if ($errors->has('email'))
+                                            <span class="text-danger float-left">{{ $errors->first('email') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-info">Save Changes</button>
                             </form>
                         </div>
                     </div>
@@ -61,13 +82,6 @@
                         </div>
                         <div class="body">
                             <form action="">
-
-                                <div class="col-lg-12 col-md-12">
-                                    <label for="email_address">Username :</label>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Username">
-                                    </div>
-                                </div>
                                 <div class="col-lg-12 col-md-12">
                                     <label for="email_address">User Phone Number :</label>
                                     <div class="form-group">
