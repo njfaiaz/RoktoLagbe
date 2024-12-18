@@ -36,7 +36,10 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-lg-4 col-md-12">
-                    <div class="card mcard_3">
+                    <div class="card ">
+                        <div class="header">
+                            <h2><strong>Profile</strong> Settings</h2>
+                        </div>
                         <div class="body">
                             <form action="{{ route('profile.update', $profile->id) }}" method="POST"
                                 enctype="multipart/form-data">
@@ -78,13 +81,13 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card">
                         <div class="header">
-                            <h2><strong>Basic Information</strong> Settings</h2>
+                            <h2><strong>Basic</strong> Settings</h2>
                         </div>
                         <div class="body">
                             <form action="{{ route('profileInfo.update', $profile->id) }}" method="POST"
                                 enctype="multipart/form-data">
-                                <input type="hidden" name="id" value="{{ $profile->id }}">
                                 @csrf
+                                <input type="hidden" name="id" value="{{ $profile->id }}">
                                 <div class="col-lg-12 col-md-12">
                                     <label for="phone_number">User Phone Number :</label>
                                     <div class="form-group">
@@ -117,46 +120,16 @@
                                 <div class="col-lg-12 col-md-12">
                                     <label for="email_address">Select Your Blood Group :</label>
                                     <div class="form-group">
-                                        <select name="blood_group" id="blood_group" class="form-control">
+                                        <select name="blood_id" id="blood_group" class="form-control">
                                             <option selected disabled>Select Your Blood Group</option>
-                                            <option value="A+"
-                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'A+' ? 'selected' : '' }}>
-                                                A+
-                                            </option>
-                                            <option value="B+"
-                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'B+' ? 'selected' : '' }}>
-                                                B+
-                                            </option>
-                                            <option value="A-"
-                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'A-' ? 'selected' : '' }}>
-                                                A-
-                                            </option>
-                                            <option value="B-"
-                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'B-' ? 'selected' : '' }}>
-                                                B-
-                                            </option>
-                                            <option value="AB+"
-                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'AB+' ? 'selected' : '' }}>
-                                                AB+
-                                            </option>
-                                            <option value="AB-"
-                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'AB-' ? 'selected' : '' }}>
-                                                AB-
-                                            </option>
-                                            <option value="O-"
-                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'O-' ? 'selected' : '' }}>
-                                                O-
-                                            </option>
-                                            <option value="O+"
-                                                {{ old('blood_group', optional($profile->profile)->blood_group) === 'O+' ? 'selected' : '' }}>
-                                                O+
-                                            </option>
+                                            @foreach ($bloods as $blood)
+                                                <option value="{{ $blood->id }}"
+                                                    {{ old('blood_id', $profile->blood_id) == $blood->id ? 'selected' : '' }}>
+                                                    {{ $blood->blood_name }}
+                                                </option>
+                                            @endforeach
 
                                         </select>
-
-                                        @if ($errors->has('blood_name'))
-                                            <span class="text-danger">{{ $errors->first('blood_name') }}</span>
-                                        @endif
                                     </div>
                                 </div>
 
@@ -202,50 +175,6 @@
                                 </div>
                             </div>
                             <button class="btn btn-info">Update Address</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="header">
-                            <h2><strong>Password Change</strong> Settings</h2>
-                        </div>
-                        <div class="body">
-                            <form action="{{ route('profile.ChangePassword') }}" method="POST">
-                                @csrf
-                                <div class="col-lg-12 col-md-12">
-                                    <label for="email_address">Old Password :</label>
-                                    <div class="form-group">
-                                        <input type="password" name="old_password"
-                                            class="form-control @error('old_password') border border-danger @enderror"
-                                            placeholder="Old Password ">
-                                        @error('old_password')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <label for="email_address">New Password :</label>
-                                    <div class="form-group">
-                                        <input type="password"
-                                            class="form-control @error('new_password') border border-danger @enderror"
-                                            placeholder="New Password" name="new_password">
-                                        @error('new_password')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <label for="email_address">Confirm password :</label>
-                                    <div class="form-group">
-                                        <input type="password"
-                                            class="form-control @error('con_password') border border-danger @enderror"
-                                            name="con_password" placeholder="Confirm password">
-                                    </div>
-                                    @error('con_password')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <button type="submit" class="btn btn-info">Update Password</button>
-                            </form>
                         </div>
                     </div>
                 </div>

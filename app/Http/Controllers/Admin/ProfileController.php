@@ -3,19 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Address;
 use App\Models\Blood;
 use App\Models\District;
-use App\Models\Profile;
-use App\Models\Union;
-use App\Models\Upazila;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Unique;
 
 class ProfileController extends Controller
 {
@@ -33,16 +27,12 @@ class ProfileController extends Controller
         $profile = User::with('profile', 'address')->where('username', $username)->firstOrFail();
         $districts = District::all();
         $bloods = Blood::all();
-        // $upazila = Upazila::where('district_id', $profile->district_id)->get();
-        // $unions = Union::where('upazila_id', $profile->upazila_id)->get();
         // return response()->json($profile);
         return view('admin.profile.edit', compact('profile', 'bloods'));
     }
 
     public function updateProfile(Request $request)
     {
-        // return response()->json($request);
-
         $request->validate([
             'profile_image' => 'image|mimes:png,jpg,jpeg'
         ]);
@@ -78,50 +68,27 @@ class ProfileController extends Controller
         }
     }
 
-    public function updateProfileInfo(Request $request)
+    public function updateProfileInfo(Request $request, $userId)
     {
-        // return response()->json($request);
         $request->validate([
-            'phone_number' => 'digits:11',
-            'all_donation_time' => 'integer',
-            'previous_donation_date' => 'date',
+            'phone_number' => 'nullable|digits:11',
+            'all_donation_time' => 'nullable|integer',
+            'previous_donation_date' => 'nullable|date',
             'gender' => 'nullable|in:Male,Female'
         ]);
+        $user = User::findOrFail($userId);
+        $user->profile()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'blood_id'   => $request->blood_id ?? null,
+                'address_id' => $request->address_id ?? null,
+                'phone_number' => $request->phone_number ?? null,
+                'all_donation_time' => $request->all_donation_time ?? null,
+                'gender'     => $request->gender ?? 'Not specified',
+                'previous_donation_date'  => $request->previous_donation_date ?? now(),
+            ]
+        );
 
-        $profile_id = $request->id;
-
-        Profile::findOrFail($profile_id)->update([
-            'user_id' => Auth()->id(),
-            'gender' => $request->gender,
-            'blood_group' => $request->blood_group,
-            'phone_number' => $request->phone_number,
-            'previous_donation_date' => $request->previous_donation_date,
-            'all_donation_time' => $request->all_donation_time,
-        ]);
         return redirect()->back();
     }
-
-
-
-    // public function updateProfileInfo(Request $request, $id)
-    // {
-    //     $profile = Profile::findOrFail($id);
-    //     // return response()->json($request);
-    //     $request->validate([
-    //         'phone_number' => 'digits:11',
-    //         'all_donation_time' => 'integer',
-    //         'previous_donation_date' => 'date',
-    //         'gender' => 'nullable|in:Male,Female'
-    //     ]);
-
-
-    //     $profile->update([
-    //         'gender' => $request->gender,
-    //         'blood_group' => $request->blood_group,
-    //         'phone_number' => $request->phone_number,
-    //         'previous_donation_date' => $request->previous_donation_date,
-    //         'all_donation_time' => $request->all_donation_time,
-    //     ]);
-    //     return redirect()->back();
-    // }
 }

@@ -43,8 +43,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('profile/{username}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
-    Route::post('profile-info/update/{id}', [ProfileController::class, 'updateProfileInfo'])->name('profileInfo.update');
-    Route::post('password/change', [ProfileController::class, 'ChangePassword'])->name('profile.ChangePassword');
+    Route::post('profile-info/update/{userId}', [ProfileController::class, 'updateProfileInfo'])->name('profileInfo.update');
 
 
     // ------------------------------ Admin Address Page----------------------------------

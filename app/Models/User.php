@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Faker\Core\Blood;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -76,18 +78,5 @@ class User extends Authenticatable
     public function blood()
     {
         return $this->hasOne(Blood::class);
-    }
-
-    // User.php
-    protected static function booted()
-    {
-        static::created(function ($user) {
-            $user->profile()->create([
-                'blood_id' => null,
-                'address_id' => null,
-                'gender' => 'Not specified',
-                'last_date' => now(),
-            ]);
-        });
     }
 }
