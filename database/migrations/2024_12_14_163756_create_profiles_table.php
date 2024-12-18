@@ -13,7 +13,6 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Address::class)->nullable();
             $table->enum('gender', ['Male', 'Female'])->nullable();
             $table->foreignId('blood_id')->nullable()->unique();
             $table->string('phone_number')->nullable()->unique();

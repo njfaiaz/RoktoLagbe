@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Blood;
 use App\Models\District;
+use App\Models\Union;
+use App\Models\Upazila;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,10 +28,12 @@ class ProfileController extends Controller
     {
 
         $profile = User::with('profile', 'address')->where('username', $username)->firstOrFail();
-        $districts = District::all();
         $bloods = Blood::all();
+        $districts = District::all();
+        $upazilaes = Upazila::all();
+        $unions = Union::all();
         // return response()->json($profile);
-        return view('admin.profile.edit', compact('profile', 'bloods'));
+        return view('admin.profile.edit', compact('profile', 'bloods', 'districts', 'unions', 'upazilaes'));
     }
 
     public function updateProfile(Request $request)
@@ -70,13 +75,13 @@ class ProfileController extends Controller
 
     public function updateProfileInfo(Request $request, $userId)
     {
+        $user = User::findOrFail($userId);
         $request->validate([
             'phone_number' => 'nullable|digits:11',
             'all_donation_time' => 'nullable|integer',
             'previous_donation_date' => 'nullable|date',
-            'gender' => 'nullable|in:Male,Female'
+            'gender' => 'required|in:Male,Female'
         ]);
-        $user = User::findOrFail($userId);
         $user->profile()->updateOrCreate(
             ['user_id' => $user->id],
             [
@@ -86,6 +91,26 @@ class ProfileController extends Controller
                 'all_donation_time' => $request->all_donation_time ?? null,
                 'gender'     => $request->gender ?? 'Not specified',
                 'previous_donation_date'  => $request->previous_donation_date ?? now(),
+            ]
+        );
+
+        return redirect()->back();
+    }
+
+    public function updateAddressInfo(Request $request, $userId)
+    {
+        $user = User::findOrFail($userId);
+        $request->validate([
+            'district_id' => 'nullable|integer|exists:districts,id',
+            'upazila_id'  => 'nullable|integer|exists:upazilas,id',
+            'union_id'    => 'nullable|integer|exists:unions,id',
+        ]);
+        $user->address()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'district_id'   => $request->district_id ?? null,
+                'upazila_id' => $request->upazila_id ?? null,
+                'union_id' => $request->union_id ?? null,
             ]
         );
 

@@ -34,6 +34,7 @@ Route::get('auth/facebook', [SocialiteController::class, 'facebookLogin'])->name
 Route::get('auth/facebook-callback', [SocialiteController::class, 'facebookAuthentication'])->name('auth.facebook-callback');
 
 
+
 Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace' => 'Admin'], function () {
 
     // ------------------------------ Admin Home Page----------------------------------
@@ -44,6 +45,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     Route::get('profile/{username}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('profile-info/update/{userId}', [ProfileController::class, 'updateProfileInfo'])->name('profileInfo.update');
+    Route::post('address-info/update/{userId}', [ProfileController::class, 'updateAddressInfo'])->name('addressInfo.update');
 
 
     // ------------------------------ Admin Address Page----------------------------------

@@ -15,7 +15,6 @@ class ProfileSeeder extends Seeder
     public function run(): void
     {
         $users = User::pluck('id')->toArray();
-        $address = Address::pluck('id')->toArray();
         $gender = ['Male', 'Female'];
         $blood = Blood::pluck('id')->toArray();
 
@@ -25,7 +24,6 @@ class ProfileSeeder extends Seeder
             Profile::create([
                 'user_id' => 01,
                 // 'user_id' => $users[array_rand($users)],
-                'address_id' => $address[array_rand($address)],
                 'blood_id' => $blood[array_rand($blood)],
                 'gender' => $gender[array_rand($gender)],
                 'phone_number' => rand(200, 99999999999),

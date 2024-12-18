@@ -2,6 +2,7 @@
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropify/css/dropify.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/bootstrap-select/css/bootstrap-select.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .dropify-wrapper .dropify-preview .dropify-render img {
             border-radius: 50%;
@@ -162,29 +163,48 @@
                             <h2><strong>Address Change</strong> Settings</h2>
                         </div>
                         <div class="body">
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address">Username :</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username">
+                            <form action="{{ route('addressInfo.update', $profile->id) }}" method="POST">
+                                @csrf
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="district_id">Select District:</label>
+                                    <select name="district_id" id="district_id" class="form-control " required>
+                                        <option value="" selected disabled>Select District</option>
+                                        @foreach ($districts as $district)
+                                            <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <label for="email_address">User Phone Number :</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Phone Number">
+
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="upazila_id">Select Upazila:</label>
+                                    <select name="upazila_id" id="upazila_id" class="form-control " required>
+                                        @foreach ($upazilaes as $upazila)
+                                            <option value="{{ $upazila->id }}">{{ $upazila->upazila_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            </div>
-                            <button class="btn btn-info">Update Address</button>
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="union_id">Select Union:</label>
+                                    <select name="union_id" id="union_id" class="form-control " required>
+                                        @foreach ($unions as $union)
+                                            <option value="{{ $union->id }}">{{ $union->union_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3">Address Update</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        @push('footer_scripts')
-            <script src="{{ asset('assets/admin/plugins/dropify/js/dropify.min.js') }}"></script>
-            <script src="{{ asset('assets/admin/js/pages/forms/dropify.js') }}"></script>
-            <script src="{{ asset('assets/coustom/address.js') }}"></script>
-        @endpush
-    @endsection
+    @push('footer_scripts')
+        <script src="{{ asset('assets/admin/plugins/dropify/js/dropify.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/js/pages/forms/dropify.js') }}"></script>
+        <script src="{{ asset('assets/coustom/address.js') }}"></script>
+    @endpush
+
+@endsection
