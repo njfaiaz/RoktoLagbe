@@ -16,8 +16,8 @@ class ProfileSeeder extends Seeder
     {
         $users = User::pluck('id')->toArray();
         $address = Address::pluck('id')->toArray();
-        $blood_group = ['Ab+', 'AB-', 'A+', 'A-', 'B+', 'B-', 'O+', 'O-'];
         $gender = ['Male', 'Female'];
+        $blood = Blood::pluck('id')->toArray();
 
 
         for ($i = 1; $i <= 1; $i++) {
@@ -26,7 +26,7 @@ class ProfileSeeder extends Seeder
                 'user_id' => 01,
                 // 'user_id' => $users[array_rand($users)],
                 'address_id' => $address[array_rand($address)],
-                'blood_group' => $blood_group[array_rand($blood_group)],
+                'blood_id' => $blood[array_rand($blood)],
                 'gender' => $gender[array_rand($gender)],
                 'phone_number' => rand(200, 99999999999),
                 'previous_donation_date' => Carbon::now(),

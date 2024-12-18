@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
             UpazilaSeeder::class,
             UnionSeeder::class,
             AddressSeeder::class,
-            // ProfileSeeder::class
+            BloodSeeder::class,
+            ProfileSeeder::class
         ]);
     }
 }

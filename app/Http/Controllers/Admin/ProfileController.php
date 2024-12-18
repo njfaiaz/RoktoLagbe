@@ -32,10 +32,11 @@ class ProfileController extends Controller
 
         $profile = User::with('profile', 'address')->where('username', $username)->firstOrFail();
         $districts = District::all();
+        $bloods = Blood::all();
         // $upazila = Upazila::where('district_id', $profile->district_id)->get();
         // $unions = Union::where('upazila_id', $profile->upazila_id)->get();
         // return response()->json($profile);
-        return view('admin.profile.edit', compact('profile'));
+        return view('admin.profile.edit', compact('profile', 'bloods'));
     }
 
     public function updateProfile(Request $request)
