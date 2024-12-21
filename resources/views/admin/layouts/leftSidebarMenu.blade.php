@@ -34,6 +34,10 @@
                       <li><a href="ticket-list.html">Unions List</a></li>
                   </ul>
               </li>
+              <li class="active open">
+                  <a href="{{ route('setting') }}">
+                      <i class="zmdi zmdi-settings zmdi-hc-spin"></i><span>Dashboard</span></a>
+              </li>
           </ul>
       </div>
   </aside>

@@ -2,11 +2,12 @@
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropify/css/dropify.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/bootstrap-select/css/bootstrap-select.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
-        .dropify-wrapper .dropify-preview .dropify-render img {
-            border-radius: 50%;
-            object-fit: cover;
+        .dropify-wrapper {
+            height: 180px;
+            width: 180px;
+            margin: 0 auto;
+            border-radius: 5%;
         }
     </style>
 @endpush
@@ -48,8 +49,16 @@
                                 @csrf
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                        <input type="file" name="profile_image" id="dropify-event"
-                                            data-default-file="{{ $profile->profile_image ? asset($profile->profile_image) : asset('assets/admin/images/profile_av.jpg') }}">
+
+
+                                        <input type="file" id="imageUpload" name="profile_image" class="dropify"
+                                            data-max-file-size="2M"
+                                            data-default-file="{{ $profile->profile_image ? asset($profile->profile_image) : asset('') }} data-msg-placeholder="Upload
+                                            your Profile" />
+
+
+                                        {{-- <input type="file" name="profile_image" id="dropify-event"
+                                            data-default-file="{{ $profile->profile_image ? asset($profile->profile_image) : asset('assets/admin/images/profile_av.jpg') }}"> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
@@ -203,6 +212,19 @@
 
     @push('footer_scripts')
         <script src="{{ asset('assets/admin/plugins/dropify/js/dropify.min.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                // Initialize Dropify
+                $('.dropify').dropify({
+                    messages: {
+                        'default': 'Upload Your Profile',
+                        'replace': 'Are you sure to upload this image?',
+                        'remove': 'Remove',
+                        'error': 'Oops! Something went wrong.'
+                    }
+                });
+            });
+        </script>
         <script src="{{ asset('assets/admin/js/pages/forms/dropify.js') }}"></script>
         <script src="{{ asset('assets/coustom/address.js') }}"></script>
     @endpush

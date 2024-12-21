@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AddressController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialiteController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
 
     // ------------------------------ Admin Address Page----------------------------------
     Route::get('address', [AddressController::class, 'index'])->name('address');
+
+    // ------------------------------ Admin Setting Page----------------------------------
+    Route::get('setting', [SettingController::class, 'index'])->name('setting');
+    Route::post('update/{setting}', [SettingController::class, 'update'])->name('setting.update');
 
 
 
