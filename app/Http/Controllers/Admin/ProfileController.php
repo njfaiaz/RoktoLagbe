@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -32,8 +33,9 @@ class ProfileController extends Controller
         $districts = District::all();
         $upazilaes = Upazila::all();
         $unions = Union::all();
+        $address = Address::all();
         // return response()->json($profile);
-        return view('admin.profile.edit', compact('profile', 'bloods', 'districts', 'unions', 'upazilaes'));
+        return view('admin.profile.edit', compact('profile', 'bloods', 'districts', 'unions', 'upazilaes', 'address'));
     }
 
     public function updateProfile(Request $request)
@@ -95,6 +97,35 @@ class ProfileController extends Controller
         );
 
         return redirect()->back();
+    }
+
+
+
+    public function searchDistricts(Request $request)
+    {
+        $query = $request->get('query');
+        $districts = District::where('district_name', 'LIKE', "%$query%")->get();
+        return response()->json($districts);
+    }
+
+    public function searchUpazilas(Request $request)
+    {
+        $query = $request->get('query');
+        $districtId = $request->get('district_id');
+        $upazilas = Upazila::where('district_id', $districtId)
+            ->where('upazila_name', 'LIKE', "%$query%")
+            ->get();
+        return response()->json($upazilas);
+    }
+
+    public function searchUnions(Request $request)
+    {
+        $query = $request->get('query');
+        $upazilaId = $request->get('upazila_id');
+        $unions = Union::where('upazila_id', $upazilaId)
+            ->where('union_name', 'LIKE', "%$query%")
+            ->get();
+        return response()->json($unions);
     }
 
     public function updateAddressInfo(Request $request, $userId)

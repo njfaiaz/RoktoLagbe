@@ -48,6 +48,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     Route::post('profile-info/update/{userId}', [ProfileController::class, 'updateProfileInfo'])->name('profileInfo.update');
     Route::post('address-info/update/{userId}', [ProfileController::class, 'updateAddressInfo'])->name('addressInfo.update');
 
+    Route::get('search-districts', [ProfileController::class, 'searchDistricts']);
+    Route::get('search-upazilas', [ProfileController::class, 'searchUpazilas']);
+    Route::get('search-unions', [ProfileController::class, 'searchUnions']);
+    Route::put('store-address', [ProfileController::class, 'updateAddress'])->name('store.address');
+
 
     // ------------------------------ Admin Address Page----------------------------------
     Route::get('address', [AddressController::class, 'index'])->name('address');

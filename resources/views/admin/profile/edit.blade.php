@@ -9,6 +9,14 @@
             margin: 0 auto;
             border-radius: 5%;
         }
+
+        dl,
+        ol,
+        ul {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            margin-left: -38px;
+        }
     </style>
 @endpush
 
@@ -172,36 +180,50 @@
                             <h2><strong>Address Change</strong> Settings</h2>
                         </div>
                         <div class="body">
-                            <form action="{{ route('addressInfo.update', $profile->id) }}" method="POST">
+
+
+
+                            <form method="POST" action="{{ route('addressInfo.update', $profile->id) }}">
                                 @csrf
-                                <div class="col-lg-12 col-md-12">
-                                    <label for="district_id">Select District:</label>
-                                    <select name="district_id" id="district_id" class="form-control " required>
-                                        <option value="" selected disabled>Select District</option>
-                                        @foreach ($districts as $district)
-                                            <option value="{{ $district->id }}">{{ $district->district_name }}</option>
-                                        @endforeach
-                                    </select>
+
+                                <div>
+                                    <label></label>
+                                    <input type="text" class="form-control" id="district" autocomplete="off"
+                                        value="{{ old('district', auth()->user()->district->name ?? '') }}"
+                                        placeholder="District Name">
+                                    <input type="hidden" id="district_id" name="district_id"
+                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
+                                    <ul id="district-list"></ul>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12">
-                                    <label for="upazila_id">Select Upazila:</label>
-                                    <select name="upazila_id" id="upazila_id" class="form-control " required>
-                                        @foreach ($upazilaes as $upazila)
-                                            <option value="{{ $upazila->id }}">{{ $upazila->upazila_name }}</option>
-                                        @endforeach
-                                    </select>
+                                <div>
+                                    <label></label>
+                                    <input type="text" id="upazila" autocomplete="off"
+                                        value="{{ old('upazila', auth()->user()->upazila->name ?? '') }}"
+                                        class="form-control" placeholder="Upazila Name">
+                                    <input type="hidden" id="upazila_id" name="upazila_id"
+                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
+                                    <ul id="upazila-list"></ul>
                                 </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <label for="union_id">Select Union:</label>
-                                    <select name="union_id" id="union_id" class="form-control " required>
-                                        @foreach ($unions as $union)
-                                            <option value="{{ $union->id }}">{{ $union->union_name }}</option>
-                                        @endforeach
-                                    </select>
+
+                                <div>
+                                    <label>Union</label>
+                                    <input type="text" id="union" autocomplete="off"
+                                        value="{{ old('union', auth()->user()->union->name ?? '') }}"
+                                        class="form-control" placeholder="Union Name">
+                                    <input type="hidden" id="union_id" name="union_id"
+                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
+                                    <ul id="union-list"></ul>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3">Address Update</button>
+
+                                <button type="submit" class="btn btn-info">Update Address</button>
                             </form>
+
+
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -227,6 +249,102 @@
         </script>
         <script src="{{ asset('assets/admin/js/pages/forms/dropify.js') }}"></script>
         <script src="{{ asset('assets/coustom/address.js') }}"></script>
+
+        <script>
+            $(document).ready(function() {
+                // District autocomplete
+                $('#district').on('keyup', function() {
+                    let query = $(this).val();
+                    $.ajax({
+                        url: '/admin/search-districts',
+                        type: 'GET',
+                        data: {
+                            query: query
+                        },
+                        success: function(data) {
+                            $('#district-list').empty();
+                            data.forEach(district => {
+                                $('#district-list').append(
+                                    `<li class="form-control" data-id="${district.id}">${district.district_name}</li>`
+                                );
+                            });
+                        }
+                    });
+                });
+
+                // Select District
+                $(document).on('click', '#district-list li', function() {
+                    let districtId = $(this).data('id');
+                    $('#district').val($(this).text());
+                    $('#district_id').val(districtId);
+                    $('#district-list').empty();
+                    loadUpazilas(districtId);
+                });
+
+                // Load Upazilas
+                function loadUpazilas(districtId) {
+                    $('#upazila').on('keyup', function() {
+                        let query = $(this).val();
+                        $.ajax({
+                            url: '/admin/search-upazilas',
+                            type: 'GET',
+                            data: {
+                                query: query,
+                                district_id: districtId
+                            },
+                            success: function(data) {
+                                $('#upazila-list').empty();
+                                data.forEach(upazila => {
+                                    $('#upazila-list').append(
+                                        `<li class="form-control" data-id="${upazila.id}">${upazila.upazila_name}</li>`
+                                    );
+                                });
+                            }
+                        });
+                    });
+
+                    // Select Upazila
+                    $(document).on('click', '#upazila-list li', function() {
+                        let upazilaId = $(this).data('id');
+                        $('#upazila').val($(this).text());
+                        $('#upazila_id').val(upazilaId);
+                        $('#upazila-list').empty();
+                        loadUnions(upazilaId);
+                    });
+                }
+
+                // Load Unions
+                function loadUnions(upazilaId) {
+                    $('#union').on('keyup', function() {
+                        let query = $(this).val();
+                        $.ajax({
+                            url: '/admin/search-unions',
+                            type: 'GET',
+                            data: {
+                                query: query,
+                                upazila_id: upazilaId
+                            },
+                            success: function(data) {
+                                $('#union-list').empty();
+                                data.forEach(union => {
+                                    $('#union-list').append(
+                                        `<li class="form-control" data-id="${union.id}">${union.union_name}</li>`
+                                    );
+                                });
+                            }
+                        });
+                    });
+
+                    // Select Union
+                    $(document).on('click', '#union-list li', function() {
+                        let unionId = $(this).data('id');
+                        $('#union').val($(this).text());
+                        $('#union_id').val(unionId);
+                        $('#union-list').empty();
+                    });
+                }
+            });
+        </script>
     @endpush
 
 @endsection
