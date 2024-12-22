@@ -8,7 +8,7 @@
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="index.html" class="nav__link active-link">
+                            <a href="{{ route('user.dashboard') }}" class="nav__link active-link">
                                 <i class='bx bx-home-alt nav__icon'></i>
                                 <span class="nav__name">Home</span>
                             </a>
@@ -21,7 +21,7 @@
                             </a>
                         </li>
                         <li class="nav__item">
-                            <a href="setting.html" class="nav__link">
+                            <a href="{{ route('user.profile') }}" class="nav__link">
                                 <i class='bx bx-user nav__icon'></i>
                                 <span class="nav__name">Account</span>
                             </a>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialiteController;
+use App\Http\Controllers\Frontend\FrProfileController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -74,4 +75,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
 
 Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {
     Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
+
+    // ------------------------------ Frontend Profile Page----------------------------------
+
+    Route::get('profile', [FrProfileController::class, 'index'])->name('user.profile');
 });
