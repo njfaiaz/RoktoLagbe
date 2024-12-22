@@ -1,23 +1,38 @@
-@extends('layouts.app')
+        <div class="container ">
+            <main class="main">
+                <div class="">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                    <!-- Cards Section -->
+                    <div class="card-container">
+                        <div class="card">
+                            <div class="cover_bg_image">
+                                <h3>Junayed Rahman Faiaz</h3>
+                                <h4>AB+ Blood Doner</h4>
+                            </div>
+                            <img src="img/profile.png" alt="Profile Image">
+                            <p>Mymensingh, Haluaghat, Dhara</p>
+                            <div class="cardbtn">
+                                <button class="btn view">View Profile</button>
+                                <button class="btn message">Message</button>
+                            </div>
+                            <div class="timer">
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            </div>
                         </div>
-                    @endif
+                    </div>
 
-                    {{ __('You are logged in!') }}
+                    <!-- Pagination -->
+                    <div class="bottomsec py-2">
+                        <div class="pagination">
+                            <a href="#" class="arrow">&laquo;</a>
+                            <a href="#" class="active">1</a>
+                            <a href="#">2</a>
+                            <a href="#">...</a>
+                            <a href="#" class="arrow">&raquo;</a>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
+            </main>
+
         </div>
-    </div>
-</div>
-@endsection
