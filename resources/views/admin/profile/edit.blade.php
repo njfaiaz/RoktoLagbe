@@ -152,17 +152,6 @@
                                 </div>
 
                                 <div class="col-lg-12 col-md-12">
-                                    <label for="all_donation_time"> All Donation Time :</label>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="All Donation Time"
-                                            name="all_donation_time"
-                                            value="{{ $profile->profile->all_donation_time ?? '' }}">
-                                        @if ($errors->has('all_donation_time'))
-                                            <span class="text-danger">{{ $errors->first('all_donation_time') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
                                     <label for="email_address">Previous Donation Date :</label>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="dateInput"

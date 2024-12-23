@@ -79,4 +79,6 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
     // ------------------------------ Frontend Profile Page----------------------------------
 
     Route::get('profile', [FrProfileController::class, 'index'])->name('user.profile');
+
+    Route::post('profile/store', [FrProfileController::class, 'Store'])->name('user.profile.store');
 });

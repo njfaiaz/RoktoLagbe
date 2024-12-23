@@ -28,7 +28,6 @@ class ProfileSeeder extends Seeder
                 'gender' => $gender[array_rand($gender)],
                 'phone_number' => rand(200, 99999999999),
                 'previous_donation_date' => Carbon::now(),
-                'all_donation_time' => rand(1, 10),
             ]);
         }
     }

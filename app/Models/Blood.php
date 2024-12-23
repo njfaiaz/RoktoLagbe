@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Blood extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
-    public function user()
+    protected $fillable = [
+        'blood_name'
+    ];
+    public function users()
     {
         return $this->belongsTo(User::class);
     }
-    public function profile()
+    public function profiles()
     {
         return $this->belongsTo(Profile::class);
     }

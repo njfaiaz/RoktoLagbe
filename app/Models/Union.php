@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Union extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'upazila_id',
+        'union_name'
+    ];
 
-    public function upazila()
+    public function upazilas()
     {
         return $this->belongsTo(Upazila::class);
     }

@@ -15,7 +15,17 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'name',
+        'username',
+        'email',
+        'role',
+        'status',
+        'profile_image',
+        'google_id',
+        'facebook_id',
+        'password'
+    ];
 
     protected $hidden = [
         'password',
@@ -52,30 +62,30 @@ class User extends Authenticatable
         return $username;
     }
 
-    public function profile()
+    public function profiles()
     {
         return $this->hasOne(Profile::class);
     }
 
-    public function district()
+    public function districts()
     {
         return $this->belongsTo(District::class);
     }
 
-    public function upazila()
+    public function upazilas()
     {
         return $this->belongsTo(Upazila::class);
     }
 
-    public function union()
+    public function unions()
     {
         return $this->belongsTo(Union::class);
     }
-    public function address()
+    public function addresses()
     {
         return $this->hasOne(Address::class);
     }
-    public function blood()
+    public function bloods()
     {
         return $this->hasOne(Blood::class);
     }

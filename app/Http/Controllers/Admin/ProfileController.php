@@ -28,7 +28,7 @@ class ProfileController extends Controller
     public function Edit($username)
     {
 
-        $profile = User::with('profile', 'address')->where('username', $username)->firstOrFail();
+        $profile = User::with('profiles', 'addresses')->where('username', $username)->firstOrFail();
         $bloods = Blood::all();
         $districts = District::all();
         $upazilaes = Upazila::all();
@@ -80,7 +80,6 @@ class ProfileController extends Controller
         $user = User::findOrFail($userId);
         $request->validate([
             'phone_number' => 'nullable|digits:11',
-            'all_donation_time' => 'nullable|integer',
             'previous_donation_date' => 'nullable|date',
             'gender' => 'required|in:Male,Female'
         ]);
@@ -90,7 +89,6 @@ class ProfileController extends Controller
                 'blood_id'   => $request->blood_id ?? null,
                 'address_id' => $request->address_id ?? null,
                 'phone_number' => $request->phone_number ?? null,
-                'all_donation_time' => $request->all_donation_time ?? null,
                 'gender'     => $request->gender ?? 'Not specified',
                 'previous_donation_date'  => $request->previous_donation_date ?? now(),
             ]

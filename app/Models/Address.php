@@ -8,23 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'user_id',
+        'district_id',
+        'upazila_id',
+        'union_id'
+    ];
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class);
     }
-    public function district()
+    public function districts()
     {
         return $this->belongsTo(District::class);
     }
 
-    public function upazila()
+    public function upazilas()
     {
         return $this->belongsTo(Upazila::class);
     }
 
-    public function union()
+    public function unions()
     {
         return $this->belongsTo(Union::class);
     }

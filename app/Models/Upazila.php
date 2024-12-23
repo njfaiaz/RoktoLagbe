@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Upazila extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'district_id',
+        'upazila_name'
+    ];
 
-    public function district()
+    public function districts()
     {
         return $this->belongsTo(District::class);
     }
