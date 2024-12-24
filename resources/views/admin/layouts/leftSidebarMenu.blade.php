@@ -19,24 +19,15 @@
               </li>
               <li class="active open"><a href="{{ route('admin.dashboard') }}"><i
                           class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
-              {{-- <li><a href="javascript:void(0);" class="menu-toggle"><i
-                          class="zmdi zmdi-hc-fw"></i><span>Members</span></a>
-                  <ul class="ml-menu">
-                      <li><a href="{{ route('user-list') }}">User List</a></li>
-                      <li><a href="{{ route('block-user-list') }}">Block User List</a></li>
-                  </ul>
-              </li> --}}
               <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-hc-fw"></i>
                       <span>Address</span></a>
                   <ul class="ml-menu">
                       <li><a href="{{ route('address') }}">Address List</a></li>
-                      <li><a href="">Address Create</a></li>
-                      <li><a href="ticket-list.html">Unions List</a></li>
                   </ul>
               </li>
               <li class="active open">
                   <a href="{{ route('setting') }}">
-                      <i class="zmdi zmdi-settings zmdi-hc-spin"></i><span>Dashboard</span></a>
+                      <i class="zmdi zmdi-settings"></i><span>Setting</span></a>
               </li>
           </ul>
       </div>

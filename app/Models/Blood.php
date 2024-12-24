@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Blood extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'blood_name'
-    ];
+    protected $guarded = ['id'];
     public function users()
     {
         return $this->belongsTo(User::class);

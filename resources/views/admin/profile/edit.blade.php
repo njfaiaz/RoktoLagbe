@@ -43,6 +43,7 @@
                 </div>
             </div>
         </div>
+
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-lg-4 col-md-12">
@@ -51,44 +52,34 @@
                             <h2><strong>Profile</strong> Settings</h2>
                         </div>
                         <div class="body">
-                            <form action="{{ route('profile.update', $profile->id) }}" method="POST"
-                                enctype="multipart/form-data">
-                                <input type="hidden" name="id" value="{{ $profile->id }}">
-                                @csrf
+                            <form action="">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
 
 
                                         <input type="file" id="imageUpload" name="profile_image" class="dropify"
-                                            data-max-file-size="2M"
-                                            data-default-file="{{ $profile->profile_image ? asset($profile->profile_image) : asset('') }} data-msg-placeholder="Upload
+                                            data-max-file-size="2M" data-default-file=""
+                                            data-msg-placeholder="Upload
                                             your Profile" />
-
-
-                                        {{-- <input type="file" name="profile_image" id="dropify-event"
-                                            data-default-file="{{ $profile->profile_image ? asset($profile->profile_image) : asset('assets/admin/images/profile_av.jpg') }}"> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Username"
-                                            value="{{ $profile->username ?? '' }}" disabled>
+                                        <input type="text" class="form-control" placeholder="Username" value=""
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control" placeholder="Full Name" name="name"
-                                            value="{{ $profile->name ?? '' }}">
+                                            value="">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <input type="text"
                                             class="form-control @error('email') border border-danger @enderror"
-                                            placeholder="Email Address" name="email" value="{{ $profile->email ?? '' }}">
-                                        @if ($errors->has('email'))
-                                            <span class="text-danger float-left">{{ $errors->first('email') }}</span>
-                                        @endif
+                                            placeholder="Email Address" name="email" value="">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-info">Save Changes</button>
@@ -102,34 +93,26 @@
                             <h2><strong>Basic</strong> Settings</h2>
                         </div>
                         <div class="body">
-                            <form action="{{ route('profileInfo.update', $profile->id) }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $profile->id }}">
+                            <form action="">
                                 <div class="col-lg-12 col-md-12">
                                     <label for="phone_number">User Phone Number :</label>
                                     <div class="form-group">
                                         <input type="text" name="phone_number"
                                             class="form-control @error('phone_number') border border-danger @enderror"
-                                            placeholder="Phone Number" value="{{ $profile->profile->phone_number ?? '' }}">
-                                        @if ($errors->has('phone_number'))
-                                            <span class="text-danger">{{ $errors->first('phone_number') }}</span>
-                                        @endif
+                                            placeholder="Phone Number" value="">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
+                                    <label for="phone_number">Select Gender :</label>
                                     <div class="form-group">
                                         <select name="gender" id="gender" class="form-control">
-                                            <option value="" disabled
-                                                {{ optional($profile->profile)->gender ? '' : 'selected' }}>
+                                            <option value="" disabled>
                                                 Select Gender
                                             </option>
-                                            <option value="Male"
-                                                {{ old('gender', optional($profile->profile)->gender) === 'Male' ? 'selected' : '' }}>
+                                            <option value="Male">
                                                 Male
                                             </option>
-                                            <option value="Female"
-                                                {{ old('gender', optional($profile->profile)->gender) === 'Female' ? 'selected' : '' }}>
+                                            <option value="Female">
                                                 Female
                                             </option>
                                         </select>
@@ -156,8 +139,7 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="dateInput"
                                             placeholder="Previous Donation Date" onfocus="(this.type='date')"
-                                            onblur="(this.type='text')" name="previous_donation_date"
-                                            value="{{ $profile->profile->previous_donation_date ?? '' }}">
+                                            onblur="(this.type='text')" name="previous_donation_date" value="">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-info">Update Information</button>
@@ -172,9 +154,7 @@
 
 
 
-                            <form method="POST" action="{{ route('addressInfo.update', $profile->id) }}">
-                                @csrf
-
+                            <form method="POST" action="">
                                 <div>
                                     <label></label>
                                     <input type="text" class="form-control" id="district" autocomplete="off"
@@ -196,10 +176,10 @@
                                 </div>
 
                                 <div>
-                                    <label>Union</label>
+                                    <label></label>
                                     <input type="text" id="union" autocomplete="off"
-                                        value="{{ old('union', auth()->user()->union->name ?? '') }}"
-                                        class="form-control" placeholder="Union Name">
+                                        value="{{ old('union', auth()->user()->union->name ?? '') }}" class="form-control"
+                                        placeholder="Union Name">
                                     <input type="hidden" id="union_id" name="union_id"
                                         value="{{ auth()->user()->id ?? '' }}" class="form-control">
                                     <ul id="union-list"></ul>
@@ -207,12 +187,6 @@
 
                                 <button type="submit" class="btn btn-info">Update Address</button>
                             </form>
-
-
-
-
-
-
                         </div>
                     </div>
                 </div>

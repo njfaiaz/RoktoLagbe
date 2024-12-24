@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class District extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'district_name'
-    ];
+    protected $guarded = ['id'];
 
     public function upazilas()
     {

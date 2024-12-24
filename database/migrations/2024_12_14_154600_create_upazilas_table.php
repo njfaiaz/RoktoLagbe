@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('district_id');
             $table->string('upazila_name');
-            $table->string('bn_name');
             $table->timestamps();
         });
     }

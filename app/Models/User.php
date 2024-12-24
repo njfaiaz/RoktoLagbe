@@ -14,19 +14,7 @@ use Illuminate\Support\Str;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
-    protected $fillable = [
-        'name',
-        'username',
-        'email',
-        'role',
-        'status',
-        'profile_image',
-        'google_id',
-        'facebook_id',
-        'password'
-    ];
-
+    protected $guarded = ['id'];
     protected $hidden = [
         'password',
         'remember_token',

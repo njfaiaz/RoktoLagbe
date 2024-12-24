@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Union extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'upazila_id',
-        'union_name'
-    ];
+    protected $guarded = ['id'];
 
     public function upazilas()
     {

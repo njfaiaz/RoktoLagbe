@@ -14,386 +14,322 @@ class DistrictSeeder extends Seeder
             [
                 "id" => 1,
 
-                "district_name" => "Narsingdi",
-                "bn_name" => "নরসিংদী"
+                "district_name" => "Narsingdi"
             ],
             [
                 "id" => 2,
 
-                "district_name" => "Gazipur",
-                "bn_name" => "গাজীপুর"
+                "district_name" => "Gazipur"
             ],
             [
                 "id" => 3,
 
-                "district_name" => "Shariatpur",
-                "bn_name" => "শরীয়তপুর"
+                "district_name" => "Shariatpur"
             ],
             [
                 "id" => 4,
 
-                "district_name" => "Narayanganj",
-                "bn_name" => "নারায়ণগঞ্জ"
+                "district_name" => "Narayanganj"
             ],
             [
                 "id" => 5,
 
-                "district_name" => "Tangail",
-                "bn_name" => "টাঙ্গাইল"
+                "district_name" => "Tangail"
             ],
             [
                 "id" => 6,
 
-                "district_name" => "Kishoreganj",
-                "bn_name" => "কিশোরগঞ্জ"
+                "district_name" => "Kishoreganj"
             ],
             [
                 "id" => 7,
 
-                "district_name" => "Manikganj",
-                "bn_name" => "মানিকগঞ্জ"
+                "district_name" => "Manikganj"
             ],
             [
                 "id" => 8,
 
-                "district_name" => "Dhaka",
-                "bn_name" => "ঢাকা"
+                "district_name" => "Dhaka"
             ],
             [
                 "id" => 9,
 
-                "district_name" => "Munshiganj",
-                "bn_name" => "মুন্সিগঞ্জ"
+                "district_name" => "Munshiganj"
             ],
             [
                 "id" => 10,
 
-                "district_name" => "Rajbari",
-                "bn_name" => "রাজবাড়ী"
+                "district_name" => "Rajbari"
             ],
             [
                 "id" => 11,
 
-                "district_name" => "Madaripur",
-                "bn_name" => "মাদারীপুর"
+                "district_name" => "Madaripur"
             ],
             [
                 "id" => 12,
 
-                "district_name" => "Gopalganj",
-                "bn_name" => "গোপালগঞ্জ"
+                "district_name" => "Gopalganj"
             ],
             [
                 "id" => 13,
 
-                "district_name" => "Faridpur",
-                "bn_name" => "ফরিদপুর"
+                "district_name" => "Faridpur"
             ],
             [
                 "id" => 14,
 
-                "district_name" => "Comilla",
-                "bn_name" => "কুমিল্লা"
+                "district_name" => "Comilla"
             ],
             [
                 "id" => 15,
 
-                "district_name" => "Feni",
-                "bn_name" => "ফেনী"
+                "district_name" => "Feni"
             ],
             [
                 "id" => 16,
 
-                "district_name" => "Brahmanbaria",
-                "bn_name" => "ব্রাহ্মণবাড়িয়া"
+                "district_name" => "Brahmanbaria"
             ],
             [
                 "id" => 17,
 
-                "district_name" => "Rangamati",
-                "bn_name" => "রাঙ্গামাটি"
+                "district_name" => "Rangamati"
             ],
             [
                 "id" => 18,
 
-                "district_name" => "Noakhali",
-                "bn_name" => "নোয়াখালী"
+                "district_name" => "Noakhali"
             ],
             [
                 "id" => 19,
 
-                "district_name" => "Chandpur",
-                "bn_name" => "চাঁদপুর"
+                "district_name" => "Chandpur"
             ],
             [
                 "id" => 20,
 
-                "district_name" => "Lakshmipur",
-                "bn_name" => "লক্ষ্মীপুর"
+                "district_name" => "Lakshmipur"
             ],
             [
                 "id" => 21,
 
-                "district_name" => "Chittagong",
-                "bn_name" => "চট্টগ্রাম"
+                "district_name" => "Chittagong"
             ],
             [
                 "id" => 22,
 
-                "district_name" => "Coxsbazar",
-                "bn_name" => "কক্সবাজার"
+                "district_name" => "Coxsbazar"
             ],
             [
                 "id" => 23,
 
-                "district_name" => "Khagrachhari",
-                "bn_name" => "খাগড়াছড়ি"
+                "district_name" => "Khagrachhari"
             ],
             [
                 "id" => 24,
 
-                "district_name" => "Bandarban",
-                "bn_name" => "বান্দরবান"
+                "district_name" => "Bandarban"
             ],
             [
                 "id" => 25,
 
-                "district_name" => "Sirajganj",
-                "bn_name" => "সিরাজগঞ্জ"
+                "district_name" => "Sirajganj"
             ],
             [
                 "id" => 26,
 
-                "district_name" => "Pabna",
-                "bn_name" => "পাবনা"
+                "district_name" => "Pabna"
             ],
             [
                 "id" => 27,
 
-                "district_name" => "Bogra",
-                "bn_name" => "বগুড়া"
+                "district_name" => "Bogra"
             ],
             [
                 "id" => 28,
 
-                "district_name" => "Rajshahi",
-                "bn_name" => "রাজশাহী"
+                "district_name" => "Rajshahi"
             ],
             [
                 "id" => 29,
 
-                "district_name" => "Natore",
-                "bn_name" => "নাটোর"
+                "district_name" => "Natore"
             ],
             [
                 "id" => 30,
 
-                "district_name" => "Joypurhat",
-                "bn_name" => "জয়পুরহাট"
+                "district_name" => "Joypurhat"
             ],
             [
                 "id" => 31,
 
-                "district_name" => "Chapainawabganj",
-                "bn_name" => "চাঁপাইনবাবগঞ্জ"
+                "district_name" => "Chapainawabganj"
             ],
             [
                 "id" => 32,
 
-                "district_name" => "Naogaon",
-                "bn_name" => "নওগাঁ"
+                "district_name" => "Naogaon"
             ],
             [
                 "id" => 33,
 
-                "district_name" => "Jessore",
-                "bn_name" => "যশোর"
+                "district_name" => "Jessore"
             ],
             [
                 "id" => 34,
 
-                "district_name" => "Satkhira",
-                "bn_name" => "সাতক্ষীরা"
+                "district_name" => "Satkhira"
             ],
             [
                 "id" => 35,
 
-                "district_name" => "Meherpur",
-                "bn_name" => "মেহেরপুর"
+                "district_name" => "Meherpur"
             ],
             [
                 "id" => 36,
 
-                "district_name" => "Narail",
-                "bn_name" => "নড়াইল"
+                "district_name" => "Narail"
             ],
             [
                 "id" => 37,
 
-                "district_name" => "Chuadanga",
-                "bn_name" => "চুয়াডাঙ্গা"
+                "district_name" => "Chuadanga"
             ],
             [
                 "id" => 38,
 
-                "district_name" => "Kushtia",
-                "bn_name" => "কুষ্টিয়া"
+                "district_name" => "Kushtia"
             ],
             [
                 "id" => 39,
 
-                "district_name" => "Magura",
-                "bn_name" => "মাগুরা"
+                "district_name" => "Magura"
             ],
             [
                 "id" => 40,
 
-                "district_name" => "Khulna",
-                "bn_name" => "খুলনা"
+                "district_name" => "Khulna"
             ],
             [
                 "id" => 41,
 
-                "district_name" => "Bagerhat",
-                "bn_name" => "বাগেরহাট"
+                "district_name" => "Bagerhat"
             ],
             [
                 "id" => 42,
 
-                "district_name" => "Jhenaidah",
-                "bn_name" => "ঝিনাইদহ"
+                "district_name" => "Jhenaidah"
             ],
             [
                 "id" => 43,
 
-                "district_name" => "Jhalakathi",
-                "bn_name" => "ঝালকাঠি"
+                "district_name" => "Jhalakathi"
             ],
             [
                 "id" => 44,
 
-                "district_name" => "Patuakhali",
-                "bn_name" => "পটুয়াখালী"
+                "district_name" => "Patuakhali"
             ],
             [
                 "id" => 45,
 
-                "district_name" => "Pirojpur",
-                "bn_name" => "পিরোজপুর"
+                "district_name" => "Pirojpur"
             ],
             [
                 "id" => 46,
 
-                "district_name" => "Barisal",
-                "bn_name" => "বরিশাল"
+                "district_name" => "Barisal"
             ],
             [
                 "id" => 47,
 
-                "district_name" => "Bhola",
-                "bn_name" => "ভোলা"
+                "district_name" => "Bhola"
             ],
             [
                 "id" => 48,
 
-                "district_name" => "Barguna",
-                "bn_name" => "বরগুনা"
+                "district_name" => "Barguna"
             ],
             [
                 "id" => 49,
 
-                "district_name" => "Panchagarh",
-                "bn_name" => "পঞ্চগড়"
+                "district_name" => "Panchagarh"
             ],
             [
                 "id" => 50,
 
-                "district_name" => "Dinajpur",
-                "bn_name" => "দিনাজপুর"
+                "district_name" => "Dinajpur"
             ],
             [
                 "id" => 51,
 
-                "district_name" => "Lalmonirhat",
-                "bn_name" => "লালমনিরহাট"
+                "district_name" => "Lalmonirhat"
             ],
             [
                 "id" => 52,
 
-                "district_name" => "Nilphamari",
-                "bn_name" => "নীলফামারী"
+                "district_name" => "Nilphamari"
             ],
             [
                 "id" => 53,
 
-                "district_name" => "Gaibandha",
-                "bn_name" => "গাইবান্ধা"
+                "district_name" => "Gaibandha"
             ],
             [
                 "id" => 54,
 
-                "district_name" => "Thakurgaon",
-                "bn_name" => "ঠাকুরগাঁও"
+                "district_name" => "Thakurgaon"
             ],
             [
                 "id" => 55,
 
-                "district_name" => "Rangpur",
-                "bn_name" => "রংপুর"
+                "district_name" => "Rangpur"
             ],
             [
                 "id" => 56,
 
-                "district_name" => "Kurigram",
-                "bn_name" => "কুড়িগ্রাম"
+                "district_name" => "Kurigram"
             ],
             [
                 "id" => 57,
 
-                "district_name" => "Sylhet",
-                "bn_name" => "সিলেট"
+                "district_name" => "Sylhet"
             ],
             [
                 "id" => 58,
 
-                "district_name" => "Moulvibazar",
-                "bn_name" => "মৌলভীবাজার"
+                "district_name" => "Moulvibazar"
             ],
             [
                 "id" => 59,
 
-                "district_name" => "Habiganj",
-                "bn_name" => "হবিগঞ্জ"
+                "district_name" => "Habiganj"
             ],
             [
                 "id" => 60,
 
-                "district_name" => "Sunamganj",
-                "bn_name" => "সুনামগঞ্জ"
+                "district_name" => "Sunamganj"
             ],
             [
                 "id" => 61,
 
-                "district_name" => "Sherpur",
-                "bn_name" => "শেরপুর"
+                "district_name" => "Sherpur"
             ],
             [
                 "id" => 62,
 
-                "district_name" => "Mymensingh",
-                "bn_name" => "ময়মনসিংহ"
+                "district_name" => "Mymensingh"
             ],
             [
                 "id" => 63,
 
-                "district_name" => "Jamalpur",
-                "bn_name" => "জামালপুর"
+                "district_name" => "Jamalpur"
             ],
             [
                 "id" => 64,
 
-                "district_name" => "Netrokona",
-                "bn_name" => "নেত্রকোণা"
+                "district_name" => "Netrokona"
             ]
         ]);
     }

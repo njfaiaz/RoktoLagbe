@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Request;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -15,9 +15,11 @@ class StoreProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone_number' => 'required|digits:11',
+            'user_id' => 'required|unique:users,id',
+            'phone_number' => 'required|digits:11|unique:profiles,phone_number',
             'previous_donation_date' => 'required|date',
-            'gender' => 'required|in:Male,Female'
+            'blood_id' => 'required|string|exists:bloods,id',
+            'gender' => 'required|string|in:male,female,other',
 
         ];
     }
