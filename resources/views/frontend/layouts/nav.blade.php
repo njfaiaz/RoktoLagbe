@@ -27,7 +27,7 @@
                             </a>
                         </li>
                         <li class="nav__item">
-                            <a href="history.html" class="nav__link">
+                            <a href="{{ route('user.history') }}" class="nav__link">
                                 <i class='bx bx-history nav__icon'></i>
                                 <span class="nav__name">History</span>
                             </a>

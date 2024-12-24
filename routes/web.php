@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialiteController;
+use App\Http\Controllers\Frontend\FrHistoryController;
 use App\Http\Controllers\Frontend\FrProfileController;
 use App\Http\Controllers\Frontend\FrSearchController;
 use App\Http\Controllers\User\UserController;
@@ -82,4 +83,8 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
     Route::get('/search-districts', [FrSearchController::class, 'searchDistricts']);
     Route::get('/search-upazilas', [FrSearchController::class, 'searchUpazilas']);
     Route::get('/search-unions', [FrSearchController::class, 'searchUnions']);
+
+    // ------------------------------ Frontend Search Page----------------------------------
+    Route::get('history', [FrHistoryController::class, 'index'])->name('user.history');
+    Route::get('history.store', [FrHistoryController::class, 'Store'])->name('user.history.store');
 });
