@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialiteController;
 use App\Http\Controllers\Frontend\FrProfileController;
+use App\Http\Controllers\Frontend\FrSearchController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,14 +46,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     // ------------------------------ Admin Profile Page----------------------------------
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('profile/{username}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
-    Route::post('profile-info/update/{userId}', [ProfileController::class, 'updateProfileInfo'])->name('profileInfo.update');
-    Route::post('address-info/update/{userId}', [ProfileController::class, 'updateAddressInfo'])->name('addressInfo.update');
 
     Route::get('search-districts', [ProfileController::class, 'searchDistricts']);
     Route::get('search-upazilas', [ProfileController::class, 'searchUpazilas']);
     Route::get('search-unions', [ProfileController::class, 'searchUnions']);
-    Route::put('store-address', [ProfileController::class, 'updateAddress'])->name('store.address');
 
 
     // ------------------------------ Admin Address Page----------------------------------
@@ -60,7 +57,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
 
     // ------------------------------ Admin Setting Page----------------------------------
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
-    Route::post('update/{setting}', [SettingController::class, 'update'])->name('setting.update');
 
 
 
@@ -77,8 +73,13 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
     Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
 
     // ------------------------------ Frontend Profile Page----------------------------------
-
     Route::get('profile', [FrProfileController::class, 'index'])->name('user.profile');
+    Route::get('profile/edit', [FrProfileController::class, 'Edit'])->name('user.profile.edit');
 
-    Route::post('profile/store', [FrProfileController::class, 'store'])->name('user.profile.store');
+    // ------------------------------ Frontend Search Page----------------------------------
+    Route::get('search', [FrSearchController::class, 'index'])->name('user.search');
+
+    Route::get('/search-districts', [FrSearchController::class, 'searchDistricts']);
+    Route::get('/search-upazilas', [FrSearchController::class, 'searchUpazilas']);
+    Route::get('/search-unions', [FrSearchController::class, 'searchUnions']);
 });

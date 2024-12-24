@@ -26,7 +26,7 @@
 @section('frontend_content')
     <div class="row mt-3">
         <div class="col-lg-4 col-md-4 col-sm-12 ">
-            <div class="card">
+            <div class="card bg-white">
                 <div class="body">
                     <form class="py-3">
                         <div class="form-group">
@@ -54,7 +54,7 @@
 
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 ">
-            <div class="card">
+            <div class="card bg-white">
                 <div class="body">
                     <form action="">
                         <div class="form-group ">
@@ -90,7 +90,7 @@
                                 onfocus="(this.type='date')" onblur="(this.type='text')" name="previous_donation_date"
                                 value="">
                         </div>
-                        <button type="submit" class="btn btn-primary ">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
                     </form>
 
                 </div>

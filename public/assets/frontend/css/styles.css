@@ -48,7 +48,7 @@ section.content {
 }
 
 .dark-theme {
-    --body-color: #0a0a0a;
+    --body-color: #000;
     --nav-color: #000;
     --bg-color: #000;
 }
@@ -239,7 +239,6 @@ img {
 
 main {
     width: 100%;
-    background: var(--body-color);
     color: #f5f5f5;
 }
 .filter-section {
@@ -316,6 +315,7 @@ main {
     padding: 10px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: var(--main-color);
     transition: background 0.3s;
 }
 .card img {

@@ -9,19 +9,130 @@
 
                 <!-- Cards Section -->
                 <div class="card-container">
-                    <div class="card">
-                        <div class="cover_bg_image">
-                            <h3>Junayed Rahman Faiaz</h3>
-                            <h4>AB+ Blood Doner</h4>
-                        </div>
-                        <img src="{{ asset('assets/frontend/img') }}/profile.png" alt="Profile Image">
-                        <p>Mymensingh, Haluaghat, Dhara</p>
-                        <div class="cardbtn">
-                            <button class="btn view">View Profile</button>
-                            <button class="btn message">Message</button>
-                        </div>
-                        <div class="timer">
+                    <div class="card bg-white">
+                        <div class="body">
 
+                            <div class="cover_bg_image">
+                                <h3>Junayed Rahman Faiaz</h3>
+                                <h4>AB+ Blood Doner</h4>
+                            </div>
+                            <img src="{{ asset('assets/frontend/img/profile.png') }}" alt="Profile Image">
+                            <p>Mymensingh, Haluaghat, Dhara</p>
+                            <div class="cardbtn">
+                                <button class="btn view">View Profile</button>
+                                <button class="btn message">Message</button>
+                            </div>
+                            <div class="timer">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-white">
+                        <div class="body">
+
+                            <div class="cover_bg_image">
+                                <h3>Junayed Rahman Faiaz</h3>
+                                <h4>AB+ Blood Doner</h4>
+                            </div>
+                            <img src="{{ asset('assets/frontend/img/profile.png') }}" alt="Profile Image">
+                            <p>Mymensingh, Haluaghat, Dhara</p>
+                            <div class="cardbtn">
+                                <button class="btn view">View Profile</button>
+                                <button class="btn message">Message</button>
+                            </div>
+                            <div class="timer">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-white">
+                        <div class="body">
+
+                            <div class="cover_bg_image">
+                                <h3>Junayed Rahman Faiaz</h3>
+                                <h4>AB+ Blood Doner</h4>
+                            </div>
+                            <img src="{{ asset('assets/frontend/img/profile.png') }}" alt="Profile Image">
+                            <p>Mymensingh, Haluaghat, Dhara</p>
+                            <div class="cardbtn">
+                                <button class="btn view">View Profile</button>
+                                <button class="btn message">Message</button>
+                            </div>
+                            <div class="timer">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-white">
+                        <div class="body">
+
+                            <div class="cover_bg_image">
+                                <h3>Junayed Rahman Faiaz</h3>
+                                <h4>AB+ Blood Doner</h4>
+                            </div>
+                            <img src="{{ asset('assets/frontend/img/profile.png') }}" alt="Profile Image">
+                            <p>Mymensingh, Haluaghat, Dhara</p>
+                            <div class="cardbtn">
+                                <button class="btn view">View Profile</button>
+                                <button class="btn message">Message</button>
+                            </div>
+                            <div class="timer">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-white">
+                        <div class="body">
+
+                            <div class="cover_bg_image">
+                                <h3>Junayed Rahman Faiaz</h3>
+                                <h4>AB+ Blood Doner</h4>
+                            </div>
+                            <img src="{{ asset('assets/frontend/img/profile.png') }}" alt="Profile Image">
+                            <p>Mymensingh, Haluaghat, Dhara</p>
+                            <div class="cardbtn">
+                                <button class="btn view">View Profile</button>
+                                <button class="btn message">Message</button>
+                            </div>
+                            <div class="timer">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-white">
+                        <div class="body">
+
+                            <div class="cover_bg_image">
+                                <h3>Junayed Rahman Faiaz</h3>
+                                <h4>AB+ Blood Doner</h4>
+                            </div>
+                            <img src="{{ asset('assets/frontend/img/profile.png') }}" alt="Profile Image">
+                            <p>Mymensingh, Haluaghat, Dhara</p>
+                            <div class="cardbtn">
+                                <button class="btn view">View Profile</button>
+                                <button class="btn message">Message</button>
+                            </div>
+                            <div class="timer">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-white">
+                        <div class="body">
+
+                            <div class="cover_bg_image">
+                                <h3>Junayed Rahman Faiaz</h3>
+                                <h4>AB+ Blood Doner</h4>
+                            </div>
+                            <img src="{{ asset('assets/frontend/img/profile.png') }}" alt="Profile Image">
+                            <p>Mymensingh, Haluaghat, Dhara</p>
+                            <div class="cardbtn">
+                                <button class="btn view">View Profile</button>
+                                <button class="btn message">Message</button>
+                            </div>
+                            <div class="timer">
+
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@
                         </li>
 
                         <li class="nav__item">
-                            <a href="search.html" class="nav__link">
+                            <a href="{{ route('user.search') }}" class="nav__link">
                                 <i class='bx bx-search nav__icon'></i>
                                 <span class="nav__name">Search</span>
                             </a>
