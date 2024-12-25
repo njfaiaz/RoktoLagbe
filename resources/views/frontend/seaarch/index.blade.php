@@ -15,18 +15,22 @@
                         <option>A+</option>
                         <option>B+</option>
                     </select>
-                    <input type="text" class="form-control" id="district" autocomplete="off" value=""
-                        placeholder="District Name">
-                    <input type="hidden" id="district_id" name="district_id" value="" class="form-control">
-                    <ul id="district-list"></ul>
 
+                    <input type="text" class="form-control" id="district" autocomplete="off" placeholder="District Name">
+                    <input type="hidden" id="district_id" name="district_id" value="" class="form-control">
+
+                    <div id="district-list-container">
+                        <ul id="district-list" class="list-group phone_version mt-4"></ul>
+                    </div>
 
                     <input type="text" id="upazila" autocomplete="off"
                         value="{{ old('upazila', auth()->user()->upazila->name ?? '') }}" class="form-control"
                         placeholder="Upazila Name">
                     <input type="hidden" id="upazila_id" name="upazila_id" value="{{ auth()->user()->id ?? '' }}"
                         class="form-control">
-                    <ul id="upazila-list"></ul>
+                    <div id="upazila-list-container">
+                        <ul id="upazila-list" class="list-group phone_version mt-4"></ul>
+                    </div>
 
 
                     <input type="text" id="union" autocomplete="off"
@@ -34,7 +38,9 @@
                         placeholder="Union Name">
                     <input type="hidden" id="union_id" name="union_id" value="{{ auth()->user()->id ?? '' }}"
                         class="form-control">
-                    <ul id="union-list"></ul>
+                    <div id="union-list-container">
+                        <ul id="union-list" class="list-group phone_version mt-4"></ul>
+                    </div>
 
 
                     <input type="text" id="dateInput" placeholder="Last Donation Date" onfocus="(this.type='date')"
@@ -92,6 +98,11 @@
     </div>
 
     @push('footer_scripts')
+        <script>
+            document.getElementById('district').addEventListener('input', function() {
+                // Fetch and display suggestions in #district-list
+            });
+        </script>
         <script>
             $(document).ready(function() {
                 // District autocomplete

@@ -258,7 +258,7 @@ main {
     width: 11%;
 }
 .filter-section input[type="text"] {
-    width: 15%;
+    width: 20%;
 }
 .filter-section input[type="text"]::placeholder {
     color: #999;
@@ -307,6 +307,32 @@ main {
 }
 .filter_search.icon {
     text-align: end;
+}
+#district-list {
+    max-height: 200px;
+    overflow-y: auto;
+    position: fixed;
+    z-index: 1000;
+    width: 15%;
+    margin-left: -264px;
+}
+
+#upazila-list {
+    max-height: 200px;
+    overflow-y: auto;
+    position: fixed;
+    z-index: 1000;
+    width: 15%;
+    margin-left: -264px;
+}
+
+#union-list {
+    max-height: 200px;
+    overflow-y: auto;
+    position: fixed;
+    z-index: 1000;
+    width: 15%;
+    margin-left: -264px;
 }
 .card {
     background: white;
@@ -727,8 +753,8 @@ p {
     }
     .filter-section {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 5px;
     }
     .filter-section select {
         width: 100%;
@@ -750,6 +776,33 @@ p {
     }
     .filter_search.icon {
         text-align: end;
+    }
+    #district-list {
+        max-height: 200px;
+        overflow-y: auto;
+        position: fixed;
+        z-index: 1000;
+        width: 81%;
+        margin-left: 0px;
+    }
+    #upazila-list {
+        max-height: 200px;
+        overflow-y: auto;
+        position: fixed;
+        z-index: 1000;
+        width: 81%;
+        margin-left: 0px;
+    }
+    #union-list {
+        max-height: 200px;
+        overflow-y: auto;
+        position: fixed;
+        z-index: 1000;
+        width: 81%;
+        margin-left: 0px;
+    }
+    .phone_version {
+        margin-top: 0.5rem !important;
     }
     .footer {
         padding: 25px;
