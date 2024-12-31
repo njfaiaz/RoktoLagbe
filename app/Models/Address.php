@@ -27,4 +27,8 @@ class Address extends Model
     {
         return $this->belongsTo(Union::class);
     }
+    public function bloods()
+    {
+        return $this->belongsTo(Blood::class, 'blood_id');
+    }
 }

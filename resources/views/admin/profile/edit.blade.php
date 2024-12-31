@@ -91,57 +91,79 @@
                     <div class="card">
                         <div class="header">
                             <h2><strong>Basic</strong> Settings</h2>
+
+                            @if (session('success'))
+                                <div class="alert alert-success mt-2">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if (session('error'))
+                                <div class="alert alert-danger mt-2">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+
                         </div>
                         <div class="body">
-                            <form action="">
+                            <form action="{{ route('profile.update') }}" method="POST">
+                                @csrf
                                 <div class="col-lg-12 col-md-12">
                                     <label for="phone_number">User Phone Number :</label>
                                     <div class="form-group">
-                                        <input type="text" name="phone_number"
+                                        <input type="text" name="phone_number" value="{{ $profile->phone_number ?? '' }}"
                                             class="form-control @error('phone_number') border border-danger @enderror"
-                                            placeholder="Phone Number" value="">
+                                            placeholder="Phone Number" required>
+                                        @error('phone_number')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
+
                                 <div class="col-lg-12 col-md-12">
-                                    <label for="phone_number">Select Gender :</label>
+                                    <label for="gender">Select Gender :</label>
                                     <div class="form-group">
-                                        <select name="gender" id="gender" class="form-control">
-                                            <option value="" disabled>
-                                                Select Gender
-                                            </option>
-                                            <option value="Male">
-                                                Male
-                                            </option>
-                                            <option value="Female">
-                                                Female
-                                            </option>
+                                        <select name="gender" id="gender" class="form-control" required>
+                                            <option disabled>Select Gender</option>
+                                            <option value="Male"
+                                                {{ isset($profile->gender) && $profile->gender == 'Male' ? 'selected' : '' }}>
+                                                Male</option>
+                                            <option value="Female"
+                                                {{ isset($profile->gender) && $profile->gender == 'Female' ? 'selected' : '' }}>
+                                                Female</option>
+
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-12 col-md-12">
-                                    <label for="email_address">Select Your Blood Group :</label>
+                                    <label for="blood_id">Select Your Blood Group :</label>
                                     <div class="form-group">
-                                        <select name="blood_id" id="blood_group" class="form-control">
+                                        <select name="blood_id" id="blood_group" class="form-control" required>
                                             <option selected disabled>Select Your Blood Group</option>
                                             @foreach ($bloods as $blood)
                                                 <option value="{{ $blood->id }}"
-                                                    {{ old('blood_id', $profile->blood_id) == $blood->id ? 'selected' : '' }}>
+                                                    {{ old('blood_id', isset($profile) && $profile ? $profile->blood_id : null) == $blood->id || (empty($profile->blood_id) && $loop->first) ? 'selected' : '' }}>
                                                     {{ $blood->blood_name }}
                                                 </option>
                                             @endforeach
-
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12 col-md-12">
-                                    <label for="email_address">Previous Donation Date :</label>
+                                    <label for="previous_donation_date">Previous Donation Date :</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="dateInput"
-                                            placeholder="Previous Donation Date" onfocus="(this.type='date')"
-                                            onblur="(this.type='text')" name="previous_donation_date" value="">
+                                        <input type="date"
+                                            class="form-control @error('previous_donation_date') border border-danger @enderror"
+                                            name="previous_donation_date"
+                                            value="{{ $profile->previous_donation_date ?? '' }}" required>
+                                        @error('previous_donation_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
+
                                 <button type="submit" class="btn btn-info">Update Information</button>
                             </form>
                         </div>
@@ -178,8 +200,8 @@
                                 <div>
                                     <label></label>
                                     <input type="text" id="union" autocomplete="off"
-                                        value="{{ old('union', auth()->user()->union->name ?? '') }}" class="form-control"
-                                        placeholder="Union Name">
+                                        value="{{ old('union', auth()->user()->union->name ?? '') }}"
+                                        class="form-control" placeholder="Union Name">
                                     <input type="hidden" id="union_id" name="union_id"
                                         value="{{ auth()->user()->id ?? '' }}" class="form-control">
                                     <ul id="union-list"></ul>
