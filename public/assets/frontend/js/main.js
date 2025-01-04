@@ -62,13 +62,16 @@ window.addEventListener("scroll", scrollHeader);
 
 /*=============== Timer CountDown Added ===============*/
 
-$(".timer").countdown("2025/02/01 00:10:10", function (event) {
+$(".timer").countdown("2025/01/01 00:10:10", function (event) {
     if (event.elapsed) {
         $(this).html(
             event.strftime(
-                '<div class="cardbtn"><button class="btn view">Next Donet</button></div>'
+                '<div class="cardbtn"><button class="btn view" id="nextDonate">Next Donate</button></div>'
             )
         );
+        $("#nextDonate").on("click", function () {
+            window.location.href = "/next-donate"; // Redirect to a Laravel route
+        });
     } else {
         $(this).html(
             event.strftime(

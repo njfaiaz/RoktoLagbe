@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialiteController;
+use App\Http\Controllers\Frontend\FrDonateInfoController;
 use App\Http\Controllers\Frontend\FrHistoryController;
 use App\Http\Controllers\Frontend\FrProfileController;
 use App\Http\Controllers\Frontend\FrSearchController;
@@ -88,4 +89,9 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
     // ------------------------------ Frontend Search Page----------------------------------
     Route::get('history', [FrHistoryController::class, 'index'])->name('user.history');
     Route::get('history.store', [FrHistoryController::class, 'Store'])->name('user.history.store');
+
+    // ------------------------------ Frontend Search Page----------------------------------
+
+    Route::get('profile/{username}/edit', [FrDonateInfoController::class, 'edit']);
+    Route::get('/next-donate', [FrDonateInfoController::class, 'nextDonate']);
 });

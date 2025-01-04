@@ -64,7 +64,9 @@
                             <img src="{{ asset('assets/frontend/img/profile.png') }}" alt="Profile Image">
                             <p>Mymensingh, Haluaghat, Dhara</p>
                             <div class="cardbtn">
-                                <button class="btn view">View Profile</button>
+                                <a href="{{ route('user.profile') }}">
+                                    <button class="btn view">View Profile</button>
+                                </a>
                                 <button class="btn message">Message</button>
                             </div>
                             <div class="timer">
