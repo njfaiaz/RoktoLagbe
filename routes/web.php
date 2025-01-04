@@ -31,6 +31,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('404', [UserController::class, 'notFound'])->name('notFound');
 
 
 Route::get('auth/google', [SocialiteController::class, 'googleLogin'])->name('auth.google');
