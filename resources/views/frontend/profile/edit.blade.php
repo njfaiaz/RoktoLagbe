@@ -34,24 +34,25 @@
             <div class="card bg-white">
                 <div class="body">
                     <form class="py-3">
-                        <div class="form-group">
+                        <div class="form-group input-container">
                             <input type="file" id="imageUpload" class="dropify" data-max-file-size="10M"
                                 data-msg-placeholder="Upload your Profile" />
                         </div>
-                        <div class="form-group ">
-                            <label for="exampleInputEmail1"></label>
-                            <input type="text" class="form-control" placeholder="Username">
+                        <div class="form-group input-container">
+                            <input type="text" id="username" class="input-field form-control" placeholder=" " />
+                            <label for="username" class="input-label">Username</label>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1"></label>
-                            <input type="text" class="form-control" placeholder="Enter Your Full Name">
+                        <div class="form-group input-container">
+                            <input type="text" id="username" class="input-field form-control" placeholder=" " />
+                            <label for="Enter Your Full Name" class="input-label">Enter Your Full Name</label>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1"></label>
-                            <input type="email" class="form-control" placeholder="Enter email">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                                else.</small>
+                        <div class="form-group input-container">
+                            <input type="email" id="username" class="input-field form-control" placeholder=" " />
+                            <label for="Enter email" class="input-label">Enter email</label>
+
+                            <small class="form-text text-muted valid-feedback">error.</small>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
@@ -110,7 +111,7 @@
                                 placeholder="District Name">
                             <input type="hidden" id="district_id" name="district_id" value="{{ auth()->user()->id ?? '' }}"
                                 class="form-control">
-                            <ul id="district-list"></ul>
+                            <ul id="district-list-profile"></ul>
                         </div>
 
                         <div>
@@ -120,7 +121,7 @@
                                 placeholder="Upazila Name">
                             <input type="hidden" id="upazila_id" name="upazila_id" value="{{ auth()->user()->id ?? '' }}"
                                 class="form-control">
-                            <ul id="upazila-list"></ul>
+                            <ul id="upazila-list-profile"></ul>
                         </div>
 
                         <div>
@@ -130,7 +131,7 @@
                                 placeholder="Union Name">
                             <input type="hidden" id="union_id" name="union_id" value="{{ auth()->user()->id ?? '' }}"
                                 class="form-control">
-                            <ul id="union-list"></ul>
+                            <ul id="union-list-profile"></ul>
                         </div>
 
                         <button type="submit" class="btn btn-info">Update Address</button>
@@ -174,9 +175,9 @@
                             query: query
                         },
                         success: function(data) {
-                            $('#district-list').empty();
+                            $('#district-list-profile').empty();
                             data.forEach(district => {
-                                $('#district-list').append(
+                                $('#district-list-profile').append(
                                     `<li class="form-control" data-id="${district.id}">${district.district_name}</li>`
                                 );
                             });
@@ -185,11 +186,11 @@
                 });
 
                 // Select District
-                $(document).on('click', '#district-list li', function() {
+                $(document).on('click', '#district-list-profile li', function() {
                     let districtId = $(this).data('id');
                     $('#district').val($(this).text());
                     $('#district_id').val(districtId);
-                    $('#district-list').empty();
+                    $('#district-list-profile').empty();
                     loadUpazilas(districtId);
                 });
 
@@ -205,9 +206,9 @@
                                 district_id: districtId
                             },
                             success: function(data) {
-                                $('#upazila-list').empty();
+                                $('#upazila-list-profile').empty();
                                 data.forEach(upazila => {
-                                    $('#upazila-list').append(
+                                    $('#upazila-list-profile').append(
                                         `<li class="form-control" data-id="${upazila.id}">${upazila.upazila_name}</li>`
                                     );
                                 });
@@ -216,11 +217,11 @@
                     });
 
                     // Select Upazila
-                    $(document).on('click', '#upazila-list li', function() {
+                    $(document).on('click', '#upazila-list-profile li', function() {
                         let upazilaId = $(this).data('id');
                         $('#upazila').val($(this).text());
                         $('#upazila_id').val(upazilaId);
-                        $('#upazila-list').empty();
+                        $('#upazila-list-profile').empty();
                         loadUnions(upazilaId);
                     });
                 }
@@ -237,9 +238,9 @@
                                 upazila_id: upazilaId
                             },
                             success: function(data) {
-                                $('#union-list').empty();
+                                $('#union-list-profile').empty();
                                 data.forEach(union => {
-                                    $('#union-list').append(
+                                    $('#union-list-profile').append(
                                         `<li class="form-control" data-id="${union.id}">${union.union_name}</li>`
                                     );
                                 });
@@ -248,11 +249,11 @@
                     });
 
                     // Select Union
-                    $(document).on('click', '#union-list li', function() {
+                    $(document).on('click', '#union-list-profile li', function() {
                         let unionId = $(this).data('id');
                         $('#union').val($(this).text());
                         $('#union_id').val(unionId);
-                        $('#union-list').empty();
+                        $('#union-list-profile').empty();
                     });
                 }
             });

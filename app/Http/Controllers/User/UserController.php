@@ -11,4 +11,9 @@ class UserController extends Controller
     {
         return view('frontend.home');
     }
+
+    public function notFound()
+    {
+        return view('404');
+    }
 }
