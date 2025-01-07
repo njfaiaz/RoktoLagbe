@@ -27,17 +27,16 @@ class ProfileController extends Controller
     {
 
         $profile = Profile::with('bloods')
-                  ->where('user_id', Auth::id())
-                  ->first();
-
+            ->where('user_id', Auth::id())
+            ->first();
+            $user = auth()->user();
         $bloods    = Blood::all();
         $districts = District::all();
         $upazilaes = Upazila::all();
         $unions    = Union::all();
-        $address   = Address::all();
+        $address = $user->addresses;
 
-       
-        return view('admin.profile.edit', compact('profile', 'bloods', 'districts', 'unions', 'upazilaes', 'address'));
+        return view('admin.profile.edit', compact('profile', 'bloods', 'districts', 'unions', 'upazilaes', 'address', 'user'));
     }
 
     public function update(Request $request)
@@ -98,5 +97,43 @@ class ProfileController extends Controller
             ->where('union_name', 'LIKE', "%$query%")
             ->get();
         return response()->json($unions);
+    }
+
+    public function addressUpdate(Request $request)
+    {
+        // Validate the incoming request
+        $validatedData = $request->validate([
+            'district_id' => 'required|integer|exists:districts,id',
+            'upazila_id'  => 'required|integer|exists:upazilas,id',
+            'union_id'    => 'required|integer|exists:unions,id',
+        ], [
+            'district_id.required' => 'The district field is required.',
+            'district_id.exists'   => 'The selected district is invalid.',
+            'upazila_id.required'  => 'The upazila field is required.',
+            'upazila_id.exists'    => 'The selected upazila is invalid.',
+            'union_id.required'    => 'The union field is required.',
+            'union_id.exists'      => 'The selected union is invalid.',
+        ]);
+
+        // Retrieve the authenticated user
+        $user = auth()->user();
+
+        // Check if the user already has an address
+        $address = Address::where('user_id', $user->id)->first();
+
+        if (!$address) {
+            // Create a new address if none exists
+            $address          = new Address();
+            $address->user_id = $user->id;
+        }
+
+        // Update the address with validated data
+        $address->district_id = $validatedData['district_id'];
+        $address->upazila_id  = $validatedData['upazila_id'];
+        $address->union_id    = $validatedData['union_id'];
+        $address->save();
+
+        // Return a success response
+        return back()->with('success', 'Address updated successfully!');
     }
 }

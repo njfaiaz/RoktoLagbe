@@ -176,11 +176,12 @@
 
 
 
-                            <form method="POST" action="">
+                            <form method="POST" action="{{route('address.update')}}">
+                                @csrf
                                 <div>
                                     <label></label>
                                     <input type="text" class="form-control" id="district" autocomplete="off"
-                                        value="{{ old('district', auth()->user()->district->name ?? '') }}"
+                                        value="{{$address ? $address->district->district_name : null}}"
                                         placeholder="District Name">
                                     <input type="hidden" id="district_id" name="district_id"
                                         value="{{ auth()->user()->id ?? '' }}" class="form-control">
@@ -190,7 +191,7 @@
                                 <div>
                                     <label></label>
                                     <input type="text" id="upazila" autocomplete="off"
-                                        value="{{ old('upazila', auth()->user()->upazila->name ?? '') }}"
+                                        value="{{ $address ? $address->upazila->upazila_name : null }}"
                                         class="form-control" placeholder="Upazila Name">
                                     <input type="hidden" id="upazila_id" name="upazila_id"
                                         value="{{ auth()->user()->id ?? '' }}" class="form-control">
@@ -200,7 +201,7 @@
                                 <div>
                                     <label></label>
                                     <input type="text" id="union" autocomplete="off"
-                                        value="{{ old('union', auth()->user()->union->name ?? '') }}"
+                                        value="{{ $address ? $address->union->union_name : null }}"
                                         class="form-control" placeholder="Union Name">
                                     <input type="hidden" id="union_id" name="union_id"
                                         value="{{ auth()->user()->id ?? '' }}" class="form-control">
