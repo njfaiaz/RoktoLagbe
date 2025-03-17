@@ -1,3 +1,6 @@
+# Project Requirements Document Link
+[Document Link](https://docs.google.com/document/d/1D3g6qL5jJyEPYCOIxoovg6YcYKbPsdcz_mpztRxzCSg/edit?tab=t.0)
+
 # RoktoLagbe.com.bd ইনস্টল করার নিয়ম 
 
 ```bash
