@@ -62,7 +62,7 @@ window.addEventListener("scroll", scrollHeader);
 
 /*=============== Timer CountDown Added ===============*/
 
-$(".timer").countdown("2025/01/01 00:10:10", function (event) {
+$(".timer").countdown("2025/06/01 00:10:10", function (event) {
     if (event.elapsed) {
         $(this).html(
             event.strftime(
