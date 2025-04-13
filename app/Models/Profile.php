@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
-    protected $_guarded = ['id'];
     protected $fillable = [
-        'user_id', 'gender', 'blood_id', 'phone_number', 'previous_donation_date'
+        'user_id',
+        'gender',
+        'blood_id',
+        'phone_number',
+        'previous_donation_date',
+        'profile_image'
     ];
     public function users()
     {

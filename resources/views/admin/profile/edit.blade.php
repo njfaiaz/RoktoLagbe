@@ -55,16 +55,6 @@
                             <form action="">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-
-
-                                        <input type="file" id="imageUpload" name="profile_image" class="dropify"
-                                            data-max-file-size="2M" data-default-file=""
-                                            data-msg-placeholder="Upload
-                                            your Profile" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="form-group">
                                         <input type="text" class="form-control" placeholder="Username" value=""
                                             disabled>
                                     </div>
@@ -83,6 +73,50 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-info">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2><strong>Address Change</strong> Settings</h2>
+                        </div>
+                        <div class="body">
+
+
+
+                            <form method="POST" action="{{ route('address.update') }}">
+                                @csrf
+                                <div>
+                                    <label></label>
+                                    <input type="text" class="form-control" id="district" autocomplete="off"
+                                        value="{{ $address ? $address->district->district_name : null }}"
+                                        placeholder="District Name">
+                                    <input type="hidden" id="district_id" name="district_id"
+                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
+                                    <ul id="district-list"></ul>
+                                </div>
+
+                                <div>
+                                    <label></label>
+                                    <input type="text" id="upazila" autocomplete="off"
+                                        value="{{ $address ? $address->upazila->upazila_name : null }}" class="form-control"
+                                        placeholder="Upazila Name">
+                                    <input type="hidden" id="upazila_id" name="upazila_id"
+                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
+                                    <ul id="upazila-list"></ul>
+                                </div>
+
+                                <div>
+                                    <label></label>
+                                    <input type="text" id="union" autocomplete="off"
+                                        value="{{ $address ? $address->union->union_name : null }}" class="form-control"
+                                        placeholder="Union Name">
+                                    <input type="hidden" id="union_id" name="union_id"
+                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
+                                    <ul id="union-list"></ul>
+                                </div>
+
+                                <button type="submit" class="btn btn-info">Update Address</button>
                             </form>
                         </div>
                     </div>
@@ -108,10 +142,24 @@
                         <div class="body">
                             <form action="{{ route('profile.update') }}" method="POST">
                                 @csrf
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+
+
+                                        <input type="file" id="imageUpload" name="profile_image" class="dropify"
+                                            data-max-file-size="2M" data-default-file=""
+                                            data-msg-placeholder="Upload
+                                            your Profile" />
+                                    </div>
+                                </div>
+
+
                                 <div class="col-lg-12 col-md-12">
                                     <label for="phone_number">User Phone Number :</label>
                                     <div class="form-group">
-                                        <input type="text" name="phone_number" value="{{ $profile->phone_number ?? '' }}"
+                                        <input type="text" name="phone_number"
+                                            value="{{ $profile->phone_number ?? '' }}"
                                             class="form-control @error('phone_number') border border-danger @enderror"
                                             placeholder="Phone Number" required>
                                         @error('phone_number')
@@ -168,50 +216,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="header">
-                            <h2><strong>Address Change</strong> Settings</h2>
-                        </div>
-                        <div class="body">
 
-
-
-                            <form method="POST" action="{{route('address.update')}}">
-                                @csrf
-                                <div>
-                                    <label></label>
-                                    <input type="text" class="form-control" id="district" autocomplete="off"
-                                        value="{{$address ? $address->district->district_name : null}}"
-                                        placeholder="District Name">
-                                    <input type="hidden" id="district_id" name="district_id"
-                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
-                                    <ul id="district-list"></ul>
-                                </div>
-
-                                <div>
-                                    <label></label>
-                                    <input type="text" id="upazila" autocomplete="off"
-                                        value="{{ $address ? $address->upazila->upazila_name : null }}"
-                                        class="form-control" placeholder="Upazila Name">
-                                    <input type="hidden" id="upazila_id" name="upazila_id"
-                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
-                                    <ul id="upazila-list"></ul>
-                                </div>
-
-                                <div>
-                                    <label></label>
-                                    <input type="text" id="union" autocomplete="off"
-                                        value="{{ $address ? $address->union->union_name : null }}"
-                                        class="form-control" placeholder="Union Name">
-                                    <input type="hidden" id="union_id" name="union_id"
-                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
-                                    <ul id="union-list"></ul>
-                                </div>
-
-                                <button type="submit" class="btn btn-info">Update Address</button>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

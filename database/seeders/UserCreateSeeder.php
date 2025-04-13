@@ -17,7 +17,6 @@ class UserCreateSeeder extends Seeder
             'name' => 'Junayed Rahman Faiaz',
             'username' => 'Junayed-Rahman-Faiaz',
             'email' => 'admin@gmail.com',
-            'profile_image' => 'images/profile_av.jpg',
             'role' => UserRole::SUPER_ADMIN->value,
             'password' => Hash::make('Abc@1234'),
         ]);
@@ -960,7 +959,6 @@ class UserCreateSeeder extends Seeder
                 'name' => strtolower($user),
                 'username' => User::generateUniqueUsername($user),
                 'email' => strtolower($user) . '@gmail.com',
-                'profile_image' => 'images/user/' . rand(1, 15) . '.jpg',
                 'role' => UserRole::USER->value,
                 'password' => Hash::make('Abc@1234'),
                 'remember_token' => Str::random(10),

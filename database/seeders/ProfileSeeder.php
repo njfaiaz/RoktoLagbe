@@ -27,6 +27,7 @@ class ProfileSeeder extends Seeder
                 'blood_id' => $blood[array_rand($blood)],
                 'gender' => $gender[array_rand($gender)],
                 'phone_number' => rand(200, 99999999999),
+                'profile_image' => 'images/profile_av.jpg',
                 'previous_donation_date' => Carbon::now(),
             ]);
         }
