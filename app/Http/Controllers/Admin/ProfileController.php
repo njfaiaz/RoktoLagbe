@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Address;
 use App\Models\Blood;
 use App\Models\District;
@@ -10,6 +11,7 @@ use App\Models\Profile;
 use App\Models\Union;
 use App\Models\Upazila;
 use App\Models\User;
+use App\Services\ProfileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +31,7 @@ class ProfileController extends Controller
         $profile = Profile::with('bloods')
             ->where('user_id', Auth::id())
             ->first();
-            $user = auth()->user();
+        $user = auth()->user();
         $bloods    = Blood::all();
         $districts = District::all();
         $upazilaes = Upazila::all();
@@ -39,38 +41,63 @@ class ProfileController extends Controller
         return view('admin.profile.edit', compact('profile', 'bloods', 'districts', 'unions', 'upazilaes', 'address', 'user'));
     }
 
-    public function update(Request $request)
-    {
-        // Validate the incoming data
-        $validateData = $request->validate([
-            'phone_number'           => 'required|string|max:20',
-            'gender'                 => 'required|string|max:20',
-            'blood_id'               => 'required|numeric|exists:bloods,id',
-            'previous_donation_date' => 'required|date',
-        ]);
+    // public function update(Request $request)
+    // {
+    //     // Validate the incoming data
+    //     $validateData = $request->validate([
+    //         'phone_number'           => 'required|string|max:20',
+    //         'gender'                 => 'required|string|max:20',
+    //         'blood_id'               => 'required|numeric|exists:bloods,id',
+    //         'previous_donation_date' => 'required|date',
+    //     ]);
 
-        // Get the logged-in user's ID
+    //     // Get the logged-in user's ID
+    //     $userId = auth()->id();
+
+    //     // Check if a profile already exists for the logged-in user
+    //     $profile = Profile::where('user_id', $userId)->first();
+
+    //     if ($profile) {
+    //         // If the profile exists, update it
+    //         $profile->update($validateData);
+    //         $message   = 'Profile updated successfully!';
+    //         $alertType = 'success';
+    //     } else {
+    //         // If no profile exists, create a new one
+    //         $validateData['user_id'] = $userId; // Add the logged-in user ID to the data
+    //         Profile::create($validateData);
+    //         $message   = 'Profile created successfully!';
+    //         $alertType = 'success';
+    //     }
+
+    //     // Return the response with the appropriate message and alert type
+    //     return redirect()->back()->with($alertType, $message);
+    // }
+
+
+
+
+
+    public function update(UpdateProfileRequest $request, ProfileService $profileService)
+    {
         $userId = auth()->id();
 
-        // Check if a profile already exists for the logged-in user
-        $profile = Profile::where('user_id', $userId)->first();
+        $message = $profileService->updateOrCreateProfile(
+            $request->validated(),
+            $userId
+        );
 
-        if ($profile) {
-            // If the profile exists, update it
-            $profile->update($validateData);
-            $message   = 'Profile updated successfully!';
-            $alertType = 'success';
-        } else {
-            // If no profile exists, create a new one
-            $validateData['user_id'] = $userId; // Add the logged-in user ID to the data
-            Profile::create($validateData);
-            $message   = 'Profile created successfully!';
-            $alertType = 'success';
-        }
-
-        // Return the response with the appropriate message and alert type
-        return redirect()->back()->with($alertType, $message);
+        return redirect()->back()->with([
+            'success' => $message,
+        ]);
     }
+
+
+
+
+
+
+
 
     public function searchDistricts(Request $request)
     {
