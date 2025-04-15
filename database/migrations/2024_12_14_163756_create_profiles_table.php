@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('blood_id')->nullable()->unique();
             $table->string('phone_number')->nullable()->unique();
             $table->date('previous_donation_date')->nullable();
-            $table->string('profile_image')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

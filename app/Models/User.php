@@ -10,11 +10,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
     protected $guarded = ['id'];
+    public const PLACEHOLDER_IMAGE_PATH = 'images/profile_thumbnail.png';
     protected $hidden = [
         'password',
         'remember_token',
@@ -49,6 +52,15 @@ class User extends Authenticatable
 
         return $username;
     }
+
+
+    public function getImageUrlAttribute(): string
+    {
+        return $this->hasMedia()
+            ? $this->getFirstMediaUrl()
+            : self::PLACEHOLDER_IMAGE_PATH;
+    }
+
 
     public function profiles()
     {

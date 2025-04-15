@@ -19,7 +19,7 @@ class UpdateProfileRequest extends FormRequest
             'gender'                 => 'required|string|max:20',
             'blood_id'               => 'required|numeric|exists:bloods,id',
             'previous_donation_date' => 'required|date',
-            'profile_image' => ['nullable', File::image()->max('10mb')],
+            'image' => ['nullable', File::image()->max('10mb')],
         ];
     }
 }

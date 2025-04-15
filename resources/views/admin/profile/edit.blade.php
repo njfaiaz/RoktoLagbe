@@ -140,17 +140,16 @@
 
                         </div>
                         <div class="body">
-                            <form action="{{ route('profile.update') }}" method="POST">
+                            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
 
-
-                                        <input type="file" id="imageUpload" name="profile_image" class="dropify"
-                                            data-max-file-size="2M" data-default-file=""
-                                            data-msg-placeholder="Upload
-                                            your Profile" />
+                                        <input type="file" id="imageUpload" name="image" class="dropify"
+                                            data-max-file-size="2M"
+                                            data-default-file="{{ $profile->getFirstMediaUrl('image') }}"
+                                            data-msg-placeholder="Upload your Profile" />
                                     </div>
                                 </div>
 
@@ -158,8 +157,8 @@
                                 <div class="col-lg-12 col-md-12">
                                     <label for="phone_number">User Phone Number :</label>
                                     <div class="form-group">
-                                        <input type="text" name="phone_number"
-                                            value="{{ $profile->phone_number ?? '' }}"
+                                        <input type="text" name="phone_number" type="number"
+                                            value="{{ old('phone_number', $profile->phone_number ?? '') }}"
                                             class="form-control @error('phone_number') border border-danger @enderror"
                                             placeholder="Phone Number" required>
                                         @error('phone_number')
@@ -205,7 +204,8 @@
                                         <input type="date"
                                             class="form-control @error('previous_donation_date') border border-danger @enderror"
                                             name="previous_donation_date"
-                                            value="{{ $profile->previous_donation_date ?? '' }}" required>
+                                            value="{{ old('previous_donation_date', $profile->previous_donation_date ?? '') }}"
+                                            required type="date">
                                         @error('previous_donation_date')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror

@@ -78,19 +78,21 @@ class ProfileController extends Controller
 
 
 
-    public function update(UpdateProfileRequest $request, ProfileService $profileService)
+    public function update(UpdateProfileRequest $request, Profile $profile, ProfileService $profileService)
     {
         $userId = auth()->id();
 
         $message = $profileService->updateOrCreateProfile(
             $request->validated(),
-            $userId
+            $userId,
+            $request->hasFile('image') ? $request->file('image') : null
         );
 
         return redirect()->back()->with([
             'success' => $message,
         ]);
     }
+
 
 
 
