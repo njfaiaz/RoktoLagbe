@@ -83,41 +83,56 @@
                         <div class="body">
 
 
-
                             <form method="POST" action="{{ route('address.update') }}">
                                 @csrf
                                 <div>
                                     <label></label>
                                     <input type="text" class="form-control" id="district" autocomplete="off"
-                                        value="{{ $address ? $address->district->district_name : null }}"
+                                        value="{{ old('district', $address?->district?->district_name) }}"
                                         placeholder="District Name">
                                     <input type="hidden" id="district_id" name="district_id"
-                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
-                                    <ul id="district-list"></ul>
+                                        value="{{ old('district_id', $address?->district_id) }}">
+                                    <ul id="district-list" class="dropdown-menu show w-100"></ul>
+
+                                    <!-- Display error for district -->
+                                    @if ($errors->has('district_id'))
+                                        <span class="text-danger">{{ $errors->first('district_id') }}</span>
+                                    @endif
                                 </div>
 
                                 <div>
                                     <label></label>
-                                    <input type="text" id="upazila" autocomplete="off"
-                                        value="{{ $address ? $address->upazila->upazila_name : null }}" class="form-control"
+                                    <input type="text" class="form-control" id="upazila" autocomplete="off"
+                                        value="{{ old('upazila', $address?->upazila?->upazila_name) }}"
                                         placeholder="Upazila Name">
                                     <input type="hidden" id="upazila_id" name="upazila_id"
-                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
-                                    <ul id="upazila-list"></ul>
+                                        value="{{ old('upazila_id', $address?->upazila_id) }}">
+                                    <ul id="upazila-list" class="dropdown-menu show w-100"></ul>
+
+                                    <!-- Display error for upazila -->
+                                    @if ($errors->has('upazila_id'))
+                                        <span class="text-danger">{{ $errors->first('upazila_id') }}</span>
+                                    @endif
                                 </div>
 
                                 <div>
                                     <label></label>
-                                    <input type="text" id="union" autocomplete="off"
-                                        value="{{ $address ? $address->union->union_name : null }}" class="form-control"
-                                        placeholder="Union Name">
+                                    <input type="text" class="form-control" id="union" autocomplete="off"
+                                        value="{{ old('union', $address?->union?->union_name) }}" placeholder="Union Name">
                                     <input type="hidden" id="union_id" name="union_id"
-                                        value="{{ auth()->user()->id ?? '' }}" class="form-control">
-                                    <ul id="union-list"></ul>
+                                        value="{{ old('union_id', $address?->union_id) }}">
+                                    <ul id="union-list" class="dropdown-menu show w-100"></ul>
+
+                                    <!-- Display error for union -->
+                                    @if ($errors->has('union_id'))
+                                        <span class="text-danger">{{ $errors->first('union_id') }}</span>
+                                    @endif
                                 </div>
 
-                                <button type="submit" class="btn btn-info">Update Address</button>
+                                <button type="submit" class="btn btn-info mt-3">Update Address</button>
                             </form>
+
+
                         </div>
                     </div>
 
@@ -188,8 +203,7 @@
                                     <div class="form-group">
 
                                         <input type="file" id="imageUpload" name="image" class="dropify"
-                                            data-max-file-size="2M"
-                                            data-default-file="{{ $profile->getFirstMediaUrl('image') }}"
+                                            data-max-file-size="2M" data-default-file=""
                                             data-msg-placeholder="Upload your Profile" />
                                     </div>
                                 </div>
@@ -280,101 +294,28 @@
             });
         </script>
         <script src="{{ asset('assets/admin/js/pages/forms/dropify.js') }}"></script>
-        <script src="{{ asset('assets/coustom/address.js') }}"></script>
 
+        <script src="{{ asset('assets/coustom/js/address.js') }}"></script>
         <script>
             $(document).ready(function() {
-                // District autocomplete
-                $('#district').on('keyup', function() {
-                    let query = $(this).val();
-                    $.ajax({
-                        url: '/admin/search-districts',
-                        type: 'GET',
-                        data: {
-                            query: query
-                        },
-                        success: function(data) {
-                            $('#district-list').empty();
-                            data.forEach(district => {
-                                $('#district-list').append(
-                                    `<li class="form-control" data-id="${district.id}">${district.district_name}</li>`
-                                );
-                            });
-                        }
-                    });
-                });
-
-                // Select District
-                $(document).on('click', '#district-list li', function() {
-                    let districtId = $(this).data('id');
-                    $('#district').val($(this).text());
-                    $('#district_id').val(districtId);
-                    $('#district-list').empty();
-                    loadUpazilas(districtId);
-                });
-
-                // Load Upazilas
-                function loadUpazilas(districtId) {
-                    $('#upazila').on('keyup', function() {
-                        let query = $(this).val();
-                        $.ajax({
-                            url: '/admin/search-upazilas',
-                            type: 'GET',
-                            data: {
-                                query: query,
-                                district_id: districtId
-                            },
-                            success: function(data) {
-                                $('#upazila-list').empty();
-                                data.forEach(upazila => {
-                                    $('#upazila-list').append(
-                                        `<li class="form-control" data-id="${upazila.id}">${upazila.upazila_name}</li>`
-                                    );
-                                });
-                            }
-                        });
-                    });
-
-                    // Select Upazila
-                    $(document).on('click', '#upazila-list li', function() {
-                        let upazilaId = $(this).data('id');
-                        $('#upazila').val($(this).text());
-                        $('#upazila_id').val(upazilaId);
+                autocompleteInput('district', 'district-list', 'district_id', '/admin/search-districts', () => ({}),
+                    () => {
+                        $('#upazila, #upazila_id').val('');
                         $('#upazila-list').empty();
-                        loadUnions(upazilaId);
-                    });
-                }
-
-                // Load Unions
-                function loadUnions(upazilaId) {
-                    $('#union').on('keyup', function() {
-                        let query = $(this).val();
-                        $.ajax({
-                            url: '/admin/search-unions',
-                            type: 'GET',
-                            data: {
-                                query: query,
-                                upazila_id: upazilaId
-                            },
-                            success: function(data) {
-                                $('#union-list').empty();
-                                data.forEach(union => {
-                                    $('#union-list').append(
-                                        `<li class="form-control" data-id="${union.id}">${union.union_name}</li>`
-                                    );
-                                });
-                            }
-                        });
-                    });
-
-                    // Select Union
-                    $(document).on('click', '#union-list li', function() {
-                        let unionId = $(this).data('id');
-                        $('#union').val($(this).text());
-                        $('#union_id').val(unionId);
+                        $('#union, #union_id').val('');
                         $('#union-list').empty();
                     });
-                }
+
+                autocompleteInput('upazila', 'upazila-list', 'upazila_id', '/admin/search-upazilas', () => ({
+                    district_id: $('#district_id').val()
+                }), () => {
+                    $('#union, #union_id').val('');
+                    $('#union-list').empty();
+                });
+
+                autocompleteInput('union', 'union-list', 'union_id', '/admin/search-unions', () => ({
+                    upazila_id: $('#upazila_id').val()
+                }));
             });
         </script>
     @endpush
