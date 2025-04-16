@@ -34,21 +34,21 @@ class PasswordChangeController extends Controller
                     'message' => ' Your Password Change Success. Now Login With New Password',
                     'alert' => 'success'
                 );
-                return Redirect()->route('login');
+                return Redirect()->route('login')->with($notification);
             } else {
 
                 $notification = array(
                     'message' => ' New Password And Confirm Password Not Same',
                     'alert' => 'error'
                 );
-                return back();
+                return back()->with($notification);
             }
         } else {
             $notification = array(
                 'message' => ' Old Password Not Match',
                 'alert' => 'error'
             );
-            return Redirect()->back();
+            return Redirect()->back()->with($notification);
         }
     }
 }
