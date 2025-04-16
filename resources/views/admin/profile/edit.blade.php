@@ -120,6 +120,47 @@
                             </form>
                         </div>
                     </div>
+
+                    <div class="card ">
+                        <div class="header">
+                            <h2><strong>Password</strong> Change</h2>
+                        </div>
+                        <div class="body">
+                            <form action="{{ route('admin.password.change') }}" method="POST">
+                                @csrf
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="password" name="old_password" class="form-control"
+                                            placeholder="Enter Old password" />
+                                        @error('old_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="password" name="new_password" class="form-control"
+                                            placeholder="Enter New password" />
+                                        @error('new_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="password" name="con_password" class="form-control"
+                                            placeholder="Enter Confirm password" />
+                                        @error('con_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-info submit font-weight-bold" name="submit"
+                                    value="Submit">Password Change</button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="card">

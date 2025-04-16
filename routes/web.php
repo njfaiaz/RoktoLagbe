@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AddressController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PasswordChangeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialiteController;
@@ -51,6 +52,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     Route::get('profile/{username}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('profile/address/update', [ProfileController::class, 'addressUpdate'])->name('address.update');
+
+
+    Route::post('password/change', [PasswordChangeController::class, 'ChangeStore'])->name('admin.password.change');
+
 
     Route::get('search-districts', [ProfileController::class, 'searchDistricts']);
     Route::get('search-upazilas', [ProfileController::class, 'searchUpazilas']);
