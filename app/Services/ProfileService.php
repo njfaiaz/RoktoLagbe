@@ -2,34 +2,43 @@
 
 namespace App\Services;
 
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\DB;
 use App\Models\Profile;
+use Illuminate\Support\Facades\Storage;
+use App\Traits\ImageResizer;
 
 class ProfileService
 {
+    use ImageResizer;
+
     public function updateOrCreateProfile(array $data, int $userId, $image = null): string
     {
-        return DB::transaction(function () use ($data, $userId, $image) {
-            $data = array_merge([
-                'user_id' => $userId,
-            ], $data);
+        $profile = Profile::where('user_id', $userId)->first();
 
-            $profile = Profile::firstOrNew(['user_id' => $userId]);
-
-            $profile->fill($data)->save();
-
-            // Example: sync relationships if applicable
-            // $profile->interests()->sync($data['interests'] ?? []);
-
-            // Optional image handling (if using Spatie Media Library)
-            if ($image) {
-                $profile->addMedia($image)->toMediaCollection('image');
+        if ($profile) {
+            if ($profile->image && file_exists(public_path($profile->image))) {
+                unlink(public_path($profile->image));
             }
 
-            return $profile->wasRecentlyCreated
-                ? 'Profile created successfully!'
-                : 'Profile updated successfully!';
-        }, 5);
+            $profile->update($data);
+
+            if ($image) {
+                $result = $this->resizeAndSaveImage($image, 292, 292, 'images/profile');
+                $profile->image = $result['path'];
+                $profile->save();
+            }
+
+            return 'Profile updated successfully!';
+        } else {
+            $data['user_id'] = $userId;
+            $profile = Profile::create($data);
+
+            if ($image) {
+                $result = $this->resizeAndSaveImage($image, 292, 292, 'images/profile');
+                $profile->image = $result['path'];
+                $profile->save();
+            }
+
+            return 'Profile created successfully!';
+        }
     }
 }

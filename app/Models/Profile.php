@@ -21,7 +21,8 @@ class Profile extends Model implements HasMedia
         'gender',
         'blood_id',
         'phone_number',
-        'previous_donation_date'
+        'previous_donation_date',
+        'image'
     ];
     public function users()
     {

@@ -182,18 +182,6 @@
                         <div class="header">
                             <h2><strong>Basic</strong> Settings</h2>
 
-                            @if (session('success'))
-                                <div class="alert alert-success mt-2">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
-
-                            @if (session('error'))
-                                <div class="alert alert-danger mt-2">
-                                    {{ session('error') }}
-                                </div>
-                            @endif
-
                         </div>
                         <div class="body">
                             <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
@@ -203,8 +191,10 @@
                                     <div class="form-group">
 
                                         <input type="file" id="imageUpload" name="image" class="dropify"
-                                            data-max-file-size="2M" data-default-file=""
+                                            data-max-file-size="2M"
+                                            data-default-file="{{ optional($profile)->image ? asset($profile->image) : '' }}"
                                             data-msg-placeholder="Upload your Profile" />
+
                                     </div>
                                 </div>
 
@@ -256,11 +246,15 @@
                                 <div class="col-lg-12 col-md-12">
                                     <label for="previous_donation_date">Previous Donation Date :</label>
                                     <div class="form-group">
+                                        @php
+                                            $today = date('Y-m-d');
+                                        @endphp
+
                                         <input type="date"
                                             class="form-control @error('previous_donation_date') border border-danger @enderror"
                                             name="previous_donation_date"
                                             value="{{ old('previous_donation_date', $profile->previous_donation_date ?? '') }}"
-                                            required type="date">
+                                            max="{{ $today }}" required type="date">
                                         @error('previous_donation_date')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
