@@ -52,7 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     Route::get('profile/{username}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('profile/address/update', [ProfileController::class, 'addressUpdate'])->name('address.update');
-
+    Route::post('profile/name/change', [ProfileController::class, 'nameChange'])->name('admin.name.change');
 
     Route::post('password/change', [PasswordChangeController::class, 'ChangeStore'])->name('admin.password.change');
 

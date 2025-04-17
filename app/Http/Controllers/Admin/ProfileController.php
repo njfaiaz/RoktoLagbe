@@ -114,4 +114,20 @@ class ProfileController extends Controller
         );
         return back()->with($notification);
     }
+
+
+
+    public function NameChange(Request $request)
+    {
+        $id = Auth::user()->id;
+        $data = User::find($id);
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->save();
+        $notification = array(
+            'message' => ' User Profile Update Successfully',
+            'alert' => 'success'
+        );
+        return Redirect()->back()->with($notification);
+    }
 }

@@ -52,24 +52,25 @@
                             <h2><strong>Profile</strong> Settings</h2>
                         </div>
                         <div class="body">
-                            <form action="">
+                            <form action="{{ route('admin.name.change') }}" method="POST">
+                                @csrf
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Username" value=""
+                                        <input class="form-control" placeholder="Username" value="{{ $user->username }}"
                                             disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control" placeholder="Full Name" name="name"
-                                            value="">
+                                            value="{{ $user->name }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                        <input type="text"
+                                        <input type="email"
                                             class="form-control @error('email') border border-danger @enderror"
-                                            placeholder="Email Address" name="email" value="">
+                                            placeholder="Email Address" name="email" value="{{ $user->email }}">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-info">Save Changes</button>
@@ -91,8 +92,8 @@
                                         value="{{ old('district', $address?->district?->district_name) }}"
                                         placeholder="District Name">
                                     <input type="hidden" id="district_id" name="district_id"
-                                        value="{{ old('district_id', $address?->district_id) }}">
-                                    <ul id="district-list" class="dropdown-menu show w-100"></ul>
+                                        value="{{ old('district_id', $address?->district_id) }}" class="form-control">
+                                    <ul id="district-list"></ul>
 
                                     <!-- Display error for district -->
                                     @if ($errors->has('district_id'))
@@ -106,8 +107,8 @@
                                         value="{{ old('upazila', $address?->upazila?->upazila_name) }}"
                                         placeholder="Upazila Name">
                                     <input type="hidden" id="upazila_id" name="upazila_id"
-                                        value="{{ old('upazila_id', $address?->upazila_id) }}">
-                                    <ul id="upazila-list" class="dropdown-menu show w-100"></ul>
+                                        value="{{ old('upazila_id', $address?->upazila_id) }}" class="form-control">
+                                    <ul id="upazila-list"></ul>
 
                                     <!-- Display error for upazila -->
                                     @if ($errors->has('upazila_id'))
@@ -120,8 +121,8 @@
                                     <input type="text" class="form-control" id="union" autocomplete="off"
                                         value="{{ old('union', $address?->union?->union_name) }}" placeholder="Union Name">
                                     <input type="hidden" id="union_id" name="union_id"
-                                        value="{{ old('union_id', $address?->union_id) }}">
-                                    <ul id="union-list" class="dropdown-menu show w-100"></ul>
+                                        value="{{ old('union_id', $address?->union_id) }}" class="form-control">
+                                    <ul id="union-list"></ul>
 
                                     <!-- Display error for union -->
                                     @if ($errors->has('union_id'))
