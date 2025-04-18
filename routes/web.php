@@ -71,6 +71,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     Route::get('all/user', [UserListController::class, 'index'])->name('user.list');
     Route::get('all/userInactive', [UserListController::class, 'userInactive'])->name('inactive.user');
     Route::get('all/userActive', [UserListController::class, 'userActive'])->name('active.user');
+    Route::get('active/inactive/{id}', [UserListController::class, 'inActiveApprove'])->name('inactive.approve');
+    Route::get('active/active/{id}', [UserListController::class, 'ActiveApprove'])->name('active.approve');
 
     // ------------------------------ Admin Setting Page----------------------------------
     Route::get('setting', [SettingController::class, 'index'])->name('setting');

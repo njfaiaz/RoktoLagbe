@@ -28,4 +28,27 @@ class UserListController extends Controller
         $ActiveVendor = User::where('status', '1')->with('profiles', 'addresses')->get();
         return view('admin.user.Active_user', compact('ActiveVendor'));
     }
+
+    public function inActiveApprove(Request $request)
+    {
+        $users = User::findOrFail($request->id);
+        $status = $users->status === '2' ? '1' : '2';
+        $users->update(['status' => $status]);
+
+        return redirect()->back()->with([
+            'message' => "This User Is Blocked.",
+            'alert' => 'success',
+        ]);
+    }
+    public function ActiveApprove(Request $request)
+    {
+        $users = User::findOrFail($request->id);
+        $status = $users->status === '1' ? '2' : '1';
+        $users->update(['status' => $status]);
+
+        return redirect()->back()->with([
+            'message' => "This User Is Un-Blocked",
+            'alert' => 'success',
+        ]);
+    }
 }

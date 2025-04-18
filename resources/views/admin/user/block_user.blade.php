@@ -121,12 +121,9 @@
                                                     class="text-muted">{{ $user->addresses->union->union_name ?? 'N/A' }}</span>
                                             </td>
                                             <td class="footable-last-visible" style="display: table-cell;">
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-default waves-effect waves-float btn-sm waves-green"><i
-                                                        class="zmdi zmdi-edit"></i></a>
-                                                <a href="javascript:void(0);"
+                                                <a href="{{ route('active.approve', $user->id) }}"
                                                     class="btn btn-default waves-effect waves-float btn-sm waves-red"><i
-                                                        class="zmdi zmdi-delete"></i></a>
+                                                        class="zmdi zmdi-eye"></i></a>
                                             </td>
                                         </tr>
                                     @empty

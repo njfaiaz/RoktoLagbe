@@ -86,13 +86,6 @@
                                             </td>
 
 
-
-
-
-
-
-
-
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <h5>{{ $user->name }}</h5>
                                             </td>
@@ -129,10 +122,7 @@
                                                     class="text-muted">{{ $user->addresses->union->union_name ?? 'N/A' }}</span>
                                             </td>
                                             <td class="footable-last-visible" style="display: table-cell;">
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-default waves-effect waves-float btn-sm waves-green"><i
-                                                        class="zmdi zmdi-edit"></i></a>
-                                                <a href="javascript:void(0);"
+                                                <a href="{{ route('inactive.approve', $user->id) }}"
                                                     class="btn btn-default waves-effect waves-float btn-sm waves-red"><i
                                                         class="zmdi zmdi-delete"></i></a>
                                             </td>

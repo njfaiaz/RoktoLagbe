@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+.btn-simple {
+    visibility: hidden;
+    display: none;
+}
+.filter-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px;
+}
+.filter-section select,
+.filter-section input[type="text"] {
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.filter-section input[type="text"] {
+    width: 15%;
+}
+.filter-section input[type="text"]::placeholder {
+    color: #999;
+}
+
+@media screen and (max-width: 767px) {
+    .filter-section {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 5px;
+    }
+    .filter-section select {
+        width: 100%;
+    }
+    .filter-section input {
+        width: 100% !important;
+    }
+}

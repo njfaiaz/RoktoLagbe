@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
-
+@push('style')
+    <link rel="stylesheet" href="{{ asset('assets/coustom/css/search.css') }}">
+@endpush
 @section('title', 'All User List')
 @section('content')
 
@@ -27,6 +29,36 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="table-responsive">
+
+
+                            <div class="filter-section">
+                                <select>
+                                    <option hidden>Select Blood</option>
+                                    <option>A+</option>
+                                    <option>B+</option>
+                                </select>
+
+                                <input type="text" id="district" autocomplete="off" placeholder="District Name">
+
+                                <input type="text" id="upazila" autocomplete="off" placeholder="Upazila Name">
+
+
+                                <input type="text" id="union" autocomplete="off" placeholder="Union Name">
+
+                                <select>
+                                    <option>zader blad dewar somoy hoiche</option>
+                                    <option>zader sob 00 00 00 </option>
+                                    <option>All User</option>
+                                </select>
+
+                                <a class="btn filter_search" href="">Search </a>
+                                <a class="btn filter_search" href="">Reset </a>
+
+
+                            </div>
+
+
+
                             <table
                                 class="table table-hover product_item_list c_table theme-color mb-0 footable footable-1 footable-paging footable-paging-center breakpoint-lg"
                                 style="">
@@ -85,14 +117,6 @@
 
                                             </td>
 
-
-
-
-
-
-
-
-
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <h5>{{ $user->name }}</h5>
                                             </td>
@@ -103,7 +127,8 @@
                                                 <span class="text-muted">{{ $user->email }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                <span class="text-muted">{{ $user->profiles->phone_number ?? 'N/A' }}</span>
+                                                <span
+                                                    class="text-muted">{{ $user->profiles->phone_number ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
@@ -129,10 +154,7 @@
                                                     class="text-muted">{{ $user->addresses->union->union_name ?? 'N/A' }}</span>
                                             </td>
                                             <td class="footable-last-visible" style="display: table-cell;">
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-default waves-effect waves-float btn-sm waves-green"><i
-                                                        class="zmdi zmdi-edit"></i></a>
-                                                <a href="javascript:void(0);"
+                                                <a href="{{ route('inactive.approve', $user->id) }}"
                                                     class="btn btn-default waves-effect waves-float btn-sm waves-red"><i
                                                         class="zmdi zmdi-delete"></i></a>
                                             </td>
@@ -167,23 +189,6 @@
             </div>
         </div>
     </div>
-    @push('footer_scripts')
-        <script src="{{ asset('assets/admin/plugins/dropify/js/dropify.min.js') }}"></script>
-        <script>
-            $(document).ready(function() {
-                // Initialize Dropify
-                $('.dropify').dropify({
-                    messages: {
-                        'default': 'Upload Your Login Image',
-                        'replace': 'Are you sure to upload this image?',
-                        'remove': 'Remove',
-                        'error': 'Oops! Something went wrong.'
-                    }
-                });
-            });
-        </script>
-        <script src="{{ asset('assets/admin/js/pages/forms/dropify.js') }}"></script>
-        <script src="{{ asset('assets/coustom/address.js') }}"></script>
-    @endpush
+
 
 @endsection
