@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PasswordChangeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialiteController;
+use App\Http\Controllers\Admin\UserListController;
 use App\Http\Controllers\Frontend\FrDonateInfoController;
 use App\Http\Controllers\Frontend\FrHistoryController;
 use App\Http\Controllers\Frontend\FrProfileController;
@@ -64,6 +65,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
 
     // ------------------------------ Admin Address Page----------------------------------
     Route::get('address', [AddressController::class, 'index'])->name('address');
+
+
+    // ------------------------------ Admin User List Page----------------------------------
+    Route::get('all/user', [UserListController::class, 'index'])->name('user.list');
+    Route::get('all/userInactive', [UserListController::class, 'userInactive'])->name('inactive.user');
+    Route::get('all/userActive', [UserListController::class, 'userActive'])->name('active.user');
 
     // ------------------------------ Admin Setting Page----------------------------------
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
