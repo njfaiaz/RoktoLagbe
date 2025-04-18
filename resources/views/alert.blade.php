@@ -30,7 +30,7 @@
 
 
 
-<script src="{{ asset('admin/assets/sweetalert.min.js') }}"></script>
+<script src="{{ asset('assets/coustom/js/sweetalert.min.js') }}"></script>
 
 <script>
     $(document).on("click", "#delete", function(e) {
@@ -57,12 +57,12 @@
 </script>
 
 <script>
-    $(document).on("click", "#deleteInactive", function(e) {
+    $(document).on("click", "#block", function(e) {
         e.preventDefault();
         var link = $(this).attr("href");
 
         swal({
-                title: "Are you sure To Inactive?",
+                title: "Are you sure you want to block this user?",
                 text: "Once Inactive,",
                 icon: "warning",
                 buttons: true,
@@ -79,114 +79,13 @@
             });
     });
 </script>
-
-
 <script>
-    $(document).on("click", "#confirm", function(e) {
+    $(document).on("click", "#unBlock", function(e) {
         e.preventDefault();
         var link = $(this).attr("href");
 
         swal({
-                title: 'Are you sure to Confirm?',
-                text: "Once Confirm, You will not be able to pending again?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    window.location.href = link;
-
-                } else {
-                    swal("Your imaginary file is safe!");
-                }
-
-            });
-    });
-</script>
-
-
-<script>
-    $(document).on("click", "#processing", function(e) {
-        e.preventDefault();
-        var link = $(this).attr("href");
-
-        swal({
-                title: 'Are you sure to Processing?',
-                text: "Once Processing, You will not be able to pending again?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    window.location.href = link;
-
-                } else {
-                    swal("Your imaginary file is safe!");
-                }
-
-            });
-    });
-</script>
-
-
-<script>
-    $(document).on("click", "#delivered", function(e) {
-        e.preventDefault();
-        var link = $(this).attr("href");
-
-        swal({
-                title: 'Are you sure to Delivered?',
-                text: "Once Delivered, You will not be able to pending again?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    window.location.href = link;
-
-                } else {
-                    swal("Your imaginary file is safe!");
-                }
-
-            });
-    });
-</script>
-
-
-<script>
-    $(document).on("click", "#approved", function(e) {
-        e.preventDefault();
-        var link = $(this).attr("href");
-
-        swal({
-                title: 'Are you sure to Approved?',
-                text: "Return Order Approved",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    window.location.href = link;
-
-                } else {
-                    swal("Your imaginary file is safe!");
-                }
-
-            });
-    });
-</script>
-
-<script>
-    $(document).on("click", "#deleteactive", function(e) {
-        e.preventDefault();
-        var link = $(this).attr("href");
-
-        swal({
-                title: "Are you sure To Active?",
+                title: "Are you sure you want to un-block this user?",
                 text: "Once Inactive,",
                 icon: "warning",
                 buttons: true,
@@ -202,26 +101,4 @@
 
             });
     });
-
-    // ----------- Message Alert ----------------------
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 3000
-    })
-    if ($.isEmptyObject(data.error)) {
-
-        Toast.fire({
-            type: 'success',
-            title: data.success,
-        })
-    } else {
-
-        Toast.fire({
-            type: 'error',
-            title: data.error,
-        })
-    } //Message End
 </script>

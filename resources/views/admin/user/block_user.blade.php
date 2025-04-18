@@ -121,7 +121,7 @@
                                                     class="text-muted">{{ $user->addresses->union->union_name ?? 'N/A' }}</span>
                                             </td>
                                             <td class="footable-last-visible" style="display: table-cell;">
-                                                <a href="{{ route('active.approve', $user->id) }}"
+                                                <a href="{{ route('active.approve', $user->id) }}" id="unBlock"
                                                     class="btn btn-default waves-effect waves-float btn-sm waves-red"><i
                                                         class="zmdi zmdi-eye"></i></a>
                                             </td>
@@ -156,23 +156,4 @@
             </div>
         </div>
     </div>
-    @push('footer_scripts')
-        <script src="{{ asset('assets/admin/plugins/dropify/js/dropify.min.js') }}"></script>
-        <script>
-            $(document).ready(function() {
-                // Initialize Dropify
-                $('.dropify').dropify({
-                    messages: {
-                        'default': 'Upload Your Login Image',
-                        'replace': 'Are you sure to upload this image?',
-                        'remove': 'Remove',
-                        'error': 'Oops! Something went wrong.'
-                    }
-                });
-            });
-        </script>
-        <script src="{{ asset('assets/admin/js/pages/forms/dropify.js') }}"></script>
-        <script src="{{ asset('assets/coustom/address.js') }}"></script>
-    @endpush
-
 @endsection

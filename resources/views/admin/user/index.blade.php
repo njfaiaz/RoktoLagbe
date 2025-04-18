@@ -154,7 +154,7 @@
                                                     class="text-muted">{{ $user->addresses->union->union_name ?? 'N/A' }}</span>
                                             </td>
                                             <td class="footable-last-visible" style="display: table-cell;">
-                                                <a href="{{ route('inactive.approve', $user->id) }}"
+                                                <a href="{{ route('inactive.approve', $user->id) }}" id="block"
                                                     class="btn btn-default waves-effect waves-float btn-sm waves-red"><i
                                                         class="zmdi zmdi-delete"></i></a>
                                             </td>
