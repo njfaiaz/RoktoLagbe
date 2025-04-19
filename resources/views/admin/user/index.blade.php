@@ -30,13 +30,22 @@
                     <div class="card">
                         <div class="table-responsive">
 
-
+                            {{-- Search Option ------------------------------------------------------------------------------------ --}}
                             <div class="filter-section">
-                                <select>
-                                    <option hidden>Select Blood</option>
-                                    <option>A+</option>
-                                    <option>B+</option>
+
+                                <select name="blood_id" id="blood_group">
+                                    <option selected disabled>Select Your Blood Group</option>
+                                    @foreach ($bloods as $blood)
+                                        <option value="{{ $blood->id }}">
+                                            {{ $blood->blood_name }}
+                                        </option>
+                                    @endforeach
                                 </select>
+
+
+
+
+
 
                                 <input type="text" id="district" autocomplete="off" placeholder="District Name">
 
@@ -58,7 +67,7 @@
                             </div>
 
 
-
+                            {{-- Table --------------------------------------------------------------------- --}}
                             <table
                                 class="table table-hover product_item_list c_table theme-color mb-0 footable footable-1 footable-paging footable-paging-center breakpoint-lg"
                                 style="">

@@ -12,8 +12,9 @@ class UserListController extends Controller
     public function index()
     {
         $users = User::with('profiles', 'addresses')->get();
+        $bloods    = Blood::all();
         // return response()->json($users);
-        return view('admin.user.index', compact('users'));
+        return view('admin.user.index', compact('users', 'bloods'));
     }
 
     public function userInactive()

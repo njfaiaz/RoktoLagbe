@@ -64,10 +64,6 @@ class ProfileController extends Controller
     }
 
 
-
-
-
-
     public function searchDistricts(Request $request)
     {
         $query     = $request->get('query');

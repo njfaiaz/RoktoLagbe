@@ -5,14 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Profile extends Model implements HasMedia
+class Profile extends Model
 {
     use HasFactory;
-    use InteractsWithMedia;
-    public const PLACEHOLDER_IMAGE_PATH = 'images/profile_av.jpg';
 
 
 
