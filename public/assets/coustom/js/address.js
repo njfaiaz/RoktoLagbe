@@ -19,9 +19,11 @@ function autocompleteInput(
             $(`#${listId}`).empty();
             data.forEach((item) => {
                 $(`#${listId}`).append(
-                    `<li class="form-control" data-id="${item.id}" data-name="${
+                    `<li class="form-control bg-blush" data-id="${
+                        item.id
+                    }" data-name="${item[`${inputId}_name`]}">${
                         item[`${inputId}_name`]
-                    }">${item[`${inputId}_name`]}</li>`
+                    }</li>`
                 );
             });
         });

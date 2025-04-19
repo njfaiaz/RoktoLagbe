@@ -43,21 +43,61 @@
                                 </select>
 
 
+                                <div>
+                                    <label></label>
+                                    <input type="text" class="form-control w-100" id="district" autocomplete="off"
+                                        value="{{ old('district', $address?->district?->district_name) }}"
+                                        placeholder="District Name">
+                                    <input type="hidden" id="district_id" name="district_id"
+                                        value="{{ old('district_id', $address?->district_id) }}">
+                                    <ul id="district-list"></ul>
+
+                                    @if ($errors->has('district_id'))
+                                        <span class="text-danger">{{ $errors->first('district_id') }}</span>
+                                    @endif
+                                </div>
+
+                                <div>
+                                    <label></label>
+                                    <input type="text" class="form-control w-100" id="upazila" autocomplete="off"
+                                        value="{{ old('upazila', $address?->upazila?->upazila_name) }}"
+                                        placeholder="Upazila Name">
+                                    <input type="hidden" id="upazila_id" name="upazila_id"
+                                        value="{{ old('upazila_id', $address?->upazila_id) }}" class="form-control w-100">
+                                    <ul id="upazila-list"></ul>
+
+                                    @if ($errors->has('upazila_id'))
+                                        <span class="text-danger">{{ $errors->first('upazila_id') }}</span>
+                                    @endif
+                                </div>
+
+                                <div>
+                                    <label></label>
+                                    <input type="text" class="form-control w-100" id="union" autocomplete="off"
+                                        value="{{ old('union', $address?->union?->union_name) }}" placeholder="Union Name">
+                                    <input type="hidden" id="union_id" name="union_id"
+                                        value="{{ old('union_id', $address?->union_id) }}" class="form-control w-100">
+                                    <ul id="union-list"></ul>
+
+                                    @if ($errors->has('union_id'))
+                                        <span class="text-danger">{{ $errors->first('union_id') }}</span>
+                                    @endif
+                                </div>
 
 
 
 
-                                <input type="text" id="district" autocomplete="off" placeholder="District Name">
+                                {{-- <input type="text" id="district" autocomplete="off" placeholder="District Name">
 
                                 <input type="text" id="upazila" autocomplete="off" placeholder="Upazila Name">
 
 
-                                <input type="text" id="union" autocomplete="off" placeholder="Union Name">
+                                <input type="text" id="union" autocomplete="off" placeholder="Union Name"> --}}
 
                                 <select>
+                                    <option>All User</option>
                                     <option>zader blad dewar somoy hoiche</option>
                                     <option>zader sob 00 00 00 </option>
-                                    <option>All User</option>
                                 </select>
 
                                 <a class="btn filter_search" href="">Search </a>
@@ -93,16 +133,20 @@
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
                                             Gender<span class="fooicon fooicon-sort"></span>
                                         </th>
-                                        <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
+                                        <th data-breakpoints="xs md" class="footable-sortable"
+                                            style="display: table-cell;">
                                             Last Blood Donation Date<span class="fooicon fooicon-sort"></span>
                                         </th>
-                                        <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
+                                        <th data-breakpoints="xs md" class="footable-sortable"
+                                            style="display: table-cell;">
                                             District Name<span class="fooicon fooicon-sort"></span>
                                         </th>
-                                        <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
+                                        <th data-breakpoints="xs md" class="footable-sortable"
+                                            style="display: table-cell;">
                                             Upazila Name<span class="fooicon fooicon-sort"></span>
                                         </th>
-                                        <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
+                                        <th data-breakpoints="xs md" class="footable-sortable"
+                                            style="display: table-cell;">
                                             Union Name<span class="fooicon fooicon-sort"></span>
                                         </th>
                                         <th data-breakpoints="sm xs md" class="footable-sortable footable-last-visible"
@@ -199,5 +243,32 @@
         </div>
     </div>
 
+    {{-- Address Search Option Script --------------------------------------------------- --}}
+    @push('footer_scripts')
+        <script src="{{ asset('assets/coustom/js/address.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                autocompleteInput('district', 'district-list', 'district_id', '/admin/user-search-districts', () =>
+                    ({}),
+                    () => {
+                        $('#upazila, #upazila_id').val('');
+                        $('#upazila-list').empty();
+                        $('#union, #union_id').val('');
+                        $('#union-list').empty();
+                    });
+
+                autocompleteInput('upazila', 'upazila-list', 'upazila_id', '/admin/user-search-upazilas', () => ({
+                    district_id: $('#district_id').val()
+                }), () => {
+                    $('#union, #union_id').val('');
+                    $('#union-list').empty();
+                });
+
+                autocompleteInput('union', 'union-list', 'union_id', '/admin/user-search-unions', () => ({
+                    upazila_id: $('#upazila_id').val()
+                }));
+            });
+        </script>
+    @endpush
 
 @endsection

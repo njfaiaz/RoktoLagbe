@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blood;
+use App\Models\District;
+use App\Models\Union;
+use App\Models\Upazila;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,11 +14,63 @@ class UserListController extends Controller
 {
     public function index()
     {
-        $users = User::with('profiles', 'addresses')->get();
-        $bloods    = Blood::all();
-        // return response()->json($users);
-        return view('admin.user.index', compact('users', 'bloods'));
+        $users = User::with('profiles', 'addresses.district', 'addresses.upazila', 'addresses.union')->get();
+        $bloods = Blood::all();
+        $user = auth()->user();
+
+        // Check if user has addresses and safely access the first address
+        $address = $user->addresses ? $user->addresses->first() : null;
+
+        return view('admin.user.index', compact('users', 'bloods', 'user', 'address'));
     }
+
+
+
+
+
+
+    public function searchDistricts(Request $request)
+    {
+        $query     = $request->get('query');
+        $districts = District::where('district_name', 'LIKE', "%$query%")->get();
+        return response()->json($districts);
+    }
+
+    public function searchUpazilas(Request $request)
+    {
+        $query      = $request->get('query');
+        $districtId = $request->get('district_id');
+        $upazilas   = Upazila::where('district_id', $districtId)
+            ->where('upazila_name', 'LIKE', "%$query%")
+            ->get();
+        return response()->json($upazilas);
+    }
+
+    public function searchUnions(Request $request)
+    {
+        $query     = $request->get('query');
+        $upazilaId = $request->get('upazila_id');
+        $unions    = Union::where('upazila_id', $upazilaId)
+            ->where('union_name', 'LIKE', "%$query%")
+            ->get();
+        return response()->json($unions);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function userInactive()
     {

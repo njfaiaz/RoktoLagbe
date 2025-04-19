@@ -2,6 +2,13 @@ body {
     font-family: Arial, sans-serif;
     padding: 20px;
 }
+dl,
+ol,
+ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    height: 0;
+}
 .btn-simple {
     visibility: hidden;
     display: none;
