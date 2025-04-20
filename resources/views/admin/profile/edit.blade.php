@@ -52,6 +52,7 @@
                             <h2><strong>Profile</strong> Settings</h2>
                         </div>
                         <div class="body">
+<<<<<<< HEAD
                             <form action="">
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
@@ -66,32 +67,153 @@
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control" placeholder="Username" value=""
+=======
+                            <form action="{{ route('admin.name.change') }}" method="POST">
+                                @csrf
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Username" value="{{ $user->username }}"
+>>>>>>> main
                                             disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control" placeholder="Full Name" name="name"
+<<<<<<< HEAD
                                             value="">
+=======
+                                            value="{{ $user->name }}">
+>>>>>>> main
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
+<<<<<<< HEAD
                                         <input type="text"
                                             class="form-control @error('email') border border-danger @enderror"
                                             placeholder="Email Address" name="email" value="">
+=======
+                                        <input type="email"
+                                            class="form-control @error('email') border border-danger @enderror"
+                                            placeholder="Email Address" name="email" value="{{ $user->email }}">
+>>>>>>> main
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-info">Save Changes</button>
                             </form>
                         </div>
                     </div>
+<<<<<<< HEAD
+=======
+                    <div class="card">
+                        <div class="header">
+                            <h2><strong>Address Change</strong> Settings</h2>
+                        </div>
+                        <div class="body">
+
+
+                            <form method="POST" action="{{ route('address.update') }}">
+                                @csrf
+                                <div>
+                                    <label></label>
+                                    <input type="text" class="form-control" id="district" autocomplete="off"
+                                        value="{{ old('district', $address?->district?->district_name) }}"
+                                        placeholder="District Name">
+                                    <input type="hidden" id="district_id" name="district_id"
+                                        value="{{ old('district_id', $address?->district_id) }}" class="form-control">
+                                    <ul id="district-list"></ul>
+
+                                    <!-- Display error for district -->
+                                    @if ($errors->has('district_id'))
+                                        <span class="text-danger">{{ $errors->first('district_id') }}</span>
+                                    @endif
+                                </div>
+
+                                <div>
+                                    <label></label>
+                                    <input type="text" class="form-control" id="upazila" autocomplete="off"
+                                        value="{{ old('upazila', $address?->upazila?->upazila_name) }}"
+                                        placeholder="Upazila Name">
+                                    <input type="hidden" id="upazila_id" name="upazila_id"
+                                        value="{{ old('upazila_id', $address?->upazila_id) }}" class="form-control">
+                                    <ul id="upazila-list"></ul>
+
+                                    <!-- Display error for upazila -->
+                                    @if ($errors->has('upazila_id'))
+                                        <span class="text-danger">{{ $errors->first('upazila_id') }}</span>
+                                    @endif
+                                </div>
+
+                                <div>
+                                    <label></label>
+                                    <input type="text" class="form-control" id="union" autocomplete="off"
+                                        value="{{ old('union', $address?->union?->union_name) }}" placeholder="Union Name">
+                                    <input type="hidden" id="union_id" name="union_id"
+                                        value="{{ old('union_id', $address?->union_id) }}" class="form-control">
+                                    <ul id="union-list"></ul>
+
+                                    <!-- Display error for union -->
+                                    @if ($errors->has('union_id'))
+                                        <span class="text-danger">{{ $errors->first('union_id') }}</span>
+                                    @endif
+                                </div>
+
+                                <button type="submit" class="btn btn-info mt-3">Update Address</button>
+                            </form>
+
+
+                        </div>
+                    </div>
+
+                    <div class="card ">
+                        <div class="header">
+                            <h2><strong>Password</strong> Change</h2>
+                        </div>
+                        <div class="body">
+                            <form action="{{ route('admin.password.change') }}" method="POST">
+                                @csrf
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="password" name="old_password" class="form-control"
+                                            placeholder="Enter Old password" />
+                                        @error('old_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="password" name="new_password" class="form-control"
+                                            placeholder="Enter New password" />
+                                        @error('new_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="password" name="con_password" class="form-control"
+                                            placeholder="Enter Confirm password" />
+                                        @error('con_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-info submit font-weight-bold" name="submit"
+                                    value="Submit">Password Change</button>
+                            </form>
+                        </div>
+                    </div>
+
+>>>>>>> main
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="card">
                         <div class="header">
                             <h2><strong>Basic</strong> Settings</h2>
 
+<<<<<<< HEAD
                             @if (session('success'))
                                 <div class="alert alert-success mt-2">
                                     {{ session('success') }}
@@ -112,6 +234,30 @@
                                     <label for="phone_number">User Phone Number :</label>
                                     <div class="form-group">
                                         <input type="text" name="phone_number" value="{{ $profile->phone_number ?? '' }}"
+=======
+                        </div>
+                        <div class="body">
+                            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+
+                                        <input type="file" id="imageUpload" name="image" class="dropify"
+                                            data-max-file-size="2M"
+                                            data-default-file="{{ optional($profile)->image ? asset($profile->image) : '' }}"
+                                            data-msg-placeholder="Upload your Profile" />
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12 col-md-12">
+                                    <label for="phone_number">User Phone Number :</label>
+                                    <div class="form-group">
+                                        <input type="text" name="phone_number" type="number"
+                                            value="{{ old('phone_number', $profile->phone_number ?? '') }}"
+>>>>>>> main
                                             class="form-control @error('phone_number') border border-danger @enderror"
                                             placeholder="Phone Number" required>
                                         @error('phone_number')
@@ -154,10 +300,22 @@
                                 <div class="col-lg-12 col-md-12">
                                     <label for="previous_donation_date">Previous Donation Date :</label>
                                     <div class="form-group">
+<<<<<<< HEAD
                                         <input type="date"
                                             class="form-control @error('previous_donation_date') border border-danger @enderror"
                                             name="previous_donation_date"
                                             value="{{ $profile->previous_donation_date ?? '' }}" required>
+=======
+                                        @php
+                                            $today = date('Y-m-d');
+                                        @endphp
+
+                                        <input type="date"
+                                            class="form-control @error('previous_donation_date') border border-danger @enderror"
+                                            name="previous_donation_date"
+                                            value="{{ old('previous_donation_date', $profile->previous_donation_date ?? '') }}"
+                                            max="{{ $today }}" required type="date">
+>>>>>>> main
                                         @error('previous_donation_date')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -168,6 +326,7 @@
                             </form>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div class="card">
                         <div class="header">
                             <h2><strong>Address Change</strong> Settings</h2>
@@ -212,6 +371,9 @@
                             </form>
                         </div>
                     </div>
+=======
+
+>>>>>>> main
                 </div>
             </div>
         </div>
@@ -234,6 +396,7 @@
             });
         </script>
         <script src="{{ asset('assets/admin/js/pages/forms/dropify.js') }}"></script>
+<<<<<<< HEAD
         <script src="{{ asset('assets/coustom/address.js') }}"></script>
 
         <script>
@@ -329,6 +492,30 @@
                         $('#union-list').empty();
                     });
                 }
+=======
+
+        <script src="{{ asset('assets/coustom/js/address.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                autocompleteInput('district', 'district-list', 'district_id', '/admin/search-districts', () => ({}),
+                    () => {
+                        $('#upazila, #upazila_id').val('');
+                        $('#upazila-list').empty();
+                        $('#union, #union_id').val('');
+                        $('#union-list').empty();
+                    });
+
+                autocompleteInput('upazila', 'upazila-list', 'upazila_id', '/admin/search-upazilas', () => ({
+                    district_id: $('#district_id').val()
+                }), () => {
+                    $('#union, #union_id').val('');
+                    $('#union-list').empty();
+                });
+
+                autocompleteInput('union', 'union-list', 'union_id', '/admin/search-unions', () => ({
+                    upazila_id: $('#upazila_id').val()
+                }));
+>>>>>>> main
             });
         </script>
     @endpush

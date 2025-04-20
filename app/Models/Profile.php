@@ -5,12 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+<<<<<<< HEAD
 class Profile extends Model
 {
     use HasFactory;
     protected $_guarded = ['id'];
     protected $fillable = [
         'user_id', 'gender', 'blood_id', 'phone_number', 'previous_donation_date'
+=======
+
+class Profile extends Model
+{
+    use HasFactory;
+
+
+
+    protected $fillable = [
+        'user_id',
+        'gender',
+        'blood_id',
+        'phone_number',
+        'previous_donation_date',
+        'image'
+>>>>>>> main
     ];
     public function users()
     {

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
+=======
+use App\Http\Requests\RequestAddress;
+use App\Http\Requests\UpdateProfileRequest;
+>>>>>>> main
 use App\Models\Address;
 use App\Models\Blood;
 use App\Models\District;
@@ -10,6 +15,10 @@ use App\Models\Profile;
 use App\Models\Union;
 use App\Models\Upazila;
 use App\Models\User;
+<<<<<<< HEAD
+=======
+use App\Services\ProfileService;
+>>>>>>> main
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +38,11 @@ class ProfileController extends Controller
         $profile = Profile::with('bloods')
             ->where('user_id', Auth::id())
             ->first();
+<<<<<<< HEAD
             $user = auth()->user();
+=======
+        $user = auth()->user();
+>>>>>>> main
         $bloods    = Blood::all();
         $districts = District::all();
         $upazilaes = Upazila::all();
@@ -39,6 +52,7 @@ class ProfileController extends Controller
         return view('admin.profile.edit', compact('profile', 'bloods', 'districts', 'unions', 'upazilaes', 'address', 'user'));
     }
 
+<<<<<<< HEAD
     public function update(Request $request)
     {
         // Validate the incoming data
@@ -72,6 +86,30 @@ class ProfileController extends Controller
         return redirect()->back()->with($alertType, $message);
     }
 
+=======
+
+
+    public function update(UpdateProfileRequest $request, ProfileService $profileService)
+    {
+        $userId = auth()->id();
+
+        $image = $request->hasFile('image') ? $request->file('image') : null;
+
+        $message = $profileService->updateOrCreateProfile(
+            $request->validated(),
+            $userId,
+            $image
+        );
+
+        $notification = array(
+            'message' => ' Profile updated successfully!',
+            'alert' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+
+>>>>>>> main
     public function searchDistricts(Request $request)
     {
         $query     = $request->get('query');
@@ -99,6 +137,7 @@ class ProfileController extends Controller
         return response()->json($unions);
     }
 
+<<<<<<< HEAD
     public function addressUpdate(Request $request)
     {
         // Validate the incoming request
@@ -135,5 +174,41 @@ class ProfileController extends Controller
 
         // Return a success response
         return back()->with('success', 'Address updated successfully!');
+=======
+
+
+
+
+    public function addressUpdate(RequestAddress $request)
+    {
+        $userId = auth()->id();
+
+        Address::updateOrCreate(
+            ['user_id' => $userId],
+            $request->validated()
+        );
+
+        $notification = array(
+            'message' => ' Address updated successfully!',
+            'alert' => 'success'
+        );
+        return back()->with($notification);
+    }
+
+
+
+    public function NameChange(Request $request)
+    {
+        $id = Auth::user()->id;
+        $data = User::find($id);
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->save();
+        $notification = array(
+            'message' => ' User Profile Update Successfully',
+            'alert' => 'success'
+        );
+        return Redirect()->back()->with($notification);
+>>>>>>> main
     }
 }

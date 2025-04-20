@@ -16,7 +16,12 @@ class DatabaseSeeder extends Seeder
             UnionSeeder::class,
             AddressSeeder::class,
             BloodSeeder::class,
+<<<<<<< HEAD
             // ProfileSeeder::class
+=======
+            ProfileSeeder::class,
+            DonateHistorySeeder::class
+>>>>>>> main
         ]);
     }
 }

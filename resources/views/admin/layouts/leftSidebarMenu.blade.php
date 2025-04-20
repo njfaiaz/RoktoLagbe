@@ -25,6 +25,27 @@
                       <li><a href="{{ route('address') }}">Address List</a></li>
                   </ul>
               </li>
+<<<<<<< HEAD
+=======
+              <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-hc-fw"></i>
+                      <span>User</span></a>
+                  <ul class="ml-menu">
+                      <li><a href="{{ route('user.list') }}">All User List</a></li>
+                      <li><a href="{{ route('active.user') }}">Active User List</a></li>
+                      <li><a href="{{ route('inactive.user') }}">Inactive User List</a></li>
+                  </ul>
+              </li>
+              <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-hc-fw"></i>
+                      <span>Blood Donate History</span></a>
+                  <ul class="ml-menu">
+                      <li><a href="{{ route('donate.history') }}">All Donate History</a></li>
+                  </ul>
+              </li>
+
+
+
+
+>>>>>>> main
               <li class="active open">
                   <a href="{{ route('setting') }}">
                       <i class="zmdi zmdi-settings"></i><span>Setting</span></a>

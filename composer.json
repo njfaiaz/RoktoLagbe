@@ -11,7 +11,12 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+<<<<<<< HEAD
         "laravel/ui": "^4.6"
+=======
+        "laravel/ui": "^4.6",
+        "spatie/laravel-medialibrary": "^10.0.0"
+>>>>>>> main
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -11,6 +11,11 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/style.min.css') }}">
+<<<<<<< HEAD
+=======
+    <link rel="stylesheet" href="{{ asset('assets/coustom/css/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/coustom/css/toastr.css') }}">
+>>>>>>> main
 
     @stack('style')
 </head>
@@ -294,7 +299,14 @@
     <script src="{{ asset('assets/admin/bundles/jquery.js') }}"></script>
     <script src="{{ asset('assets/admin/bundles/vendorscripts.bundle.js') }}"></script>
     <script src="{{ asset('assets/admin/bundles/mainscripts.bundle.js') }}"></script>
+<<<<<<< HEAD
     <script src="{{ asset('assets/admin/') }}"></script>
+=======
+
+    @include('alert')
+
+
+>>>>>>> main
 
     @stack('footer_scripts')
 </body>
