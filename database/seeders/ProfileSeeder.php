@@ -14,21 +14,19 @@ class ProfileSeeder extends Seeder
 {
     public function run(): void
     {
-        $users = User::pluck('id')->toArray();
-        $gender = ['Male', 'Female'];
-        $blood = Blood::pluck('id')->toArray();
+        $genderOptions = ['Male', 'Female'];
+        $bloods = Blood::pluck('id')->toArray();
 
+        $users = User::all();
 
-        for ($i = 1; $i <= 1; $i++) {
-
+        foreach ($users as $user) {
             Profile::create([
-                'user_id' => 01,
-                // 'user_id' => $users[array_rand($users)],
-                'blood_id' => $blood[array_rand($blood)],
-                'gender' => $gender[array_rand($gender)],
-                'phone_number' => rand(200, 99999999999),
+                'user_id' => $user->id,
+                'blood_id' => $bloods[array_rand($bloods)],
+                'gender' => $genderOptions[array_rand($genderOptions)],
+                'phone_number' => '01' . rand(100000000, 999999999),
                 'image' => 'images/profile_av.jpg',
-                'previous_donation_date' => Carbon::now(),
+                'previous_donation_date' => Carbon::now()->subDays(rand(0, 365)),
             ]);
         }
     }

@@ -14,7 +14,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->enum('gender', ['Male', 'Female'])->nullable();
-            $table->foreignId('blood_id')->nullable()->unique();
+            $table->foreignId('blood_id')->nullable();
             $table->string('phone_number')->nullable()->unique();
             $table->date('previous_donation_date')->nullable();
             $table->string('image')->nullable();

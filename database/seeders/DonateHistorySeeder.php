@@ -19,17 +19,15 @@ class DonateHistorySeeder extends Seeder
         $blood = Blood::pluck('id')->toArray();
         $gender = ['Male', 'Female'];
 
-        for ($i = 0; $i < 10; $i++) {
+        foreach ($users as $user) {
             $district = District::inRandomOrder()->first();
 
-            // Select an upazila that belongs to this district
             $upazila = Upazila::where('district_id', $district->id)->inRandomOrder()->first();
 
-            // Select a union that belongs to this upazila
             $union = Union::where('upazila_id', $upazila?->id)->inRandomOrder()->first();
 
             DonateHistory::create([
-                'user_id' => $users->random()->id ?? null,
+                'user_id' => $user->id, // Ensure each user gets one DonateHistory record
                 'blood_receiver_name' => fake()->name(),
                 'blood_receiver_number' => rand(200, 99999999999),
                 'blood_id' => $blood[array_rand($blood)],

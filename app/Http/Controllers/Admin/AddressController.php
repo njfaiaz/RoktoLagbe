@@ -11,7 +11,8 @@ class AddressController extends Controller
     public function index()
     {
         $addresses = District::with('upazilas.unions')->get();
-        // return response()->json($addresses);
+
+        // return response()->json($data);
 
         return view('admin.address.index', compact('addresses'));
     }

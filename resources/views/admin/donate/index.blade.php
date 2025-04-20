@@ -61,6 +61,9 @@
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
                                             Union Name<span class="fooicon fooicon-sort"></span>
                                         </th>
+                                        <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
+                                            Patient Details<span class="fooicon fooicon-sort"></span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,11 +78,11 @@
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
-                                                    class="text-muted">{{ $user->donateHistory->blood_receiver_name }}</span>
+                                                    class="text-muted">{{ $user->donateHistory->blood_receiver_name ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
-                                                    class="text-muted">{{ $user->donateHistory->blood_receiver_number }}</span>
+                                                    class="text-muted">{{ $user->donateHistory->blood_receiver_number ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
@@ -90,9 +93,10 @@
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span class="text-muted">
-                                                    {{ $user->donateHistory->created_at ? $user->donateHistory->created_at->format('F d, Y') : 'N/A' }}
+                                                    {{ $user->donateHistory ? $user->donateHistory->created_at->format('F d, Y') : 'N/A' }}
                                                 </span>
                                             </td>
+
 
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
@@ -106,6 +110,14 @@
                                                 <span
                                                     class="text-muted">{{ $user->donateHistory->union->union_name ?? 'N/A' }}</span>
                                             </td>
+
+                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
+                                                <span class="col-green">
+                                                    {{ Str::words($user->donateHistory->patient_details ?? 'N/A', 10) }}
+                                                </span>
+                                            </td>
+
+
                                         </tr>
                                     @empty
                                         <tr>
