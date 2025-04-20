@@ -84,16 +84,6 @@
                                     @endif
                                 </div>
 
-
-
-
-                                {{-- <input type="text" id="district" autocomplete="off" placeholder="District Name">
-
-                                <input type="text" id="upazila" autocomplete="off" placeholder="Upazila Name">
-
-
-                                <input type="text" id="union" autocomplete="off" placeholder="Union Name"> --}}
-
                                 <select>
                                     <option>All User</option>
                                     <option>zader blad dewar somoy hoiche</option>
@@ -124,13 +114,16 @@
                                             User Name<span class="fooicon fooicon-sort"></span></th>
                                         <th data-breakpoints="xs" class="footable-sortable" style="display: table-cell;">
                                             Email<span class="fooicon fooicon-sort"></span></th>
+                                        <th data-breakpoints="xs" class="footable-sortable" style="display: table-cell;">
+                                            Status<span class="fooicon fooicon-sort"></span></th>
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
                                             Number<span class="fooicon fooicon-sort"></span>
                                         </th>
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
                                             Blood Group<span class="fooicon fooicon-sort"></span>
                                         </th>
-                                        <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
+                                        <th data-breakpoints="xs md" class="footable-sortable"
+                                            style="display: table-cell;">
                                             Gender<span class="fooicon fooicon-sort"></span>
                                         </th>
                                         <th data-breakpoints="xs md" class="footable-sortable"
@@ -178,6 +171,13 @@
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span class="text-muted">{{ $user->email }}</span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
+                                                @if ($user->status == 1)
+                                                    <span class="badge badge-success">Active</span>
+                                                @else
+                                                    <span class="badge badge-danger">Inactive</span>
+                                                @endif
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span

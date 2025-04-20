@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'All User List')
+@section('title', 'Donate History List')
 @section('content')
 
 
@@ -11,7 +11,7 @@
                     <h2>User List</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> Aero</a></li>
-                        <li class="breadcrumb-item active">All User List</li>
+                        <li class="breadcrumb-item active">Patient Blood Donate List</li>
                     </ul>
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i
                             class="zmdi zmdi-sort-amount-desc"></i></button>
@@ -27,6 +27,8 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="table-responsive">
+
+                            {{-- Table --------------------------------------------------------------------- --}}
                             <table
                                 class="table table-hover product_item_list c_table theme-color mb-0 footable footable-1 footable-paging footable-paging-center breakpoint-lg"
                                 style="">
@@ -34,28 +36,21 @@
                                     <tr class="footable-header">
                                         <th class="footable-sortable" style="display: table-cell;">ID Name<span
                                                 class="fooicon fooicon-sort"></span></th>
-                                        <th class="footable-sortable footable-first-visible" style="display: table-cell;">
-                                            Image<span class="fooicon fooicon-sort"></span>
-                                        </th>
-                                        <th class="footable-sortable" style="display: table-cell;">Full Name<span
+                                        <th class="footable-sortable" style="display: table-cell;">Donar Name<span
                                                 class="fooicon fooicon-sort"></span></th>
                                         <th data-breakpoints="sm xs" class="footable-sortable" style="display: table-cell;">
-                                            User Name<span class="fooicon fooicon-sort"></span></th>
-                                        <th data-breakpoints="xs" class="footable-sortable" style="display: table-cell;">
-                                            Email<span class="fooicon fooicon-sort"></span></th>
-                                        <th data-breakpoints="xs" class="footable-sortable" style="display: table-cell;">
-                                            Status<span class="fooicon fooicon-sort"></span></th>
+                                            Patient Name<span class="fooicon fooicon-sort"></span></th>
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
-                                            Number<span class="fooicon fooicon-sort"></span>
+                                            Patient Number<span class="fooicon fooicon-sort"></span>
                                         </th>
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
-                                            Blood Group<span class="fooicon fooicon-sort"></span>
+                                            Patient Blood Group<span class="fooicon fooicon-sort"></span>
                                         </th>
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
                                             Gender<span class="fooicon fooicon-sort"></span>
                                         </th>
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
-                                            Last Blood Donation Date<span class="fooicon fooicon-sort"></span>
+                                            Blood Donation Date<span class="fooicon fooicon-sort"></span>
                                         </th>
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
                                             District Name<span class="fooicon fooicon-sort"></span>
@@ -66,73 +61,50 @@
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
                                             Union Name<span class="fooicon fooicon-sort"></span>
                                         </th>
-                                        <th data-breakpoints="sm xs md" class="footable-sortable footable-last-visible"
-                                            style="display: table-cell;">Action<span class="fooicon fooicon-sort"></span>
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @forelse ($inActiveUser as $key => $user)
+                                    @forelse ($users as $key => $user)
                                         <tr>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 {{ $key + 1 }}</td>
-                                            <td class="footable-first-visible" style="display: table-cell;">
-                                                @if ($user->profiles && $user->profiles->image)
-                                                    <img src="{{ asset($user->profiles->image) }}" width="60"
-                                                        height="60" />
-                                                @else
-                                                    <span>No Image</span>
-                                                @endif
-
-                                            </td>
 
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <h5>{{ $user->name }}</h5>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                <span class="text-muted">{{ $user->username }}</span>
-                                            </td>
-                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                <span class="text-muted">{{ $user->email }}</span>
-                                            </td>
-                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                @if ($user->status == 1)
-                                                    <span class="badge badge-success">Active</span>
-                                                @else
-                                                    <span class="badge badge-danger">Inactive</span>
-                                                @endif
-                                            </td>
-                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                <span class="text-muted">{{ $user->profiles->phone_number ?? 'N/A' }}</span>
+                                                <span
+                                                    class="text-muted">{{ $user->donateHistory->blood_receiver_name }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
-                                                    class="col-green">{{ $user->profiles->bloods->blood_name ?? 'N/A' }}</span>
-                                            </td>
-                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                <span class="col-green">{{ $user->profiles->gender ?? 'N/A' }}</span>
+                                                    class="text-muted">{{ $user->donateHistory->blood_receiver_number }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
-                                                    class="text-muted">{{ $user->profiles->previous_donation_date ?? 'N/A' }}</span>
+                                                    class="col-green">{{ $user->donateHistory->bloods->blood_name ?? 'N/A' }}</span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
+                                                <span class="col-green">{{ $user->donateHistory->gender ?? 'N/A' }}</span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
+                                                <span class="text-muted">
+                                                    {{ $user->donateHistory->created_at ? $user->donateHistory->created_at->format('F d, Y') : 'N/A' }}
+                                                </span>
+                                            </td>
+
+                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
+                                                <span
+                                                    class="text-muted">{{ $user->donateHistory->district->district_name ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
-                                                    class="text-muted">{{ $user->addresses->district->district_name ?? 'N/A' }}</span>
+                                                    class="text-muted">{{ $user->donateHistory->upazila->upazila_name ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
-                                                    class="text-muted">{{ $user->addresses->upazila->upazila_name ?? 'N/A' }}</span>
-                                            </td>
-                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                <span
-                                                    class="text-muted">{{ $user->addresses->union->union_name ?? 'N/A' }}</span>
-                                            </td>
-                                            <td class="footable-last-visible" style="display: table-cell;">
-                                                <a href="{{ route('active.approve', $user->id) }}" id="unBlock"
-                                                    class="btn btn-default waves-effect waves-float btn-sm waves-red"><i
-                                                        class="zmdi zmdi-eye"></i></a>
+                                                    class="text-muted">{{ $user->donateHistory->union->union_name ?? 'N/A' }}</span>
                                             </td>
                                         </tr>
                                     @empty
@@ -165,4 +137,5 @@
             </div>
         </div>
     </div>
+
 @endsection

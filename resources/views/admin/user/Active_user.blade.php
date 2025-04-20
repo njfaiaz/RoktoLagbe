@@ -43,6 +43,8 @@
                                             User Name<span class="fooicon fooicon-sort"></span></th>
                                         <th data-breakpoints="xs" class="footable-sortable" style="display: table-cell;">
                                             Email<span class="fooicon fooicon-sort"></span></th>
+                                        <th data-breakpoints="xs" class="footable-sortable" style="display: table-cell;">
+                                            Status<span class="fooicon fooicon-sort"></span></th>
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
                                             Number<span class="fooicon fooicon-sort"></span>
                                         </th>
@@ -94,6 +96,13 @@
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span class="text-muted">{{ $user->email }}</span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle; text-align: center;">
+                                                @if ($user->status == 1)
+                                                    <span class="badge badge-success">Active</span>
+                                                @else
+                                                    <span class="badge badge-danger">Inactive</span>
+                                                @endif
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span class="text-muted">{{ $user->profiles->phone_number ?? 'N/A' }}</span>

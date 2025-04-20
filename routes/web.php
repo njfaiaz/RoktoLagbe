@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AddressController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DonateHistoryController;
 use App\Http\Controllers\Admin\PasswordChangeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
@@ -80,6 +81,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
 
     // ------------------------------ Admin Setting Page----------------------------------
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
+
+
+    // ------------------------------ All User Blood Donate History Page----------------------------------
+    Route::get('donate/history', [DonateHistoryController::class, 'index'])->name('donate.history');
 
 
 

@@ -29,9 +29,4 @@ class Profile extends Model
     {
         return $this->belongsTo(Blood::class, 'blood_id');
     }
-
-    public function registerMediaCollections(): void
-    {
-        $this->addMediaCollection('image')->singleFile();
-    }
 }
