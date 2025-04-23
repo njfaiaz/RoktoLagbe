@@ -68,52 +68,51 @@
                                 </thead>
                                 <tbody>
 
-                                    @forelse ($users as $key => $user)
+                                    @forelse ($donations as $key => $donation)
                                         <tr>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                {{ $key + 1 }}</td>
+                                                {{ ($donations->currentPage() - 1) * $donations->perPage() + $key + 1 }}
+                                            </td>
 
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                <h5>{{ $user->name }}</h5>
+                                                <h5>{{ $donation->user->name }}</h5>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
-                                                    class="text-muted">{{ $user->donateHistory->blood_receiver_name ?? 'N/A' }}</span>
+                                                    class="text-muted">{{ $donation->blood_receiver_name ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
-                                                    class="text-muted">{{ $user->donateHistory->blood_receiver_number ?? 'N/A' }}</span>
+                                                    class="text-muted">{{ $donation->blood_receiver_number ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                <span
-                                                    class="col-green">{{ $user->donateHistory->bloods->blood_name ?? 'N/A' }}</span>
+                                                <span class="col-green">{{ $donation->blood->blood_name ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                <span class="col-green">{{ $user->donateHistory->gender ?? 'N/A' }}</span>
+                                                <span class="col-green">{{ $donation->gender ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span class="text-muted">
-                                                    {{ $user->donateHistory ? $user->donateHistory->created_at->format('F d, Y') : 'N/A' }}
+                                                    {{ $donation ? $donation->created_at->format('F d, Y') : 'N/A' }}
                                                 </span>
                                             </td>
 
 
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
-                                                    class="text-muted">{{ $user->donateHistory->district->district_name ?? 'N/A' }}</span>
+                                                    class="text-muted">{{ $donation->district->district_name ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span
-                                                    class="text-muted">{{ $user->donateHistory->upazila->upazila_name ?? 'N/A' }}</span>
+                                                    class="text-muted">{{ $donation->upazila->upazila_name ?? 'N/A' }}</span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                <span
-                                                    class="text-muted">{{ $user->donateHistory->union->union_name ?? 'N/A' }}</span>
+                                                <span class="text-muted">{{ $donation->union->union_name ?? 'N/A' }}</span>
                                             </td>
 
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span class="col-green">
-                                                    {{ Str::words($user->donateHistory->patient_details ?? 'N/A', 10) }}
+                                                    {{ Str::words($donation->patient_details ?? 'N/A', 10) }}
                                                 </span>
                                             </td>
 
@@ -133,15 +132,7 @@
                     <div class="card">
                         <div class="body">
                             <ul class="pagination pagination-primary m-b-0">
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);"><i
-                                            class="zmdi zmdi-arrow-left"></i></a></li>
-                                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);"><i
-                                            class="zmdi zmdi-arrow-right"></i></a></li>
+                                {{ $donations->links('pagination::bootstrap-4') }}
                             </ul>
                         </div>
                     </div>

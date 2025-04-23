@@ -27,9 +27,9 @@ class DonateHistory extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function bloods()
+    public function blood()
     {
-        return $this->belongsTo(Blood::class, 'blood_id');
+        return $this->belongsTo(Blood::class);
     }
 
     public function district()
