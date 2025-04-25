@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: Arial, sans-serif;
     padding: 20px;
 }
@@ -45,5 +45,133 @@ ul {
     }
     .filter-section input {
         width: 100% !important;
+    }
+} */
+.btn-simple {
+    visibility: hidden;
+    display: none;
+}
+.filter-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.filter-section select,
+.filter-section input[type="text"] {
+    padding: 6px;
+    font-size: 14px;
+    border-radius: 5px;
+    color: black;
+}
+
+#district-list {
+    max-height: 200px;
+    position: fixed;
+    z-index: 1000;
+    /* width: 15%; */
+}
+
+@media screen and (max-width: 767px) {
+    .filter-section {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 5px;
+    }
+    .filter-section select {
+        width: 100%;
+    }
+    .filter-section input {
+        width: 100% !important;
+    }
+    .bottomsec {
+        flex-direction: column;
+        align-items: center;
+    }
+    .bottomsec select {
+        display: none;
+    }
+
+    .filter_search {
+        background-color: #fdd2d2;
+        width: auto;
+    }
+    .filter_search.icon {
+        text-align: end;
+    }
+    #district-list {
+        max-height: 200px;
+        overflow-y: auto;
+        position: fixed;
+        z-index: 1000;
+        width: 81%;
+        margin-left: 0px;
+    }
+    #upazila-list {
+        max-height: 200px;
+        overflow-y: auto;
+        position: fixed;
+        z-index: 1000;
+        width: 81%;
+        margin-left: 0px;
+    }
+    #union-list {
+        max-height: 200px;
+        overflow-y: auto;
+        position: fixed;
+        z-index: 1000;
+        width: 81%;
+        margin-left: 0px;
+    }
+    #district-list-donate {
+        max-height: 200px;
+        overflow-y: auto;
+        position: fixed;
+        z-index: 1000;
+        width: 68%;
+        margin-left: -30px;
+    }
+    #upazila-list-donate {
+        max-height: 200px;
+        overflow-y: auto;
+        position: fixed;
+        z-index: 1000;
+        width: 68%;
+        margin-left: -30px;
+    }
+    #union-list-donate {
+        max-height: 200px;
+        overflow-y: auto;
+        position: fixed;
+        z-index: 1000;
+        width: 68%;
+        margin-left: -30px;
+    }
+    #district-list-profile {
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000;
+        width: 108%;
+        margin-left: -30px;
+    }
+    #upazila-list-profile {
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000;
+        width: 108%;
+        margin-left: -30px;
+    }
+    #union-list-profile {
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000;
+        width: 108%;
+    }
+    .phone_version {
+        margin-top: 0.5rem !important;
+    }
+
+    label {
+        display: block;
     }
 }

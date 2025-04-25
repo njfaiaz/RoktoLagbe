@@ -14,17 +14,10 @@ class UserListController extends Controller
 {
     public function index()
     {
-        $users = User::with('profiles', 'addresses.district', 'addresses.upazila', 'addresses.union')->get();
+        $users = User::with('profiles', 'profiles.bloods', 'addresses.district', 'addresses.upazila', 'addresses.union')->latest()->paginate(20);
         $bloods = Blood::all();
-        $user = auth()->user();
-
-        // Check if user has addresses and safely access the first address
-        $address = $user->addresses ? $user->addresses->first() : null;
-
-        return view('admin.user.index', compact('users', 'bloods', 'user', 'address'));
+        return view('admin.user.index', compact('users', 'bloods'));
     }
-
-
 
 
 
@@ -55,21 +48,6 @@ class UserListController extends Controller
             ->get();
         return response()->json($unions);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public function userInactive()

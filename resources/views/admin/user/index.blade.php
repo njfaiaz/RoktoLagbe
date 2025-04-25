@@ -28,12 +28,13 @@
             <div class="row clearfix">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="table-responsive">
 
-                            {{-- Search Option ------------------------------------------------------------------------------------ --}}
-                            <div class="filter-section">
+                        {{-- Search Option ------------------------------------------------------------------------------ --}}
 
-                                <select name="blood_id" id="blood_group">
+                        <div class="filter-section">
+                            <div>
+
+                                <select name="blood_id" id="blood_group" class="d-block">
                                     <option selected disabled>Select Your Blood Group</option>
                                     @foreach ($bloods as $blood)
                                         <option value="{{ $blood->id }}">
@@ -41,61 +42,59 @@
                                         </option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div>
 
+                                <input type="text" class="form-control bg-white" id="district" autocomplete="off"
+                                    placeholder="District Name">
+                                <input type="hidden" id="district_id" name="district_id" class="form-control">
 
-                                <div>
-                                    <label></label>
-                                    <input type="text" class="form-control w-100" id="district" autocomplete="off"
-                                        value="{{ old('district', $address?->district?->district_name) }}"
-                                        placeholder="District Name">
-                                    <input type="hidden" id="district_id" name="district_id"
-                                        value="{{ old('district_id', $address?->district_id) }}">
-                                    <ul id="district-list"></ul>
-
-                                    @if ($errors->has('district_id'))
-                                        <span class="text-danger">{{ $errors->first('district_id') }}</span>
-                                    @endif
+                                <div id="district-list-container">
+                                    <ul id="district-list" class="list-group phone_version mt-4"></ul>
                                 </div>
-
-                                <div>
-                                    <label></label>
-                                    <input type="text" class="form-control w-100" id="upazila" autocomplete="off"
-                                        value="{{ old('upazila', $address?->upazila?->upazila_name) }}"
-                                        placeholder="Upazila Name">
-                                    <input type="hidden" id="upazila_id" name="upazila_id"
-                                        value="{{ old('upazila_id', $address?->upazila_id) }}" class="form-control w-100">
-                                    <ul id="upazila-list"></ul>
-
-                                    @if ($errors->has('upazila_id'))
-                                        <span class="text-danger">{{ $errors->first('upazila_id') }}</span>
-                                    @endif
+                            </div>
+                            <div>
+                                <label for=""></label>
+                                <input type="text" class="form-control bg-white" id="upazila" autocomplete="off"
+                                    placeholder="Upazila Name">
+                                <input type="hidden" id="upazila_id" name="upazila_id" class="form-control">
+                                <div id="upazila-list-container">
+                                    <ul id="upazila-list" class="list-group phone_version mt-4"></ul>
                                 </div>
+                            </div>
 
-                                <div>
-                                    <label></label>
-                                    <input type="text" class="form-control w-100" id="union" autocomplete="off"
-                                        value="{{ old('union', $address?->union?->union_name) }}" placeholder="Union Name">
-                                    <input type="hidden" id="union_id" name="union_id"
-                                        value="{{ old('union_id', $address?->union_id) }}" class="form-control w-100">
-                                    <ul id="union-list"></ul>
-
-                                    @if ($errors->has('union_id'))
-                                        <span class="text-danger">{{ $errors->first('union_id') }}</span>
-                                    @endif
+                            <div>
+                                <label for=""></label>
+                                <input type="text" id="union" autocomplete="off" class="form-control bg-white"
+                                    placeholder="Union Name">
+                                <input type="hidden" id="union_id" name="union_id" class="form-control">
+                                <div id="union-list-container">
+                                    <ul id="union-list" class="list-group phone_version mt-4"></ul>
                                 </div>
+                            </div>
 
-                                <select>
+                            <div>
+
+                                <select class="d-block">
                                     <option>All User</option>
                                     <option>zader blad dewar somoy hoiche</option>
                                     <option>zader sob 00 00 00 </option>
                                 </select>
+                            </div>
+                            <div>
 
                                 <a class="btn filter_search" href="">Search </a>
+                            </div>
+                            <div>
+
                                 <a class="btn filter_search" href="">Reset </a>
-
-
                             </div>
 
+                        </div>
+
+
+
+                        <div class="table-responsive">
 
                             {{-- Table --------------------------------------------------------------------- --}}
                             <table
@@ -119,7 +118,8 @@
                                         <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
                                             Number<span class="fooicon fooicon-sort"></span>
                                         </th>
-                                        <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
+                                        <th data-breakpoints="xs md" class="footable-sortable"
+                                            style="display: table-cell;">
                                             Blood Group<span class="fooicon fooicon-sort"></span>
                                         </th>
                                         <th data-breakpoints="xs md" class="footable-sortable"
@@ -152,7 +152,7 @@
                                     @forelse ($users as $key => $user)
                                         <tr>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
-                                                {{ $key + 1 }}</td>
+                                                {{ ($users->currentPage() - 1) * $users->perPage() + $key + 1 }}
                                             <td class="footable-first-visible" style="display: table-cell;">
                                                 @if ($user->profiles && $user->profiles->image)
                                                     <img src="{{ asset($user->profiles->image) }}" width="60"
@@ -226,15 +226,7 @@
                     <div class="card">
                         <div class="body">
                             <ul class="pagination pagination-primary m-b-0">
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);"><i
-                                            class="zmdi zmdi-arrow-left"></i></a></li>
-                                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);"><i
-                                            class="zmdi zmdi-arrow-right"></i></a></li>
+                                {{ $users->links('pagination::bootstrap-4') }}
                             </ul>
                         </div>
                     </div>
