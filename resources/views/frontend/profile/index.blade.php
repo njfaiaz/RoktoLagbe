@@ -10,8 +10,14 @@
                 <div class="card_setting">
                     <img class="card-img-top" src="https://i.imgur.com/K7A78We.jpg" alt="Card image cap">
                     <div class="card-body little-profile text-center">
-                        <div class="pro-img"><img src="https://i.imgur.com/8RKXAIV.jpg" alt="user"></div>
-                        <h3 class="m-b-0">Junayed Rahman Faiaz</h3>
+                        <div class="pro-img">
+                            @if ($user->profiles && $user->profiles->image)
+                                <img src="{{ asset($user->profiles->image) }}" width="60" height="60" />
+                            @else
+                                <span>No Image</span>
+                            @endif
+                        </div>
+                        <h3 class="m-b-0">{{ $user->name }}</h3>
                         <p>AB+ <Strong>Blood Donar</Strong></p>
                         <a href="javascript:void(0)"
                             class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" data-abc="true">Total

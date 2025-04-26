@@ -62,21 +62,66 @@ window.addEventListener("scroll", scrollHeader);
 
 /*=============== Timer CountDown Added ===============*/
 
-$(".timer").countdown("2025/06/01 00:10:10", function (event) {
-    if (event.elapsed) {
-        $(this).html(
-            event.strftime(
-                '<div class="cardbtn"><button class="btn view" id="nextDonate">Next Donate</button></div>'
-            )
-        );
-        $("#nextDonate").on("click", function () {
-            window.location.href = "/next-donate"; // Redirect to a Laravel route
-        });
-    } else {
-        $(this).html(
-            event.strftime(
-                "<p><span>%D</span><br>Day</p><p><span>%H</span><br>Hour</p> <p><span>%M</span><br>Minute</p> <p><span>%S</span><br>Second</p>"
-            )
-        );
-    }
+$(document).ready(function () {
+    $(".timer").each(function () {
+        var $this = $(this);
+        var endTime = $this.data("endtime");
+        var isLoggedInUser = $this.data("is-logged-in-user");
+
+        if (!endTime) {
+            console.error("Invalid end time for timer element.");
+            return;
+        }
+
+        var finalTime = new Date(endTime).getTime();
+
+        var timer = setInterval(function () {
+            var now = new Date().getTime();
+            var distance = finalTime - now;
+
+            if (distance <= 0) {
+                clearInterval(timer);
+
+                if (isLoggedInUser === "yes") {
+                    $this.html(
+                        '<div class="cardbtn"><button class="btn view" id="nextDonate">Next Donate</button></div>'
+                    );
+                    $this.find("#nextDonate").on("click", function () {
+                        window.location.href = "/next-donate";
+                    });
+                } else {
+                    $this.html(
+                        "<p><span>00</span><br>Day</p>" +
+                            "<p><span>00</span><br>Hour</p>" +
+                            "<p><span>00</span><br>Minute</p>" +
+                            "<p><span>00</span><br>Second</p>"
+                    );
+                }
+            } else {
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor(
+                    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                );
+                var minutes = Math.floor(
+                    (distance % (1000 * 60 * 60)) / (1000 * 60)
+                );
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                $this.html(
+                    "<p><span>" +
+                        String(days).padStart(2, "0") +
+                        "</span><br>Day</p>" +
+                        "<p><span>" +
+                        String(hours).padStart(2, "0") +
+                        "</span><br>Hour</p>" +
+                        "<p><span>" +
+                        String(minutes).padStart(2, "0") +
+                        "</span><br>Minute</p>" +
+                        "<p><span>" +
+                        String(seconds).padStart(2, "0") +
+                        "</span><br>Second</p>"
+                );
+            }
+        }, 1000);
+    });
 });
