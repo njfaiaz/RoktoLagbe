@@ -124,6 +124,6 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
 
     // ------------------------------ Frontend Search Page----------------------------------
 
-    // Route::get('profile/{username}/edit', [FrDonateInfoController::class, 'edit']);
-    Route::get('/next-donate', [FrDonateInfoController::class, 'next'])->name('next.donate');
+    Route::get('next-donate', [FrDonateInfoController::class, 'nextDonate'])->name('next.donate');
+    Route::post('next-donate/history/store', [FrDonateInfoController::class, 'store'])->name('donate-history.store');
 });

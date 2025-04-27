@@ -12,10 +12,90 @@
             <div class="container">
                 <div class="card bg-white">
                     <div class="card-body">
-                        <form>
+
+                        <form action="{{ route('donate-history.store') }}" method="POST">
+                            @csrf
                             <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Who received the blood transfusion">
+                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                             </div>
+                            <div class="form-group">
+                                <label></label>
+                                <input type="text" class="form-control" name="blood_receiver_name"
+                                    value="{{ old('blood_receiver_name') }}"
+                                    placeholder="Who received the blood transfusion">
+                                @error('blood_receiver_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label></label>
+                                <input type="text" name="blood_receiver_number" class="form-control"
+                                    value="{{ old('blood_receiver_number') }}" placeholder="Blood Receiver Number">
+                                @error('blood_receiver_number')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label></label>
+                                <select name="blood_id" id="blood_group" class="form-control">
+                                    <option value="" disabled
+                                        {{ old('blood_id', isset($profile) ? $profile->blood_id : null) ? '' : 'selected' }}>
+                                        Select Your Blood Group
+                                    </option>
+                                    @foreach ($bloods as $blood)
+                                        <option value="{{ $blood->id }}"
+                                            {{ old('blood_id', isset($profile) ? $profile->blood_id : null) == $blood->id ? 'selected' : '' }}>
+                                            {{ $blood->blood_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('blood_group')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label></label>
+                                @php
+                                    $today = date('Y-m-d');
+                                @endphp
+
+                                <input type="date"
+                                    class="form-control @error('donation_date') border border-danger @enderror"
+                                    name="donation_date" value="{{ old('donation_date', $profile->donation_date ?? '') }}"
+                                    max="{{ $today }}" type="date">
+                                @error('donation_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender"></label>
+                                <select name="gender" id="gender" class="form-control" required>
+                                    <option value="" disabled {{ old('gender') == '' ? 'selected' : '' }}>Select
+                                        Gender</option>
+                                    <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                                    <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female
+                                    </option>
+                                </select>
+                                @error('gender')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
+
+
+                            <div class="form-group">
+                                <label></label>
+                                <textarea name="patient_details" class="form-control" placeholder="Patient Details">{{ old('patient_details') }}</textarea>
+                                @error('patient_details')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             <div>
                                 <label></label>
                                 <input type="text" class="form-control" id="district" autocomplete="off"
@@ -45,22 +125,21 @@
                                     class="form-control">
                                 <ul id="union-list-donate"></ul>
                             </div>
+                            <div class="my-2">
 
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1"></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                    placeholder="What was the original problem of the person you donated blood to?"></textarea>
+                                <button type="submit" class="btn btn-primary">Submit Info</button>
                             </div>
 
-                            <button class="btn btn-light mt-3">Submit Info</button>
+
                         </form>
+
+
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-
 
 
     @push('footer_scripts')

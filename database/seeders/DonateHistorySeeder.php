@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\District;
 use App\Models\Upazila;
 use App\Models\Union;
+use Carbon\Carbon;
 
 class DonateHistorySeeder extends Seeder
 {
@@ -32,6 +33,7 @@ class DonateHistorySeeder extends Seeder
                     'blood_receiver_name' => fake()->name(),
                     'blood_receiver_number' => rand(2000000000, 9999999999),
                     'blood_id' => $blood[array_rand($blood)],
+                    'donation_date' => Carbon::now()->subDays(rand(0, 365)),
                     'gender' => $gender[array_rand($gender)],
                     'district_id' => $district->id,
                     'upazila_id' => $upazila?->id,

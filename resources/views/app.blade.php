@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/bfont-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/coustom/css/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/coustom/css/toastr.css') }}">
     @stack('style')
     <title>@yield('title') </title>
 </head>
@@ -35,6 +37,7 @@
     <script src="{{ asset('assets/frontend/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/countdown.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
+    @include('alert')
     @stack('footer_scripts')
 </body>
 

@@ -14,6 +14,7 @@ class DonateHistory extends Model
         'blood_receiver_name',
         'blood_receiver_number',
         'blood_id',
+        'donation_date',
         'gender',
         'district_id',
         'upazila_id',

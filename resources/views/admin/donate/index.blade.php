@@ -93,7 +93,7 @@
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle; text-align: center;">
                                                 <span class="text-muted">
-                                                    {{ $donation ? $donation->created_at->format('F d, Y') : 'N/A' }}
+                                                    {{ $donation ? $donation->donation_date->format('F d, Y') : 'N/A' }}
                                                 </span>
                                             </td>
 

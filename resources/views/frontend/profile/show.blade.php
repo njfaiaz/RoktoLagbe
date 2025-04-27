@@ -124,9 +124,12 @@
                 @forelse($user->donateHistories as $donation)
                     <li>
                         <div class="timeline-time">
-                            <span class="date">{{ $donation->created_at->format('d M Y') }}</span>
-                            <span class="time">{{ $donation->created_at->format('h:i A') }}</span>
+                            <span
+                                class="date">{{ \Carbon\Carbon::parse($donation->donation_date)->format('d M Y') }}</span>
+                            <span
+                                class="time">{{ \Carbon\Carbon::parse($donation->donation_date)->format('h:i A') }}</span>
                         </div>
+
                         <div class="timeline-icon">
                             <a href="javascript:;">&nbsp;</a>
                         </div>

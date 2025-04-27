@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('blood_receiver_name')->nullable();
             $table->string('blood_receiver_number')->nullable();
             $table->foreignId('blood_id')->nullable();
+            $table->date('donation_date')->nullable();
             $table->enum('gender', ['Male', 'Female'])->nullable();
             $table->foreignId('district_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('upazila_id')->nullable()->constrained()->nullOnDelete();
