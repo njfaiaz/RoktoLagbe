@@ -18,10 +18,11 @@
                             @endif
                         </div>
                         <h3 class="m-b-0">{{ $user->name }}</h3>
-                        <p>AB+ <Strong>Blood Donar</Strong></p>
+                        <p>{{ $user->profiles->bloods->blood_name ?? 'N/A' }} <Strong>Blood Donar</Strong></p>
                         <a href="javascript:void(0)"
                             class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" data-abc="true">Total
-                            <strong class="text-warning">06</strong>
+                            <strong class="text-warning">{{ str_pad($totalDonateCount ?? 0, 2, '0', STR_PAD_LEFT) }}
+                            </strong>
                             <strong>Donate</strong></a>
 
                     </div>
@@ -36,7 +37,7 @@
                                 <h6 class="mb-0">User Name</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Junayed Rahman Faiaz
+                                {{ $user->username }}
                             </div>
                         </div>
                         <hr>
@@ -45,7 +46,7 @@
                                 <h6 class="mb-0">Full Name</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Junayed Rahman Faiaz
+                                {{ $user->name }}
                             </div>
                         </div>
                         <hr>
@@ -54,7 +55,7 @@
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                njfaiaz@gmail.com
+                                {{ $user->email }}
                             </div>
                         </div>
                         <hr>
@@ -63,7 +64,7 @@
                                 <h6 class="mb-0">Phone</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                01533434652
+                                {{ $user->profiles->phone_number ?? 'N/A' }}
                             </div>
                         </div>
                         <hr>
@@ -72,7 +73,7 @@
                                 <h6 class="mb-0">Blood Group</h6>
                             </div>
                             <div class="col-sm-9 text-success">
-                                Ab+
+                                {{ $user->profiles->bloods->blood_name ?? 'N/A' }}
                             </div>
                         </div>
                         <hr>
@@ -81,7 +82,7 @@
                                 <h6 class="mb-0">Last Donate Time</h6>
                             </div>
                             <div class="col-sm-9 text-success">
-                                08-06-2024
+                                {{ $user->profiles->previous_donation_date ?? 'N/A' }}
                             </div>
                         </div>
                         <hr>
@@ -90,18 +91,11 @@
                                 <h6 class="mb-0">Address</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <strong class="text-primary">Dhaka</strong>, <strong
-                                    class="text-secondary">Haluaghat</strong>,<strong
-                                    class="text-warning">Haluaghat</strong>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                Bay Area, San Francisco, CA
+                                <strong
+                                    class="text-primary">{{ $user->addresses->district->district_name ?? 'N/A' }}</strong>,
+                                <strong
+                                    class="text-secondary">{{ $user->addresses->upazila->upazila_name ?? 'N/A' }}</strong>,<strong
+                                    class="text-warning">{{ $user->addresses->union->union_name ?? 'N/A' }}</strong>
                             </div>
                         </div>
                         <hr>
@@ -122,206 +116,39 @@
                 </div>
             </div>
             <ul class="timeline pt-3">
-                <li>
-                    <div class="timeline-time">
-                        <span class="date">today</span>
-                        <span class="time">04:20</span>
-                    </div>
-                    <div class="timeline-icon">
-                        <a href="javascript:;">&nbsp;</a>
-                    </div>
-                    <div class="timeline-body">
-                        <div class="timeline-header">
-                            <span class="username">John Smith<small></small></span>
+                @forelse($user->donateHistories as $donation)
+                    <li>
+                        <div class="timeline-time">
+                            <span class="date">{{ $donation->created_at->format('d M Y') }}</span>
+                            <span class="time">{{ $donation->created_at->format('h:i A') }}</span>
                         </div>
-                        <div class="timeline-header">
-                            <span class="address_name">Mymensingh, <strong>Haluaghat,</strong><strong>
-                                    Haluaghat</strong></span>
+                        <div class="timeline-icon">
+                            <a href="javascript:;">&nbsp;</a>
                         </div>
-                        <div class="timeline-content">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt
-                                luctus.
-                                Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                            </p>
+                        <div class="timeline-body">
+                            <div class="timeline-header">
+                                <span class="username">{{ $donation->blood_receiver_name }}<small></small></span>
+                            </div>
+                            <div class="timeline-header">
+                                <span class="address_name">
+                                    {{ $donation->district->district_name ?? '' }},
+                                    <strong>{{ $donation->upazila->upazila_name ?? '' }},</strong>
+                                    <strong>{{ $donation->union->union_name ?? '' }}</strong>
+                                </span>
+                            </div>
+                            <div class="timeline-content">
+                                <p>
+                                    {{ $donation->patient_details ?? 'No patient details.' }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="timeline-time">
-                        <span class="date">today</span>
-                        <span class="time">04:20</span>
-                    </div>
-                    <div class="timeline-icon">
-                        <a href="javascript:;">&nbsp;</a>
-                    </div>
-                    <div class="timeline-body">
-                        <div class="timeline-header">
-                            <span class="username">John Smith<small></small></span>
-                        </div>
-                        <div class="timeline-header">
-                            <span class="address_name">Mymensingh, <strong>Haluaghat,</strong><strong>
-                                    Haluaghat</strong></span>
-                        </div>
-                        <div class="timeline-content">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt
-                                luctus.
-                                Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="timeline-time">
-                        <span class="date">today</span>
-                        <span class="time">04:20</span>
-                    </div>
-                    <div class="timeline-icon">
-                        <a href="javascript:;">&nbsp;</a>
-                    </div>
-                    <div class="timeline-body">
-                        <div class="timeline-header">
-                            <span class="username">John Smith<small></small></span>
-                        </div>
-                        <div class="timeline-header">
-                            <span class="address_name">Mymensingh, <strong>Haluaghat,</strong><strong>
-                                    Haluaghat</strong></span>
-                        </div>
-                        <div class="timeline-content">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt
-                                luctus.
-                                Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="timeline-time">
-                        <span class="date">today</span>
-                        <span class="time">04:20</span>
-                    </div>
-                    <div class="timeline-icon">
-                        <a href="javascript:;">&nbsp;</a>
-                    </div>
-                    <div class="timeline-body">
-                        <div class="timeline-header">
-                            <span class="username">John Smith<small></small></span>
-                        </div>
-                        <div class="timeline-header">
-                            <span class="address_name">Mymensingh, <strong>Haluaghat,</strong><strong>
-                                    Haluaghat</strong></span>
-                        </div>
-                        <div class="timeline-content">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt
-                                luctus.
-                                Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="timeline-time">
-                        <span class="date">today</span>
-                        <span class="time">04:20</span>
-                    </div>
-                    <div class="timeline-icon">
-                        <a href="javascript:;">&nbsp;</a>
-                    </div>
-                    <div class="timeline-body">
-                        <div class="timeline-header">
-                            <span class="username">John Smith<small></small></span>
-                        </div>
-                        <div class="timeline-header">
-                            <span class="address_name">Mymensingh, <strong>Haluaghat,</strong><strong>
-                                    Haluaghat</strong></span>
-                        </div>
-                        <div class="timeline-content">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt
-                                luctus.
-                                Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="timeline-time">
-                        <span class="date">today</span>
-                        <span class="time">04:20</span>
-                    </div>
-                    <div class="timeline-icon">
-                        <a href="javascript:;">&nbsp;</a>
-                    </div>
-                    <div class="timeline-body">
-                        <div class="timeline-header">
-                            <span class="username">John Smith<small></small></span>
-                        </div>
-                        <div class="timeline-header">
-                            <span class="address_name">Mymensingh, <strong>Haluaghat,</strong><strong>
-                                    Haluaghat</strong></span>
-                        </div>
-                        <div class="timeline-content">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt
-                                luctus.
-                                Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="timeline-time">
-                        <span class="date">today</span>
-                        <span class="time">04:20</span>
-                    </div>
-                    <div class="timeline-icon">
-                        <a href="javascript:;">&nbsp;</a>
-                    </div>
-                    <div class="timeline-body">
-                        <div class="timeline-header">
-                            <span class="username">John Smith<small></small></span>
-                        </div>
-                        <div class="timeline-header">
-                            <span class="address_name">Mymensingh, <strong>Haluaghat,</strong><strong>
-                                    Haluaghat</strong></span>
-                        </div>
-                        <div class="timeline-content">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt
-                                luctus.
-                                Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                            </p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="timeline-time">
-                        <span class="date">today</span>
-                        <span class="time">04:20</span>
-                    </div>
-                    <div class="timeline-icon">
-                        <a href="javascript:;">&nbsp;</a>
-                    </div>
-                    <div class="timeline-body">
-                        <div class="timeline-header">
-                            <span class="username">John Smith<small></small></span>
-                        </div>
-                        <div class="timeline-header">
-                            <span class="address_name">Mymensingh, <strong>Haluaghat,</strong><strong>
-                                    Haluaghat</strong></span>
-                        </div>
-                        <div class="timeline-content">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt
-                                luctus.
-                                Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                            </p>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                @empty
+                    <li>
+                        <p>No donation history found.</p>
+                    </li>
+                @endforelse
+
 
             </ul>
         </div>

@@ -56,9 +56,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
-    public function donateHistory()
+    public function donateHistories()
     {
-        return $this->hasOne(DonateHistory::class);
+        return $this->hasMany(DonateHistory::class);
     }
 
     public function districts()

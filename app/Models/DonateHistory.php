@@ -34,16 +34,16 @@ class DonateHistory extends Model
 
     public function district()
     {
-        return $this->belongsTo(District::class);
+        return $this->belongsTo(District::class, 'district_id', 'id');
     }
 
     public function upazila()
     {
-        return $this->belongsTo(Upazila::class);
+        return $this->belongsTo(Upazila::class, 'upazila_id', 'id');
     }
 
     public function union()
     {
-        return $this->belongsTo(Union::class);
+        return $this->belongsTo(Union::class, 'union_id', 'id');
     }
 }
