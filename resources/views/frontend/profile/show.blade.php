@@ -1,5 +1,5 @@
 @extends('app')
-@section('title', 'Profile')
+@section('title', 'Profile Show')
 
 
 

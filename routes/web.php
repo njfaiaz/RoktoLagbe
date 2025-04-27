@@ -103,11 +103,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
 
 Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {
     Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
-    Route::get('/profile/{username}', [UserController::class, 'show'])->name('user.profile.show');
+    Route::get('profile/{username}', [UserController::class, 'show'])->name('user.profile.show');
+    Route::get('profile/edit/{username}', [UserController::class, 'edit'])->name('user.profile.edit');
+
 
     // ------------------------------ Frontend Profile Page----------------------------------
     Route::get('profile', [FrProfileController::class, 'index'])->name('user.profile');
-    Route::get('profile/edit', [FrProfileController::class, 'Edit'])->name('user.profile.edit');
+    // Route::get('profile/{username}', [FrProfileController::class, 'edit'])->name('user.profile.edit');
 
     // ------------------------------ Frontend Search Page----------------------------------
     Route::get('search', [FrSearchController::class, 'index'])->name('user.search');
@@ -122,6 +124,6 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
 
     // ------------------------------ Frontend Search Page----------------------------------
 
-    Route::get('profile/{username}/edit', [FrDonateInfoController::class, 'edit']);
+    // Route::get('profile/{username}/edit', [FrDonateInfoController::class, 'edit']);
     Route::get('/next-donate', [FrDonateInfoController::class, 'next'])->name('next.donate');
 });
