@@ -8,39 +8,46 @@
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="{{ route('user.dashboard') }}" class="nav__link active-link">
+                            <a href="{{ route('user.dashboard') }}"
+                                class="nav__link {{ request()->routeIs('user.dashboard') ? 'active-link' : '' }}">
                                 <i class='bx bx-home-alt nav__icon'></i>
                                 <span class="nav__name">Home</span>
                             </a>
                         </li>
 
                         <li class="nav__item">
-                            <a href="{{ route('user.search') }}" class="nav__link">
+                            <a href="{{ route('user.search') }}"
+                                class="nav__link {{ request()->routeIs('user.search') ? 'active-link' : '' }}">
                                 <i class='bx bx-search nav__icon'></i>
                                 <span class="nav__name">Search</span>
                             </a>
                         </li>
+
                         <li class="nav__item">
-                            <a href="{{ route('user.profile') }}" class="nav__link">
+                            <a href="{{ route('user.profile') }}"
+                                class="nav__link {{ request()->routeIs('user.profile') ? 'active-link' : '' }}">
                                 <i class='bx bx-user nav__icon'></i>
                                 <span class="nav__name">Account</span>
                             </a>
                         </li>
+
                         <li class="nav__item">
-                            <a href="{{ route('user.history') }}" class="nav__link">
+                            <a href="{{ route('user.history') }}"
+                                class="nav__link {{ request()->routeIs('user.history') ? 'active-link' : '' }}">
                                 <i class='bx bx-history nav__icon'></i>
                                 <span class="nav__name">History</span>
                             </a>
                         </li>
 
                         <li class="nav__item">
-                            <a href="support.html" class="nav__link">
+                            <a href="support.html"
+                                class="nav__link {{ request()->is('support') ? 'active-link' : '' }}">
                                 <i class='bx bx-support nav__icon'></i>
                                 <span class="nav__name">Support</span>
                             </a>
                         </li>
-
                     </ul>
+
                 </div>
 
                 <div class="nav-user-icon online" onclick="settingsMenuToggle()">

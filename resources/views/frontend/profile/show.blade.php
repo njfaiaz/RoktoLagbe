@@ -6,7 +6,7 @@
 @section('frontend_content')
     <div class="padding">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
                 <div class="card_setting">
                     <img class="card-img-top" src="https://i.imgur.com/K7A78We.jpg" alt="Card image cap">
                     <div class="card-body little-profile text-center">
@@ -29,7 +29,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="row">
@@ -134,18 +134,30 @@
                             <a href="javascript:;">&nbsp;</a>
                         </div>
                         <div class="timeline-body">
-                            <div class="timeline-header">
+                            <div class="timeline-header"> Donar Name =
+                                <span class="username"> {{ $donation->user->name }}<small></small></span>
+                            </div>
+                            <div class="timeline-header"> Peasant Name =
                                 <span class="username">{{ $donation->blood_receiver_name }}<small></small></span>
                             </div>
+                            <div class="timeline-header"> Peasant Phone Number =
+                                <span class="username">{{ $donation->blood_receiver_number }}<small></small></span>
+                            </div>
+                            <div class="timeline-header">Peasant Blood Name =
+                                <span class="username">{{ $donation->blood->blood_name }}<small></small></span>
+                            </div>
+                            <div class="timeline-header"> Peasant Gender =
+                                <span class="username">{{ $donation->gender }}<small></small></span>
+                            </div>
                             <div class="timeline-header">
-                                <span class="address_name">
+                                <span class="address_name"> Peasant Address =
                                     {{ $donation->district->district_name ?? '' }},
                                     <strong>{{ $donation->upazila->upazila_name ?? '' }},</strong>
                                     <strong>{{ $donation->union->union_name ?? '' }}</strong>
                                 </span>
                             </div>
-                            <div class="timeline-content">
-                                <p>
+                            <div class="timeline-header"> What problem did you take blood for? =
+                                <p class="username">
                                     {{ $donation->patient_details ?? 'No patient details.' }}
                                 </p>
                             </div>
