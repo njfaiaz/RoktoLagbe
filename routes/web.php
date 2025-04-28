@@ -114,6 +114,7 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
 
     // ------------------------------ Frontend Search Page----------------------------------
     Route::get('search', [FrSearchController::class, 'index'])->name('user.search');
+    Route::get('profile/{username}', [FrSearchController::class, 'show'])->name('user.profile.search.show');
 
 
 

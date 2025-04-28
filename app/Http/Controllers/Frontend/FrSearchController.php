@@ -4,18 +4,43 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\District;
+use App\Models\DonateHistory;
 use App\Models\Union;
 use App\Models\Upazila;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FrSearchController extends Controller
 {
     public function index()
     {
-        return view('frontend.seaarch.index');
+        $loggedInUserId = auth()->id();
+
+        $users = User::with('profiles', 'profiles.bloods', 'addresses.district', 'addresses.upazila', 'addresses.union')
+            ->orderByRaw("id = ? DESC", [$loggedInUserId])
+            ->latest()
+            ->paginate(20);
+
+        return view('frontend.seaarch.index', compact('users'));
     }
 
+    public function show($username)
+    {
+        $user = User::where('username', $username)
+            ->with(
+                'profiles',
+                'profiles.bloods',
+                'addresses.district',
+                'addresses.upazila',
+                'addresses.union',
+                'donateHistories',
+            )
+            ->firstOrFail();
+        // return response()->json($user);
+        $totalDonateCount = DonateHistory::where('user_id', $user->id)->count();
 
+        return view('frontend.profile.show', compact('user', 'totalDonateCount'));
+    }
 
 
     public function searchDistricts(Request $request)

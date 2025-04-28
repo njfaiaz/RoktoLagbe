@@ -54,45 +54,90 @@
 
                 <!-- Cards Section -->
                 <div class="card-container">
-                    <div class="card bg-white">
-                        <div class="body">
+                    @foreach ($users as $user)
+                        @php
+                            $loggedInUserId = auth()->id();
+                            $loggedInUser = auth()->user();
+                            $loggedInUserProfileComplete =
+                                $loggedInUser->profiles && $loggedInUser->profiles->bloods && $loggedInUser->addresses;
+                        @endphp
 
-                            <div class="cover_bg_image">
-                                <h3>Junayed Rahman Faiaz</h3>
-                                <h4>AB+ Blood Doner</h4>
-                            </div>
-                            <img src="{{ asset('assets/frontend/img/profile.png') }}" alt="Profile Image">
-                            <p>Mymensingh, Haluaghat, Dhara</p>
-                            <div class="cardbtn">
-                                <a href="{{ route('user.profile') }}">
-                                    <button class="btn view">View Profile</button>
-                                </a>
-                                <button class="btn message">Message</button>
-                            </div>
-                            <div class="timer">
+                        <div class="card bg-white">
+                            <div class="body">
+                                <div class="cover_bg_image">
+                                    <h3>{{ $user->name }}</h3>
+                                    <h4>{{ $user->profiles->bloods->blood_name ?? 'N/A' }}</h4>
+                                </div>
+
+                                @if ($user->profiles && $user->profiles->image)
+                                    <img src="{{ asset($user->profiles->image) }}" width="60" height="60" />
+                                @else
+                                    <span>No Image</span>
+                                @endif
+
+                                <p>{{ $user->addresses->district->district_name ?? 'N/A' }},
+                                    {{ $user->addresses->upazila->upazila_name ?? 'N/A' }},
+                                    {{ $user->addresses->union->union_name ?? 'N/A' }}</p>
+
+                                <div class="cardbtn">
+                                    <button class="btn view"
+                                        onclick="handleViewProfile('{{ $loggedInUserProfileComplete ? 'yes' : 'no' }}', '{{ route('user.profile.search.show', $user->username) }}')">
+                                        View Profile
+                                    </button>
+
+                                    <button class="btn message">Message</button>
+                                </div>
+
+
+                                @php
+                                    $profilePreviousDate = optional($user->profiles)->previous_donation_date;
+                                    $latestDonationDate = optional(
+                                        $user->donatehistories()->latest('donation_date')->first(),
+                                    )->donation_date;
+
+                                    $baseDate = null;
+
+                                    if ($profilePreviousDate && $latestDonationDate) {
+                                        $baseDate = \Carbon\Carbon::parse($profilePreviousDate)->gt(
+                                            \Carbon\Carbon::parse($latestDonationDate),
+                                        )
+                                            ? $profilePreviousDate
+                                            : $latestDonationDate;
+                                    } elseif ($profilePreviousDate) {
+                                        $baseDate = $profilePreviousDate;
+                                    } elseif ($latestDonationDate) {
+                                        $baseDate = $latestDonationDate;
+                                    }
+
+                                    $endDate = $baseDate
+                                        ? \Carbon\Carbon::parse($baseDate)->addDays(120)->format('Y-m-d H:i:s')
+                                        : null;
+
+                                    $isLoggedInUser = auth()->check() && auth()->id() === $user->id;
+                                @endphp
+
+                                @if ($endDate)
+                                    <div class="timer" data-endtime="{{ $endDate }}"
+                                        data-userid="{{ $user->id }}"
+                                        data-is-logged-in-user="{{ $isLoggedInUser ? 'yes' : 'no' }}">
+                                    </div>
+                                @endif
+
 
                             </div>
                         </div>
-                    </div>
+                    @endforeach
+
 
                 </div>
             </div>
 
             <!-- Pagination -->
-            <div class="bottomsec py-2">
-                <select name="page" id="bottom">
-                    <option value="">Show 12</option>
-                    <option value="">Show 24</option>
-                    <option value="">Show 36</option>
-                </select>
-                <div class="pagination">
-                    <a href="#" class="arrow">&laquo;</a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">...</a>
-                    <a href="#">6</a>
-                    <a href="#" class="arrow">&raquo;</a>
+            <div class="card mt-5">
+                <div class="">
+                    <ul class="pagination pagination-primary m-b-0">
+                        {{ $users->links('pagination::bootstrap-4') }}
+                    </ul>
                 </div>
             </div>
 
@@ -100,6 +145,23 @@
     </div>
 
     @push('footer_scripts')
+        <script src="{{ asset('assets/coustom/js/toastr.min.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('assets/coustom/css/toastr.css') }}">
+        <script>
+            function handleViewProfile(isProfileComplete, profileUrl) {
+                if (isProfileComplete === 'yes') {
+                    window.location.href = profileUrl;
+                } else {
+                    toastr.options = {
+                        "positionClass": "toast-top-right",
+                        "timeOut": "3000",
+                        "closeButton": true
+                    };
+                    toastr.error('Please complete your profile first!', 'Profile Incomplete');
+                }
+            }
+        </script>
+
         <script>
             document.getElementById('district').addEventListener('input', function() {
                 // Fetch and display suggestions in #district-list
