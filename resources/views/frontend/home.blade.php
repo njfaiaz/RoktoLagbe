@@ -43,12 +43,29 @@
 
 
                                 @php
-                                    $previousDonationDate = optional($user->profiles)->previous_donation_date;
-                                    $endDate = $previousDonationDate
-                                        ? \Carbon\Carbon::parse($previousDonationDate)
-                                            ->addDays(120)
-                                            ->format('Y-m-d H:i:s')
+                                    $profilePreviousDate = optional($user->profiles)->previous_donation_date;
+                                    $latestDonationDate = optional(
+                                        $user->donatehistories()->latest('donation_date')->first(),
+                                    )->donation_date;
+
+                                    $baseDate = null;
+
+                                    if ($profilePreviousDate && $latestDonationDate) {
+                                        $baseDate = \Carbon\Carbon::parse($profilePreviousDate)->gt(
+                                            \Carbon\Carbon::parse($latestDonationDate),
+                                        )
+                                            ? $profilePreviousDate
+                                            : $latestDonationDate;
+                                    } elseif ($profilePreviousDate) {
+                                        $baseDate = $profilePreviousDate;
+                                    } elseif ($latestDonationDate) {
+                                        $baseDate = $latestDonationDate;
+                                    }
+
+                                    $endDate = $baseDate
+                                        ? \Carbon\Carbon::parse($baseDate)->addDays(120)->format('Y-m-d H:i:s')
                                         : null;
+
                                     $isLoggedInUser = auth()->check() && auth()->id() === $user->id;
                                 @endphp
 
@@ -57,6 +74,7 @@
                                         data-is-logged-in-user="{{ $isLoggedInUser ? 'yes' : 'no' }}">
                                     </div>
                                 @endif
+
 
                             </div>
                         </div>
