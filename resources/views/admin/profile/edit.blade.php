@@ -21,6 +21,12 @@
 @endpush
 
 @section('title', 'Profile Edit')
+
+
+
+
+
+
 @section('content')
 
 
@@ -31,7 +37,7 @@
                     <h2>Profile</h2>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> Aero</a></li>
-                        <li class="breadcrumb-item active">Profile Edit</li>
+                        <li class="breadcrumb-item active">Profile</li>
                     </ul>
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i
                             class="zmdi zmdi-sort-amount-desc"></i></button>

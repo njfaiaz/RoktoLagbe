@@ -1,7 +1,8 @@
 @extends('app')
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/dropify.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropify/css/dropify.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/bootstrap-select/css/bootstrap-select.css') }}">
     <style>
         .dropify-wrapper {
             height: 180px;
@@ -17,11 +18,6 @@
             margin-bottom: 1rem;
             margin-left: -38px;
         }
-
-        .m-b-30,
-        .card {
-            margin-bottom: 30px;
-        }
     </style>
 @endpush
 @section('title', 'Profile Edit')
@@ -29,117 +25,225 @@
 
 
 @section('frontend_content')
-    <div class="row my-3">
+    <div class="row p-3">
         <div class="col-lg-4 col-md-4 col-sm-12 ">
             <div class="card bg-white">
-                <div class="body">
-                    <form class="py-3">
-                        <div class="form-group input-container">
-                            <input type="file" id="imageUpload" class="dropify" data-max-file-size="10M"
-                                data-msg-placeholder="Upload your Profile" />
+                <div class="body p-4">
+                    <h5><strong>Profile</strong> Settings</h5>
+                    <form action="{{ route('user.name.change') }}" method="POST">
+                        @csrf
+                        <div class="col-lg-12 col-md-12">
+                            <label></label>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Username" value="{{ $user->username }}" disabled>
+                            </div>
                         </div>
-                        <div class="form-group input-container">
-                            <input type="text" id="username" class="input-field form-control" placeholder=" " />
-                            <label for="username" class="input-label">Username</label>
+                        <div class="col-lg-12 col-md-12">
+                            <label></label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Full Name" name="name"
+                                    value="{{ $user->name }}">
+                            </div>
                         </div>
-                        <div class="form-group input-container">
-                            <input type="text" id="username" class="input-field form-control" placeholder=" " />
-                            <label for="Enter Your Full Name" class="input-label">Enter Your Full Name</label>
+                        <div class="col-lg-12 col-md-12 my-2">
+                            <div class="form-group">
+                                <label></label>
+                                <input type="email" class="form-control @error('email') border border-danger @enderror"
+                                    placeholder="Email Address" name="email" value="{{ $user->email }}">
+                            </div>
                         </div>
-                        <div class="form-group input-container">
-                            <input type="email" id="username" class="input-field form-control" placeholder=" " />
-                            <label for="Enter email" class="input-label">Enter email</label>
 
-                            <small class="form-text text-muted valid-feedback">error.</small>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card bg-white my-3">
+                <div class="body p-4">
+                    <h5><strong>Address Change</strong> Settings</h5>
+
+
+                    <form method="POST" action="{{ route('user.address.update') }}">
+                        @csrf
+
+                        <div>
+                            <label></label>
+                            <input type="text" class="form-control" id="district" autocomplete="off"
+                                value="{{ old('district', $address?->district?->district_name) }}"
+                                placeholder="District Name">
+                            <input type="hidden" id="district_id" name="district_id"
+                                value="{{ old('district_id', $address?->district_id) }}" class="form-control">
+                            <ul id="district-list-profile"></ul>
+
+                            <!-- Display error for district -->
+                            @if ($errors->has('district_id'))
+                                <span class="text-danger">{{ $errors->first('district_id') }}</span>
+                            @endif
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div>
+                            <label></label>
+                            <input type="text" class="form-control" id="upazila" autocomplete="off"
+                                value="{{ old('upazila', $address?->upazila?->upazila_name) }}" placeholder="Upazila Name">
+                            <input type="hidden" id="upazila_id" name="upazila_id"
+                                value="{{ old('upazila_id', $address?->upazila_id) }}" class="form-control">
+                            <ul id="upazila-list-profile"></ul>
+
+                            <!-- Display error for upazila -->
+                            @if ($errors->has('upazila_id'))
+                                <span class="text-danger">{{ $errors->first('upazila_id') }}</span>
+                            @endif
+                        </div>
+
+                        <div>
+                            <label></label>
+                            <input type="text" class="form-control" id="union" autocomplete="off"
+                                value="{{ old('union', $address?->union?->union_name) }}" placeholder="Union Name">
+                            <input type="hidden" id="union_id" name="union_id"
+                                value="{{ old('union_id', $address?->union_id) }}" class="form-control">
+                            <ul id="union-list-profile"></ul>
+
+                            <!-- Display error for union -->
+                            @if ($errors->has('union_id'))
+                                <span class="text-danger">{{ $errors->first('union_id') }}</span>
+                            @endif
+                        </div>
+
+                        <button type="submit" class="btn btn-info mt-3">Update Address</button>
+                    </form>
+
+
+                </div>
+            </div>
+
+            <div class="card bg-white my-3">
+                <div class="body p-4">
+                    <h5><strong>Password</strong> Change</h5>
+                    <form action="{{ route('admin.password.change') }}" method="POST">
+                        @csrf
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label></label>
+                                <input type="password" name="old_password" class="form-control"
+                                    placeholder="Enter Old password" />
+                                @error('old_password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label></label>
+                                <input type="password" name="new_password" class="form-control"
+                                    placeholder="Enter New password" />
+                                @error('new_password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 my-2">
+                            <div class="form-group">
+                                <label></label>
+                                <input type="password" name="con_password" class="form-control"
+                                    placeholder="Enter Confirm password" />
+                                @error('con_password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-info submit font-weight-bold" name="submit"
+                            value="Submit">Password Change</button>
                     </form>
                 </div>
             </div>
         </div>
 
         <div class="col-lg-6 col-md-6 col-sm-12 ">
-            <div class="card bg-white py-3">
-                <div class="body">
-                    <form action="">
-                        <div class="form-group ">
-                            <label for="exampleInputEmail1"></label>
-                            <input type="text" class="form-control" placeholder="Phone Number">
+            <div class="card bg-white">
+                <div class="body p-4">
+                    <h5><strong>Basic</strong> Settings</h5>
+                    <form action="{{ route('user.profile.update') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+
+                                <input type="file" id="imageUpload" name="image" class="dropify"
+                                    data-max-file-size="2M"
+                                    data-default-file="{{ optional($profile)->image ? asset($profile->image) : '' }}"
+                                    data-msg-placeholder="Upload your Profile" />
+
+                            </div>
                         </div>
 
 
-                        <div class="form-group ">
-                            <label for="exampleInputEmail1"></label>
-                            <select name="gender" id="gender" class="form-control">
-                                <option value="Select Gender">
-                                    Select Gender
-                                </option>
-                                <option value="Male">
-                                    Male
-                                </option>
-                                <option value="Female">
-                                    Female
-                                </option>
-                            </select>
+                        <div class="col-lg-12 col-md-12">
+                            <label></label>
+                            <div class="form-group">
+                                <input type="text" name="phone_number" type="number"
+                                    value="{{ old('phone_number', $profile->phone_number ?? '') }}"
+                                    class="form-control @error('phone_number') border border-danger @enderror"
+                                    placeholder="Phone Number">
+                                @error('phone_number')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                        <div class="form-group ">
-                            <label for="exampleInputEmail1"></label>
-                            <select name="blood_id" id="blood_group" class="form-control">
-                                <option selected disabled>Select Your Blood Group</option>
 
-                            </select>
+                        <div class="col-lg-12 col-md-12">
+                            <label></label>
+                            <div class="form-group">
+                                <select name="gender" id="gender" class="form-control" required>
+                                    <option disabled>Select Gender</option>
+                                    <option value="Male"
+                                        {{ isset($profile->gender) && $profile->gender == 'Male' ? 'selected' : '' }}>
+                                        Male</option>
+                                    <option value="Female"
+                                        {{ isset($profile->gender) && $profile->gender == 'Female' ? 'selected' : '' }}>
+                                        Female</option>
+
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group ">
-                            <label for="exampleInputEmail1"></label>
-                            <input type="text" class="form-control" id="dateInput" placeholder="Previous Donation Date"
-                                onfocus="(this.type='date')" onblur="(this.type='text')" name="previous_donation_date"
-                                value="">
+
+                        <div class="col-lg-12 col-md-12">
+                            <label></label>
+                            <div class="form-group">
+                                <select name="blood_id" id="blood_group" class="form-control" required>
+                                    <option selected disabled>Select Your Blood Group</option>
+                                    @foreach ($bloods as $blood)
+                                        <option value="{{ $blood->id }}"
+                                            {{ old('blood_id', isset($profile) && $profile ? $profile->blood_id : null) == $blood->id || (empty($profile->blood_id) && $loop->first) ? 'selected' : '' }}>
+                                            {{ $blood->blood_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+
+                        <div class="col-lg-12 col-md-12 py-2">
+                            <label></label>
+                            <div class="form-group">
+                                @php
+                                    $today = date('Y-m-d');
+                                @endphp
+
+                                <input type="date"
+                                    class="form-control @error('previous_donation_date') border border-danger @enderror"
+                                    name="previous_donation_date"
+                                    value="{{ old('previous_donation_date', $profile->previous_donation_date ?? '') }}"
+                                    max="{{ $today }}" required type="date"
+                                    placeholder="Previous Donation Date">
+                                @error('previous_donation_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-info">Update Information</button>
                     </form>
-
                 </div>
             </div>
-            <div class="card bg-white pt-3">
-                <div class="body">
-                    <form method="POST" action="">
-                        <div>
-                            <label></label>
-                            <input type="text" class="form-control" id="district" autocomplete="off"
-                                value="{{ old('district', auth()->user()->district->name ?? '') }}"
-                                placeholder="District Name">
-                            <input type="hidden" id="district_id" name="district_id" value="{{ auth()->user()->id ?? '' }}"
-                                class="form-control">
-                            <ul id="district-list-profile"></ul>
-                        </div>
-
-                        <div>
-                            <label></label>
-                            <input type="text" id="upazila" autocomplete="off"
-                                value="{{ old('upazila', auth()->user()->upazila->name ?? '') }}" class="form-control"
-                                placeholder="Upazila Name">
-                            <input type="hidden" id="upazila_id" name="upazila_id" value="{{ auth()->user()->id ?? '' }}"
-                                class="form-control">
-                            <ul id="upazila-list-profile"></ul>
-                        </div>
-
-                        <div>
-                            <label></label>
-                            <input type="text" id="union" autocomplete="off"
-                                value="{{ old('union', auth()->user()->union->name ?? '') }}" class="form-control"
-                                placeholder="Union Name">
-                            <input type="hidden" id="union_id" name="union_id" value="{{ auth()->user()->id ?? '' }}"
-                                class="form-control">
-                            <ul id="union-list-profile"></ul>
-                        </div>
-
-                        <button type="submit" class="btn btn-info">Update Address</button>
-                    </form>
-
-                </div>
-            </div>
-
 
         </div>
 
@@ -148,7 +252,7 @@
 
 
     @push('footer_scripts')
-        <script src="{{ asset('assets/frontend/js/dropify.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/plugins/dropify/js/dropify.min.js') }}"></script>
         <script>
             $(document).ready(function() {
                 // Initialize Dropify
@@ -162,6 +266,7 @@
                 });
             });
         </script>
+        <script src="{{ asset('assets/admin/js/pages/forms/dropify.js') }}"></script>
 
         <script>
             $(document).ready(function() {

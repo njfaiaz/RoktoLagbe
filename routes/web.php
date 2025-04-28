@@ -46,7 +46,7 @@ Route::get('auth/google-callback', [SocialiteController::class, 'googleAuthentic
 Route::get('auth/facebook', [SocialiteController::class, 'facebookLogin'])->name('auth.facebook');
 Route::get('auth/facebook-callback', [SocialiteController::class, 'facebookAuthentication'])->name('auth.facebook-callback');
 
-
+Route::post('password/change', [PasswordChangeController::class, 'ChangeStore'])->name('admin.password.change');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace' => 'Admin'], function () {
 
@@ -59,8 +59,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('profile/address/update', [ProfileController::class, 'addressUpdate'])->name('address.update');
     Route::post('profile/name/change', [ProfileController::class, 'nameChange'])->name('admin.name.change');
-
-    Route::post('password/change', [PasswordChangeController::class, 'ChangeStore'])->name('admin.password.change');
 
 
     Route::get('search-districts', [ProfileController::class, 'searchDistricts']);
@@ -109,10 +107,17 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
 
     // ------------------------------ Frontend Profile Page----------------------------------
     Route::get('profile', [FrProfileController::class, 'index'])->name('user.profile');
-    // Route::get('profile/{username}', [FrProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::get('profile/{username}/edit', [FrProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::post('profile/name/change', [FrProfileController::class, 'nameChange'])->name('user.name.change');
+    Route::post('profile/address/update', [FrProfileController::class, 'addressUpdate'])->name('user.address.update');
+    Route::post('profile/update', [FrProfileController::class, 'update'])->name('user.profile.update');
 
     // ------------------------------ Frontend Search Page----------------------------------
     Route::get('search', [FrSearchController::class, 'index'])->name('user.search');
+
+
+
+
 
     Route::get('/search-districts', [FrSearchController::class, 'searchDistricts']);
     Route::get('/search-upazilas', [FrSearchController::class, 'searchUpazilas']);
