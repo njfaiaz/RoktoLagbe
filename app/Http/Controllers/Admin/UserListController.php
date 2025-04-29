@@ -52,15 +52,15 @@ class UserListController extends Controller
 
     public function userInactive()
     {
-        $inActiveUser = User::where('status', '2')->with('profiles', 'addresses')->get();
+        $inActiveUser = User::where('status', '2')->with('profiles', 'addresses')->latest()->paginate(20);
         return view('admin.user.block_user', compact('inActiveUser'));
     }
 
 
     public function userActive()
     {
-        $ActiveVendor = User::where('status', '1')->with('profiles', 'addresses')->get();
-        return view('admin.user.Active_user', compact('ActiveVendor'));
+        $ActiveUser = User::where('status', '1')->with('profiles', 'addresses')->latest()->paginate(20);
+        return view('admin.user.Active_user', compact('ActiveUser'));
     }
 
     public function inActiveApprove(Request $request)
