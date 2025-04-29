@@ -81,7 +81,7 @@
 
                                 <div class="cardbtn">
                                     <button class="btn view"
-                                        onclick="handleViewProfile('{{ $loggedInUserProfileComplete ? 'yes' : 'no' }}', '{{ route('user.profile.search.show', $user->username) }}')">
+                                        onclick="handleViewProfile('{{ $loggedInUserProfileComplete ? 'yes' : 'no' }}', '{{ route('user.profile.show', $user->username) }}')">
                                         View Profile
                                     </button>
 

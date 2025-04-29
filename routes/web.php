@@ -84,19 +84,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     // ------------------------------ Admin Setting Page----------------------------------
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
 
-
     // ------------------------------ All User Blood Donate History Page----------------------------------
     Route::get('donate/history', [DonateHistoryController::class, 'index'])->name('donate.history');
-
-
-
-    // Route::get('service', [ServiceController::class, 'index'])->name('service');
-    // Route::get('service/create', [ServiceController::class, 'create'])->name('service.create');
-    // Route::post('service/store', [ServiceController::class, 'Store'])->name('service.store');
-    // Route::get('service/edit/{id}', [ServiceController::class, 'Edit'])->name('service.edit');
-    // Route::post('service/update/{id}', [ServiceController::class, 'Update'])->name('service.update');
-    // Route::get('service/destroy/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
-
 });
 
 Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {
@@ -114,10 +103,6 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
 
     // ------------------------------ Frontend Search Page----------------------------------
     Route::get('search', [FrSearchController::class, 'index'])->name('user.search');
-    Route::get('profile/{username}', [FrSearchController::class, 'show'])->name('user.profile.search.show');
-
-
-
 
 
     Route::get('/search-districts', [FrSearchController::class, 'searchDistricts']);
@@ -128,8 +113,8 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
     Route::get('history', [FrHistoryController::class, 'index'])->name('user.history');
     Route::get('history.store', [FrHistoryController::class, 'Store'])->name('user.history.store');
 
-    // ------------------------------ Frontend Search Page----------------------------------
 
+    // ------------------------------ Frontend Search Page----------------------------------
 
     Route::middleware(['auth', 'check.next.donate'])->group(function () {
         Route::get('next-donate', [FrDonateInfoController::class, 'nextDonate'])->name('next.donate');

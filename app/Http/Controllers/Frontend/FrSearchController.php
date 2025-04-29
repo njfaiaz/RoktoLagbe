@@ -24,24 +24,6 @@ class FrSearchController extends Controller
         return view('frontend.seaarch.index', compact('users'));
     }
 
-    public function show($username)
-    {
-        $user = User::where('username', $username)
-            ->with(
-                'profiles',
-                'profiles.bloods',
-                'addresses.district',
-                'addresses.upazila',
-                'addresses.union',
-                'donateHistories',
-            )
-            ->firstOrFail();
-        // return response()->json($user);
-        $totalDonateCount = DonateHistory::where('user_id', $user->id)->count();
-
-        return view('frontend.profile.show', compact('user', 'totalDonateCount'));
-    }
-
 
     public function searchDistricts(Request $request)
     {

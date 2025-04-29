@@ -34,7 +34,7 @@
 
                                 <div class="cardbtn">
                                     <button class="btn view"
-                                        onclick="handleViewProfile('{{ $loggedInUserProfileComplete ? 'yes' : 'no' }}', '{{ route('user.profile.show', $user->username) }}')">
+                                        onclick="handleViewProfileShow('{{ $loggedInUserProfileComplete ? 'yes' : 'no' }}', '{{ route('user.profile.show', $user->username) }}')">
                                         View Profile
                                     </button>
 
@@ -101,7 +101,7 @@
         <script src="{{ asset('assets/coustom/js/toastr.min.js') }}"></script>
         <link rel="stylesheet" href="{{ asset('assets/coustom/css/toastr.css') }}">
         <script>
-            function handleViewProfile(isProfileComplete, profileUrl) {
+            function handleViewProfileShow(isProfileComplete, profileUrl) {
                 if (isProfileComplete === 'yes') {
                     window.location.href = profileUrl;
                 } else {
