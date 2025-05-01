@@ -9,20 +9,19 @@ use App\Models\DonateHistory;
 use App\Models\Union;
 use App\Models\Upazila;
 use App\Models\User;
+use App\Services\UserService;
+use App\Filters\SearchFilter;
 use Illuminate\Http\Request;
 
 class FrSearchController extends Controller
 {
-    public function index()
+    public function index(Request $request, UserService $userService)
     {
-        $loggedInUserId = auth()->id();
-
-        $users = User::with('profiles', 'profiles.bloods', 'addresses.district', 'addresses.upazila', 'addresses.union')
-            ->orderByRaw("id = ? DESC", [$loggedInUserId])
-            ->latest()
-            ->paginate(20);
+        $users = $userService->getFilteredUsers($request);
         $bloods = Blood::all();
-        return view('frontend.seaarch.index', compact('users', 'bloods'));
+        $districtName = $request->district_id ? District::find($request->district_id)?->district_name : '';
+
+        return view('frontend.seaarch.index', compact('users', 'bloods', 'districtName'));
     }
 
 

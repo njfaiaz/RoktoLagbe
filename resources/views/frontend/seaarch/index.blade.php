@@ -7,59 +7,65 @@
         <main class="main">
             <div class="">
                 <!-- Filter Section -->
-                <div class="filter-section">
+                <form action="{{ route('user.search') }}" method="GET">
+                    <div class="filter-section">
 
-                    <select name="blood_id" id="blood_group" class="d-block">
-                        <option selected disabled>Select Blood</option>
-                        @foreach ($bloods as $blood)
-                            <option value="{{ $blood->id }}">
-                                {{ $blood->blood_name }}
-                            </option>
-                        @endforeach
-                    </select>
+                        <select name="blood_name" id="blood_group" class="d-block">
+                            <option selected disabled>Select Blood</option>
+                            @foreach ($bloods as $blood)
+                                <option value="{{ $blood->id }}"
+                                    {{ request()->query('blood_name') == $blood->id ? 'selected' : '' }}>
+                                    {{ $blood->blood_name }}
+                                </option>
+                            @endforeach
+                        </select>
 
-                    <input type="text" class="form-control" id="district" autocomplete="off" placeholder="District Name">
-                    <input type="hidden" id="district_id" name="district_id" value="" class="form-control">
+                        <input type="text" name="district_name" class="form-control" id="district" autocomplete="off"
+                            value="{{ old('district_name', $districtName ?? '') }}" placeholder="District Name">
 
-                    <div id="district-list-container">
-                        <ul id="district-list" class="list-group phone_version mt-4"></ul>
+                        <input type="hidden" id="district_id" name="district_id" class="form-control"
+                            value="{{ request()->query('district_id') ?? '' }}">
+
+
+                        <div id="district-list-container">
+                            <ul id="district-list" class="list-group phone_version mt-4"></ul>
+                        </div>
+
+                        <input type="text" name="upazila_name" class="form-control" id="upazila" autocomplete="off"
+                            value="{{ old('upazila_name', request()->query('upazila_name')) }}" placeholder="Upazila Name">
+                        <input type="hidden" id="upazila_id" name="upazila_id"
+                            value="{{ old('upazila_id', request()->query('upazila_id')) }}">
+                        <div id="upazila-list-container">
+                            <ul id="upazila-list" class="list-group phone_version mt-4"></ul>
+                        </div>
+
+                        <input type="text" name="union_name" class="form-control" id="union" autocomplete="off"
+                            value="{{ old('union_name', request()->query('union_name')) }}" placeholder="Union Name">
+                        <input type="hidden" id="union_id" name="union_id"
+                            value="{{ old('union_id', request()->query('union_id')) }}">
+                        <div id="union-list-container">
+                            <ul id="union-list" class="list-group phone_version mt-4"></ul>
+                        </div>
+
+                        <select name="eligibility" class="d-block">
+                            <option value="all" {{ request()->query('eligibility') == 'all' ? 'selected' : '' }}>All
+                                Users</option>
+                            <option value="eligible" {{ request()->query('eligibility') == 'eligible' ? 'selected' : '' }}>
+                                Users Eligible to Donate</option>
+                            <option value="not_eligible"
+                                {{ request()->query('eligibility') == 'not_eligible' ? 'selected' : '' }}>Users Not Yet
+                                Eligible</option>
+                        </select>
+
+                        <div>
+                            <button type="submit" class="btn filter_search">Search</button>
+                        </div>
+                        <div>
+                            <a class="btn filter_search" href="{{ url()->current() }}">Reset </a>
+                        </div>
                     </div>
+                </form>
 
-                    <input type="text" id="upazila" autocomplete="off"
-                        value="{{ old('upazila', auth()->user()->upazila->name ?? '') }}" class="form-control"
-                        placeholder="Upazila Name">
-                    <input type="hidden" id="upazila_id" name="upazila_id" value="{{ auth()->user()->id ?? '' }}"
-                        class="form-control">
-                    <div id="upazila-list-container">
-                        <ul id="upazila-list" class="list-group phone_version mt-4"></ul>
-                    </div>
-
-
-                    <input type="text" id="union" autocomplete="off"
-                        value="{{ old('union', auth()->user()->union->name ?? '') }}" class="form-control"
-                        placeholder="Union Name">
-                    <input type="hidden" id="union_id" name="union_id" value="{{ auth()->user()->id ?? '' }}"
-                        class="form-control">
-                    <div id="union-list-container">
-                        <ul id="union-list" class="list-group phone_version mt-4"></ul>
-                    </div>
-
-
-
-                    <select class="d-block">
-                        <option>All Users</option>
-                        <option>Users Eligible to Donate</option>
-                        <option>Users Not Yet Eligible </option>
-                    </select>
-                    <div>
-
-                        <a class="btn filter_search" href="">Search </a>
-                    </div>
-                    <div>
-
-                        <a class="btn filter_search" href="">Reset </a>
-                    </div>
-                </div>
 
                 <!-- Cards Section -->
                 <div class="card-container">
@@ -177,23 +183,32 @@
             });
         </script>
         <script>
+            let selectedDistrictId = "{{ request()->query('district_id') ?? '' }}";
+            let selectedUpazilaId = "{{ request()->query('upazila_id') ?? '' }}";
+            let selectedUnionId = "{{ request()->query('union_id') ?? '' }}"; // Store initial union ID
+
             $(document).ready(function() {
-                // District autocomplete
+                // District search
                 $('#district').on('keyup', function() {
                     let query = $(this).val();
                     $.ajax({
                         url: '/search-districts',
                         type: 'GET',
                         data: {
-                            query: query
+                            query
                         },
                         success: function(data) {
                             $('#district-list').empty();
-                            data.forEach(district => {
-                                $('#district-list').append(
-                                    `<li class="form-control" data-id="${district.id}">${district.district_name}</li>`
-                                );
-                            });
+                            if (data.length === 0) {
+                                $('#district-list').hide(); // Hide list if no data
+                            } else {
+                                $('#district-list').show(); // Show list if data exists
+                                data.forEach(district => {
+                                    $('#district-list').append(
+                                        `<li class="form-control" data-id="${district.id}">${district.district_name}</li>`
+                                    );
+                                });
+                            }
                         }
                     });
                 });
@@ -204,71 +219,88 @@
                     $('#district').val($(this).text());
                     $('#district_id').val(districtId);
                     $('#district-list').empty();
-                    loadUpazilas(districtId);
+                    selectedDistrictId = districtId;
                 });
 
-                // Load Upazilas
-                function loadUpazilas(districtId) {
-                    $('#upazila').on('keyup', function() {
-                        let query = $(this).val();
-                        $.ajax({
-                            url: '/search-upazilas',
-                            type: 'GET',
-                            data: {
-                                query: query,
-                                district_id: districtId
-                            },
-                            success: function(data) {
-                                $('#upazila-list').empty();
+                // Upazila search
+                $('#upazila').on('keyup', function() {
+                    let query = $(this).val();
+                    if (!selectedDistrictId) return;
+
+                    $.ajax({
+                        url: '/search-upazilas',
+                        type: 'GET',
+                        data: {
+                            query,
+                            district_id: selectedDistrictId
+                        },
+                        success: function(data) {
+                            $('#upazila-list').empty();
+                            if (data.length > 0) {
+                                // Show the list if there are results
+                                $('#upazila-list').show();
                                 data.forEach(upazila => {
                                     $('#upazila-list').append(
                                         `<li class="form-control" data-id="${upazila.id}">${upazila.upazila_name}</li>`
                                     );
                                 });
+                            } else {
+                                // Hide the list if no results are found
+                                $('#upazila-list').hide();
                             }
-                        });
+                        }
                     });
+                });
 
-                    // Select Upazila
-                    $(document).on('click', '#upazila-list li', function() {
-                        let upazilaId = $(this).data('id');
-                        $('#upazila').val($(this).text());
-                        $('#upazila_id').val(upazilaId);
-                        $('#upazila-list').empty();
-                        loadUnions(upazilaId);
-                    });
-                }
 
-                // Load Unions
-                function loadUnions(upazilaId) {
-                    $('#union').on('keyup', function() {
-                        let query = $(this).val();
-                        $.ajax({
-                            url: '/search-unions',
-                            type: 'GET',
-                            data: {
-                                query: query,
-                                upazila_id: upazilaId
-                            },
-                            success: function(data) {
-                                $('#union-list').empty();
+                // Select Upazila
+                $(document).on('click', '#upazila-list li', function() {
+                    let upazilaId = $(this).data('id');
+                    $('#upazila').val($(this).text());
+                    $('#upazila_id').val(upazilaId);
+                    $('#upazila-list').empty();
+                    selectedUpazilaId = upazilaId;
+                });
+
+                // Union search
+                $('#union').on('keyup', function() {
+                    let query = $(this).val();
+                    $('#union_id').val(''); // Clear old union_id on every keyup
+
+                    if (!selectedUpazilaId) return;
+
+                    $.ajax({
+                        url: '/search-unions',
+                        type: 'GET',
+                        data: {
+                            query,
+                            upazila_id: selectedUpazilaId
+                        },
+                        success: function(data) {
+                            $('#union-list').empty();
+                            if (data.length === 0) {
+                                $('#union-list').hide(); // Hide list if no data
+                            } else {
+                                $('#union-list').show(); // Show list if data exists
                                 data.forEach(union => {
                                     $('#union-list').append(
                                         `<li class="form-control" data-id="${union.id}">${union.union_name}</li>`
                                     );
                                 });
                             }
-                        });
+                        }
                     });
+                });
 
-                    // Select Union
-                    $(document).on('click', '#union-list li', function() {
-                        let unionId = $(this).data('id');
-                        $('#union').val($(this).text());
-                        $('#union_id').val(unionId);
-                        $('#union-list').empty();
-                    });
-                }
+                // Select Union
+                $(document).on('click', '#union-list li', function() {
+                    let unionId = $(this).data('id');
+                    $('#union').val($(this).text());
+                    $('#union_id').val(unionId);
+                    $('#union-list').empty();
+                    selectedUnionId = unionId;
+                });
+
             });
         </script>
     @endpush
