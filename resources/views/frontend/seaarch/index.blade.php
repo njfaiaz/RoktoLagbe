@@ -1,8 +1,6 @@
 @extends('app')
 @section('title', 'Search')
 
-
-
 @section('frontend_content')
 
     <div class="container ">
@@ -10,10 +8,14 @@
             <div class="">
                 <!-- Filter Section -->
                 <div class="filter-section">
-                    <select>
-                        <option>AB+</option>
-                        <option>A+</option>
-                        <option>B+</option>
+
+                    <select name="blood_id" id="blood_group" class="d-block">
+                        <option selected disabled>Select Blood</option>
+                        @foreach ($bloods as $blood)
+                            <option value="{{ $blood->id }}">
+                                {{ $blood->blood_name }}
+                            </option>
+                        @endforeach
                     </select>
 
                     <input type="text" class="form-control" id="district" autocomplete="off" placeholder="District Name">
@@ -43,13 +45,20 @@
                     </div>
 
 
-                    <input type="text" id="dateInput" placeholder="Last Donation Date" onfocus="(this.type='date')"
-                        onblur="(this.type='text')">
-                    <a class="btn filter_search" href="">
 
-                        <i class="fa fa-search icon"></i>
+                    <select class="d-block">
+                        <option>All Users</option>
+                        <option>Users Eligible to Donate</option>
+                        <option>Users Not Yet Eligible </option>
+                    </select>
+                    <div>
 
-                    </a>
+                        <a class="btn filter_search" href="">Search </a>
+                    </div>
+                    <div>
+
+                        <a class="btn filter_search" href="">Reset </a>
+                    </div>
                 </div>
 
                 <!-- Cards Section -->

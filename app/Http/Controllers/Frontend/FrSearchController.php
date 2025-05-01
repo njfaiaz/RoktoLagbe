@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blood;
 use App\Models\District;
 use App\Models\DonateHistory;
 use App\Models\Union;
@@ -20,8 +21,8 @@ class FrSearchController extends Controller
             ->orderByRaw("id = ? DESC", [$loggedInUserId])
             ->latest()
             ->paginate(20);
-
-        return view('frontend.seaarch.index', compact('users'));
+        $bloods = Blood::all();
+        return view('frontend.seaarch.index', compact('users', 'bloods'));
     }
 
 

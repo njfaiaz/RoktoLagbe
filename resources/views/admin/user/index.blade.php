@@ -35,7 +35,7 @@
                             <div>
 
                                 <select name="blood_id" id="blood_group" class="d-block">
-                                    <option selected disabled>Select Your Blood Group</option>
+                                    <option selected disabled>Select Blood </option>
                                     @foreach ($bloods as $blood)
                                         <option value="{{ $blood->id }}">
                                             {{ $blood->blood_name }}
@@ -76,9 +76,9 @@
                             <div>
 
                                 <select class="d-block">
-                                    <option>All User</option>
-                                    <option>zader blad dewar somoy hoiche</option>
-                                    <option>zader sob 00 00 00 </option>
+                                    <option>All Users</option>
+                                    <option>Users Eligible to Donate</option>
+                                    <option>Users Not Yet Eligible </option>
                                 </select>
                             </div>
                             <div>
