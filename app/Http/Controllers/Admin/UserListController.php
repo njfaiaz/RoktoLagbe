@@ -2,24 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Filters\AdminUserSearchFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Blood;
 use App\Models\District;
 use App\Models\Union;
 use App\Models\Upazila;
 use App\Models\User;
+use App\Services\AdminUserSearchService;
 use Illuminate\Http\Request;
 
 class UserListController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     $users = User::with('profiles', 'profiles.bloods', 'addresses.district', 'addresses.upazila', 'addresses.union')->latest()->paginate(20);
+    //     $bloods = Blood::all();
+    //     return view('admin.user.index', compact('users', 'bloods'));
+    // }
+
+    public function index(Request $request, AdminUserSearchService $userService)
     {
-        $users = User::with('profiles', 'profiles.bloods', 'addresses.district', 'addresses.upazila', 'addresses.union')->latest()->paginate(20);
+        $users = $userService->getFilteredUsers($request);
         $bloods = Blood::all();
-        return view('admin.user.index', compact('users', 'bloods'));
+        $districtName = $request->district_id ? District::find($request->district_id)?->district_name : '';
+
+        return view('admin.user.index', compact('users', 'bloods', 'districtName'));
     }
-
-
 
 
     public function searchDistricts(Request $request)

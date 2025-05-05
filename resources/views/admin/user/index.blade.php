@@ -31,67 +31,70 @@
 
                         {{-- Search Option ------------------------------------------------------------------------------ --}}
 
-                        <div class="filter-section">
-                            <div>
+                        <form action="{{ route('user.list') }}" method="GET">
+                            <div class="filter-section">
 
-                                <select name="blood_id" id="blood_group" class="d-block">
-                                    <option selected disabled>Select Blood </option>
+                                <select name="blood_name" id="blood_group" class="d-block">
+                                    <option selected disabled>Select Blood</option>
                                     @foreach ($bloods as $blood)
-                                        <option value="{{ $blood->id }}">
+                                        <option value="{{ $blood->id }}"
+                                            {{ request()->query('blood_name') == $blood->id ? 'selected' : '' }}>
                                             {{ $blood->blood_name }}
                                         </option>
                                     @endforeach
                                 </select>
-                            </div>
-                            <div>
 
-                                <input type="text" class="form-control bg-white" id="district" autocomplete="off"
+                                <input type="text" name="district_name" class="form-control" id="district"
+                                    autocomplete="off" value="{{ old('district_name', $districtName ?? '') }}"
                                     placeholder="District Name">
-                                <input type="hidden" id="district_id" name="district_id" class="form-control">
+
+                                <input type="hidden" id="district_id" name="district_id" class="form-control"
+                                    value="{{ request()->query('district_id') ?? '' }}">
+
 
                                 <div id="district-list-container">
                                     <ul id="district-list" class="list-group phone_version mt-4"></ul>
                                 </div>
-                            </div>
-                            <div>
-                                <label for=""></label>
-                                <input type="text" class="form-control bg-white" id="upazila" autocomplete="off"
+
+                                <input type="text" name="upazila_name" class="form-control" id="upazila"
+                                    autocomplete="off" value="{{ old('upazila_name', request()->query('upazila_name')) }}"
                                     placeholder="Upazila Name">
-                                <input type="hidden" id="upazila_id" name="upazila_id" class="form-control">
+                                <input type="hidden" id="upazila_id" name="upazila_id"
+                                    value="{{ old('upazila_id', request()->query('upazila_id')) }}">
                                 <div id="upazila-list-container">
                                     <ul id="upazila-list" class="list-group phone_version mt-4"></ul>
                                 </div>
-                            </div>
 
-                            <div>
-                                <label for=""></label>
-                                <input type="text" id="union" autocomplete="off" class="form-control bg-white"
+                                <input type="text" name="union_name" class="form-control" id="union"
+                                    autocomplete="off" value="{{ old('union_name', request()->query('union_name')) }}"
                                     placeholder="Union Name">
-                                <input type="hidden" id="union_id" name="union_id" class="form-control">
+                                <input type="hidden" id="union_id" name="union_id"
+                                    value="{{ old('union_id', request()->query('union_id')) }}">
                                 <div id="union-list-container">
                                     <ul id="union-list" class="list-group phone_version mt-4"></ul>
                                 </div>
-                            </div>
 
-                            <div>
-
-                                <select class="d-block">
-                                    <option>All Users</option>
-                                    <option>Users Eligible to Donate</option>
-                                    <option>Users Not Yet Eligible </option>
+                                <select name="eligibility" class="d-block">
+                                    <option value="all"
+                                        {{ request()->query('eligibility') == 'all' ? 'selected' : '' }}>All
+                                        Users</option>
+                                    <option value="eligible"
+                                        {{ request()->query('eligibility') == 'eligible' ? 'selected' : '' }}>
+                                        Users Eligible to Donate</option>
+                                    <option value="not_eligible"
+                                        {{ request()->query('eligibility') == 'not_eligible' ? 'selected' : '' }}>Users Not
+                                        Yet
+                                        Eligible</option>
                                 </select>
+
+                                <div>
+                                    <button type="submit" class="btn filter_search">Search</button>
+                                </div>
+                                <div>
+                                    <a class="btn filter_search" href="{{ url()->current() }}">Reset </a>
+                                </div>
                             </div>
-                            <div>
-
-                                <a class="btn filter_search" href="">Search </a>
-                            </div>
-                            <div>
-
-                                <a class="btn filter_search" href="">Reset </a>
-                            </div>
-
-                        </div>
-
+                        </form>
 
 
                         <div class="table-responsive">
@@ -115,7 +118,8 @@
                                             Email<span class="fooicon fooicon-sort"></span></th>
                                         <th data-breakpoints="xs" class="footable-sortable" style="display: table-cell;">
                                             Status<span class="fooicon fooicon-sort"></span></th>
-                                        <th data-breakpoints="xs md" class="footable-sortable" style="display: table-cell;">
+                                        <th data-breakpoints="xs md" class="footable-sortable"
+                                            style="display: table-cell;">
                                             Number<span class="fooicon fooicon-sort"></span>
                                         </th>
                                         <th data-breakpoints="xs md" class="footable-sortable"
