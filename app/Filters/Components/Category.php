@@ -3,23 +3,38 @@
 namespace App\Filters\Components;
 
 use Closure;
-use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
-class Eligibility implements ComponentInterface
+class Category
 {
-    public function handle(array $content, Closure $next): mixed
+    public function handle($passable, Closure $next)
     {
-        // Check if eligibility is provided and filter accordingly
-        if (isset($content['params']['eligibility']) && $content['params']['eligibility'] != 'all') {
-            $eligibility = $content['params']['eligibility'];
+        $builder = $passable['builder'];
+        $params = $passable['params'];
 
-            if ($eligibility == 'eligible') {
-                $content['builder']->where('eligibility', true); // Adjust based on your actual column and logic
-            } elseif ($eligibility == 'not_eligible') {
-                $content['builder']->where('eligibility', false); // Adjust based on your actual column and logic
-            }
+        if (isset($params['eligibility'])) {
+            $eligibility = $params['eligibility'];
+
+            $builder->whereHas('profiles', function ($q) {
+                $q->whereNotNull('id');
+            });
+
+            $builder->where(function ($q) use ($eligibility) {
+                $q->whereRaw('
+                    DATE_ADD(
+                        GREATEST(
+                            COALESCE((SELECT MAX(donation_date) FROM donate_histories WHERE donate_histories.user_id = users.id), "1970-01-01"),
+                            COALESCE((SELECT previous_donation_date FROM profiles WHERE profiles.user_id = users.id), "1970-01-01")
+                        ),
+                        INTERVAL 120 DAY
+                    ) ' . ($eligibility === 'eligible' ? '<=' : '>') . ' NOW()
+                ');
+            });
         }
 
-        return $next($content);
+        return $next([
+            'builder' => $builder,
+            'params' => $params,
+        ]);
     }
 }

@@ -25,6 +25,6 @@ class UserService
             ->with('profiles', 'profiles.bloods', 'addresses.district', 'addresses.upazila', 'addresses.union')
             ->orderByRaw("id = ? DESC", [auth()->id()])
             ->latest()
-            ->paginate(20);
+            ->paginate(20)->withQueryString();
     }
 }
