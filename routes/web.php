@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialiteController;
 use App\Http\Controllers\Admin\UserListController;
 use App\Http\Controllers\Frontend\FrDonateInfoController;
+use App\Http\Controllers\Frontend\FrFakeUserController;
 use App\Http\Controllers\Frontend\FrHistoryController;
 use App\Http\Controllers\Frontend\FrProfileController;
 use App\Http\Controllers\Frontend\FrSearchController;
@@ -103,6 +104,10 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
 
     // ------------------------------ Frontend Search Page----------------------------------
     Route::get('search', [FrSearchController::class, 'index'])->name('user.search');
+
+    // ------------------------------ Frontend Search Page----------------------------------
+    Route::get('fake-user', [FrFakeUserController::class, 'index'])->name('user.fake');
+    Route::get('fake-user/Derails/{id}', [FrFakeUserController::class, 'show'])->name('user.fake.details');
 
 
     Route::get('/search-districts', [FrSearchController::class, 'searchDistricts']);

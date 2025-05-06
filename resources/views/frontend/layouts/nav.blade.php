@@ -40,12 +40,21 @@
                         </li>
 
                         <li class="nav__item">
+                            <a href="{{ route('user.fake') }}"
+                                class="nav__link {{ request()->is('user.fake') ? 'active-link' : '' }}">
+                                <i class='bx bxs-user-x nav__icon'></i>
+                                <span class="nav__name">Fake User</span>
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
                             <a href="support.html"
                                 class="nav__link {{ request()->is('support') ? 'active-link' : '' }}">
                                 <i class='bx bx-support nav__icon'></i>
                                 <span class="nav__name">Support</span>
                             </a>
                         </li>
+
                     </ul>
 
                 </div>

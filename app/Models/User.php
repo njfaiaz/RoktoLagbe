@@ -83,4 +83,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Blood::class);
     }
+    public function fakeUsers()
+    {
+        return $this->hasMany(FakeUser::class, 'user_id');
+    }
 }
