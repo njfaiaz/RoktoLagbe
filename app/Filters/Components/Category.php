@@ -12,12 +12,8 @@ class Category
         $builder = $passable['builder'];
         $params = $passable['params'];
 
-        if (isset($params['eligibility'])) {
+        if (!empty($params['eligibility']) && in_array($params['eligibility'], ['eligible', 'not_eligible'])) {
             $eligibility = $params['eligibility'];
-
-            $builder->whereHas('profiles', function ($q) {
-                $q->whereNotNull('id');
-            });
 
             $builder->where(function ($q) use ($eligibility) {
                 $q->whereRaw('
@@ -32,9 +28,8 @@ class Category
             });
         }
 
-        return $next([
-            'builder' => $builder,
-            'params' => $params,
-        ]);
+        $passable['builder'] = $builder;
+
+        return $next($passable);
     }
 }

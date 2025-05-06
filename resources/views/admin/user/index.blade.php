@@ -35,7 +35,7 @@
                             <div class="filter-section">
 
                                 <select name="blood_name" id="blood_group" class="d-block">
-                                    <option selected disabled>Select Blood</option>
+                                    <option disabled {{ request('blood_name') ? '' : 'selected' }}>Select Blood</option>
                                     @foreach ($bloods as $blood)
                                         <option value="{{ $blood->id }}"
                                             {{ request()->query('blood_name') == $blood->id ? 'selected' : '' }}>
@@ -43,36 +43,60 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                <div>
 
-                                <input type="text" name="district_name" class="form-control" id="district"
-                                    autocomplete="off" value="{{ old('district_name', $districtName ?? '') }}"
-                                    placeholder="District Name">
-
-                                <input type="hidden" id="district_id" name="district_id" class="form-control"
-                                    value="{{ request()->query('district_id') ?? '' }}">
-
-
-                                <div id="district-list-container">
-                                    <ul id="district-list" class="list-group phone_version mt-4"></ul>
+                                    <input type="text" name="name" class="form-control" value="{{ request('name') }}"
+                                        placeholder="Search by name">
                                 </div>
 
-                                <input type="text" name="upazila_name" class="form-control" id="upazila"
-                                    autocomplete="off" value="{{ old('upazila_name', request()->query('upazila_name')) }}"
-                                    placeholder="Upazila Name">
-                                <input type="hidden" id="upazila_id" name="upazila_id"
-                                    value="{{ old('upazila_id', request()->query('upazila_id')) }}">
-                                <div id="upazila-list-container">
-                                    <ul id="upazila-list" class="list-group phone_version mt-4"></ul>
+                                <div>
+                                    <input type="text" name="phone_number" class="form-control"
+                                        value="{{ request('phone_number') }}" placeholder="Phone Number">
                                 </div>
 
-                                <input type="text" name="union_name" class="form-control" id="union"
-                                    autocomplete="off" value="{{ old('union_name', request()->query('union_name')) }}"
-                                    placeholder="Union Name">
-                                <input type="hidden" id="union_id" name="union_id"
-                                    value="{{ old('union_id', request()->query('union_id')) }}">
-                                <div id="union-list-container">
-                                    <ul id="union-list" class="list-group phone_version mt-4"></ul>
+                                <div>
+                                    <input type="text" name="district_name" class="form-control" id="district"
+                                        autocomplete="off" value="{{ old('district_name', $districtName ?? '') }}"
+                                        placeholder="District Name">
+
+                                    <input type="hidden" id="district_id" name="district_id" class="form-control"
+                                        value="{{ request()->query('district_id') ?? '' }}">
+
+                                    <div id="district-list-container">
+                                        <ul id="district-list" class="list-group phone_version mt-2"></ul>
+                                    </div>
                                 </div>
+
+                                <div>
+                                    <input type="text" name="upazila_name" class="form-control" id="upazila"
+                                        autocomplete="off"
+                                        value="{{ old('upazila_name', request()->query('upazila_name')) }}"
+                                        placeholder="Upazila Name">
+                                    <input type="hidden" id="upazila_id" name="upazila_id"
+                                        value="{{ old('upazila_id', request()->query('upazila_id')) }}">
+                                    <div id="upazila-list-container">
+                                        <ul id="upazila-list" class="list-group phone_version mt-2"></ul>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <input type="text" name="union_name" class="form-control" id="union"
+                                        autocomplete="off" value="{{ old('union_name', request()->query('union_name')) }}"
+                                        placeholder="Union Name">
+                                    <input type="hidden" id="union_id" name="union_id"
+                                        value="{{ old('union_id', request()->query('union_id')) }}">
+                                    <div id="union-list-container">
+                                        <ul id="union-list" class="list-group phone_version mt-2"></ul>
+                                    </div>
+                                </div>
+
+                                <select name="status" class="d-block">
+                                    <option value="">All Statuses</option>
+                                    <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active
+                                    </option>
+                                    <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>
+                                        Inactive</option>
+                                </select>
 
                                 <select name="eligibility" class="d-block">
                                     <option value="all"
@@ -112,7 +136,8 @@
                                         </th>
                                         <th class="footable-sortable" style="display: table-cell;">Full Name<span
                                                 class="fooicon fooicon-sort"></span></th>
-                                        <th data-breakpoints="sm xs" class="footable-sortable" style="display: table-cell;">
+                                        <th data-breakpoints="sm xs" class="footable-sortable"
+                                            style="display: table-cell;">
                                             User Name<span class="fooicon fooicon-sort"></span></th>
                                         <th data-breakpoints="xs" class="footable-sortable" style="display: table-cell;">
                                             Email<span class="fooicon fooicon-sort"></span></th>
