@@ -23,8 +23,7 @@ class FakeUserService
             ->thenReturn();
 
         return $filtered['builder']
-            ->with('user', 'user.profiles')
-            ->orderByRaw("user_id = ? DESC", [auth()->id()])
+            ->with('user')
             ->latest()
             ->paginate(20)
             ->withQueryString();

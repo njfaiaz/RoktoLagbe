@@ -9,7 +9,7 @@
         <main class="main py-2">
             <div class="">
                 <!-- Filter Section -->
-                <form action="{{ route('user.list') }}" method="GET">
+                <form action="{{ route('user.fake') }}" method="GET">
                     <div class="filter-section" style="background-color: #ffcaca">
 
                         <div>
