@@ -1,5 +1,5 @@
 @extends('app')
-@section('title', 'Profile Show')
+@section('title', 'Fake User Show')
 
 
 
@@ -21,9 +21,9 @@
                     <li>
                         <div class="timeline-time">
                             <span
-                                class="date">{{ optional($user)->created_at ? \Carbon\Carbon::parse($user->created_at)->format('d M Y') : 'N/A' }}</span>
+                                class="date">{{ optional($fakeUser)->created_at ? \Carbon\Carbon::parse($fakeUser->created_at)->format('d M Y') : 'N/A' }}</span>
                             <span
-                                class="time">{{ optional($user)->created_at ? \Carbon\Carbon::parse($user->created_at)->format('h:i A') : 'N/A' }}</span>
+                                class="time">{{ optional($fakeUser)->created_at ? \Carbon\Carbon::parse($fakeUser->created_at)->format('h:i A') : 'N/A' }}</span>
                         </div>
 
                         <div class="timeline-icon">

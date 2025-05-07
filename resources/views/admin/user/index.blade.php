@@ -252,7 +252,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class=" d-flex justify-content-start align-items-start py-3">
                         <div class="body">
                             <ul class="pagination pagination-primary m-b-0">
                                 {{ $users->links('pagination::bootstrap-4') }}
