@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FakeUserStoreRequest;
+use App\Models\FakeUser;
 use App\Models\User;
 use App\Services\FakeUserService;
 use Illuminate\Http\Request;
@@ -21,5 +23,24 @@ class FrFakeUserController extends Controller
         $user = User::with('fakeUsers')->findOrFail($id);
         // return response()->json($user);
         return view('frontend.fake.show', compact('user'));
+    }
+
+    public function create()
+    {
+        return view('frontend.fake.add');
+    }
+
+    public function store(FakeUserStoreRequest $request)
+    {
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
+
+        FakeUser::create($data);
+
+        $notification = array(
+            'message' => 'Fake User Add successfully!',
+            'alert' => 'success'
+        );
+        return redirect()->route('user.fake')->with($notification);
     }
 }

@@ -6,7 +6,11 @@
 @section('frontend_content')
 
     <div class="container ">
-        <main class="main py-2">
+        <main class="main">
+            <div class="d-flex justify-content-end align-items-end py-2">
+                <a href="{{ route('user.fake.create') }}" class="btn filter_search" href="">Add To New Fake User</a>
+            </div>
+
             <div class="">
                 <!-- Filter Section -->
                 <form action="{{ route('user.fake') }}" method="GET">
