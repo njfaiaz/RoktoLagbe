@@ -11,10 +11,19 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $totalUsers = User::count();
-        $profile = Profile::count();
-        $activeUserCount = User::where('status', 1)->count();
-        $inactiveUserCount = User::where('status', 2)->count();
-        return view('admin.dashboard', compact('totalUsers', 'activeUserCount', 'inactiveUserCount', 'profile'));
+        $userStats = User::selectRaw("
+            COUNT(*) as total,
+            COUNT(CASE WHEN status = 1 THEN 1 END) as active,
+            COUNT(CASE WHEN status = 2 THEN 1 END) as inactive
+        ")->first();
+
+        $profileCount = Profile::count();
+
+        return view('admin.dashboard', [
+            'totalUsers' => $userStats->total,
+            'activeUserCount' => $userStats->active,
+            'inactiveUserCount' => $userStats->inactive,
+            'profile' => $profileCount
+        ]);
     }
 }

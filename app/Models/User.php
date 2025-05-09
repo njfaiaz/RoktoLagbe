@@ -50,8 +50,6 @@ class User extends Authenticatable
         return $username;
     }
 
-
-
     public function profiles()
     {
         return $this->hasOne(Profile::class);

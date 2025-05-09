@@ -16,7 +16,7 @@ class DonateHistoryRequest extends FormRequest
         return [
             'user_id' => 'required|exists:users,id',
             'blood_receiver_name' => 'required|string|max:255',
-            'blood_receiver_number' => 'required|digits:11',
+            'blood_receiver_number' => ['required', 'string', 'size:11', 'regex:/^01[0-9]{9}$/'],
             'blood_id' => 'required|exists:bloods,id',
             'donation_date' => 'required|date',
             'gender' => 'required|string|in:Male,Female',

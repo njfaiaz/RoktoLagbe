@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('phone_number')->nullable()->unique();
             $table->date('previous_donation_date')->nullable();
             $table->string('image')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

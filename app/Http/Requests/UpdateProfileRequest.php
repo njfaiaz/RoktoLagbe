@@ -15,11 +15,11 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone_number'           => 'required|string|max:20',
+            'phone_number' => ['required', 'string', 'size:11', 'regex:/^01[0-9]{9}$/', 'unique:profiles,phone_number'],
             'gender'                 => 'required|string|max:20',
             'blood_id'               => 'required|numeric|exists:bloods,id',
             'previous_donation_date' => 'required|date',
-            'image'                  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image'                  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ];
     }
 }

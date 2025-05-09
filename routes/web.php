@@ -107,7 +107,7 @@ Route::group(['middleware' => ['user', 'auth'], 'namespace' => 'User'], function
 
     // ------------------------------ Frontend Search Page----------------------------------
     Route::get('fake-user', [FrFakeUserController::class, 'index'])->name('user.fake');
-    Route::get('fake-user/Derails/{id}', [FrFakeUserController::class, 'show'])->name('user.fake.details');
+    Route::get('fake-user/details/{id}', [FrFakeUserController::class, 'show'])->name('user.fake.details');
     Route::get('fake-user/create', [FrFakeUserController::class, 'create'])->name('user.fake.create');
     Route::post('fake-user/store', [FrFakeUserController::class, 'store'])->name('user.fake.store');
 

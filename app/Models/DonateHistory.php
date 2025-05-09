@@ -47,4 +47,9 @@ class DonateHistory extends Model
     {
         return $this->belongsTo(Union::class, 'union_id', 'id');
     }
+
+    public function getFormattedDonationDateAttribute()
+    {
+        return \Carbon\Carbon::parse($this->donation_date)->format('F d, Y');
+    }
 }

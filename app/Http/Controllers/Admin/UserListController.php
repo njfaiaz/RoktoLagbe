@@ -14,13 +14,6 @@ use Illuminate\Http\Request;
 
 class UserListController extends Controller
 {
-    // public function index()
-    // {
-    //     $users = User::with('profiles', 'profiles.bloods', 'addresses.district', 'addresses.upazila', 'addresses.union')->latest()->paginate(20);
-    //     $bloods = Blood::all();
-    //     return view('admin.user.index', compact('users', 'bloods'));
-    // }
-
     public function index(Request $request, AdminUserSearchService $userService)
     {
         $users = $userService->getFilteredUsers($request);
