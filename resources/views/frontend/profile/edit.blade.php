@@ -48,11 +48,14 @@
                         <div class="col-lg-12 col-md-12 my-2">
                             <div class="form-group">
                                 <label></label>
-                                <input type="email" class="form-control @error('email') border border-danger @enderror"
-                                    placeholder="Email Address" name="email" value="{{ $user->email }}">
+                                <input type="email" name="email" value="{{ $user->email }}"
+                                    class="form-control @error('email') border border-danger @enderror"
+                                    placeholder="Email Address">
+                                @error('email')
+                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
-
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                     </form>
                 </div>
@@ -172,7 +175,6 @@
                                     data-max-file-size="2M"
                                     data-default-file="{{ optional($profile)->image ? asset($profile->image) : '' }}"
                                     data-msg-placeholder="Upload your Profile" />
-
                             </div>
                         </div>
 

@@ -74,9 +74,13 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="form-group">
-                                        <input type="email"
+                                        <label></label>
+                                        <input type="email" name="email" value="{{ $user->email }}"
                                             class="form-control @error('email') border border-danger @enderror"
-                                            placeholder="Email Address" name="email" value="{{ $user->email }}">
+                                            placeholder="Email Address">
+                                        @error('email')
+                                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-info">Save Changes</button>

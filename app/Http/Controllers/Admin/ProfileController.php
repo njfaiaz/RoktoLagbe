@@ -115,6 +115,11 @@ class ProfileController extends Controller
     public function NameChange(Request $request)
     {
         $id = Auth::user()->id;
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+        ]);
+
         $data = User::find($id);
         $data->name = $request->name;
         $data->email = $request->email;
