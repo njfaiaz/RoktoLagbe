@@ -20,10 +20,7 @@ return new class extends Migration
             $table->string('email')->nullable()->unique();
             $table->tinyInteger('role')->default(UserRole::USER->value);
             $table->tinyInteger('status')->default(UserStatus::ACTIVE->value);
-<<<<<<< HEAD
             $table->string('profile_image')->nullable();
-=======
->>>>>>> main
             $table->string('google_id')->nullable();
             $table->string('facebook_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();

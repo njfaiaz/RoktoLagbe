@@ -2,18 +2,12 @@
 
 use App\Http\Controllers\Admin\AddressController;
 use App\Http\Controllers\Admin\AdminController;
-<<<<<<< HEAD
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialiteController;
-=======
 use App\Http\Controllers\Admin\DonateHistoryController;
 use App\Http\Controllers\Admin\PasswordChangeController;
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\SocialiteController;
 use App\Http\Controllers\Admin\UserListController;
->>>>>>> main
 use App\Http\Controllers\Frontend\FrDonateInfoController;
 use App\Http\Controllers\Frontend\FrHistoryController;
 use App\Http\Controllers\Frontend\FrProfileController;
@@ -60,13 +54,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     Route::get('profile/{username}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('profile/address/update', [ProfileController::class, 'addressUpdate'])->name('address.update');
-<<<<<<< HEAD
-=======
     Route::post('profile/name/change', [ProfileController::class, 'nameChange'])->name('admin.name.change');
 
     Route::post('password/change', [PasswordChangeController::class, 'ChangeStore'])->name('admin.password.change');
 
->>>>>>> main
 
     Route::get('search-districts', [ProfileController::class, 'searchDistricts']);
     Route::get('search-upazilas', [ProfileController::class, 'searchUpazilas']);
@@ -76,8 +67,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     // ------------------------------ Admin Address Page----------------------------------
     Route::get('address', [AddressController::class, 'index'])->name('address');
 
-<<<<<<< HEAD
-=======
 
     // ------------------------------ Admin User List Page----------------------------------
     Route::get('all/user', [UserListController::class, 'index'])->name('user.list');
@@ -90,18 +79,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth'], 'namespace
     Route::get('user-search-upazilas', [UserListController::class, 'searchUpazilas']);
     Route::get('user-search-unions', [UserListController::class, 'searchUnions']);
 
->>>>>>> main
     // ------------------------------ Admin Setting Page----------------------------------
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
 
 
-<<<<<<< HEAD
-=======
     // ------------------------------ All User Blood Donate History Page----------------------------------
     Route::get('donate/history', [DonateHistoryController::class, 'index'])->name('donate.history');
 
 
->>>>>>> main
 
     // Route::get('service', [ServiceController::class, 'index'])->name('service');
     // Route::get('service/create', [ServiceController::class, 'create'])->name('service.create');

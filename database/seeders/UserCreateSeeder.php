@@ -17,10 +17,7 @@ class UserCreateSeeder extends Seeder
             'name' => 'Junayed Rahman Faiaz',
             'username' => 'Junayed-Rahman-Faiaz',
             'email' => 'admin@gmail.com',
-<<<<<<< HEAD
             'profile_image' => 'images/profile_av.jpg',
-=======
->>>>>>> main
             'role' => UserRole::SUPER_ADMIN->value,
             'password' => Hash::make('Abc@1234'),
         ]);
