@@ -25,8 +25,6 @@
                       <li><a href="{{ route('address') }}">Address List</a></li>
                   </ul>
               </li>
-<<<<<<< HEAD
-=======
               <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-hc-fw"></i>
                       <span>User</span></a>
                   <ul class="ml-menu">
@@ -42,10 +40,6 @@
                   </ul>
               </li>
 
-
-
-
->>>>>>> main
               <li class="active open">
                   <a href="{{ route('setting') }}">
                       <i class="zmdi zmdi-settings"></i><span>Setting</span></a>

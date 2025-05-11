@@ -50,22 +50,16 @@ class User extends Authenticatable
         return $username;
     }
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> main
     public function profiles()
     {
         return $this->hasOne(Profile::class);
     }
-<<<<<<< HEAD
-=======
     public function donateHistory()
     {
         return $this->hasOne(DonateHistory::class);
     }
->>>>>>> main
 
     public function districts()
     {

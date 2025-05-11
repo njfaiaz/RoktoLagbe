@@ -4,6 +4,34 @@
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/charts-c3/plugin.css') }}" />
+    <style>
+        .dashboard-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-container {
+            flex: 1 1 300px;
+            max-width: 48%;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .card-container canvas {
+            width: 100% !important;
+            max-height: 300px !important;
+        }
+
+        @media (max-width: 768px) {
+            .card-container {
+                max-width: 100%;
+            }
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -27,6 +55,23 @@
             </div>
         </div>
         <div class="container-fluid">
+
+
+            <div class="dashboard-row">
+                <!-- User Chart -->
+                <div class="card-container">
+                    <h2>User Chart</h2>
+                    <h4>Total Users: <span id="totalUsers">Loading...</span></h4>
+                    <canvas id="userChart"></canvas>
+                </div>
+
+                <!-- Users by District -->
+                <div class="card-container">
+                    <h2>Users by District</h2>
+                    <canvas id="locationChart"></canvas>
+                </div>
+            </div>
+
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="card widget_2 big_icon traffic">
@@ -354,7 +399,9 @@
                             <ul class="header-dropdown">
                                 <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle"
                                         data-toggle="dropdown" role="button" aria-haspopup="true"
-                                        aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
+                                        aria-expanded="false">
+                                        < i class="zmdi zmdi-more"></i>
+                                    </a>
                                     <ul class="dropdown-menu dropdown-menu-right slideUp">
                                         <li><a href="javascript:void(0);">Edit</a></li>
                                         <li><a href="javascript:void(0);">Delete</a></li>
@@ -402,5 +449,92 @@
         <script src="{{ asset('assets/admin/bundles/sparkline.bundle.js') }}"></script> <!-- Sparkline Plugin Js -->
         <script src="{{ asset('assets/admin/bundles/c3.bundle.js') }}"></script>
         <script src="{{ asset('assets/admin/js/pages/index.js') }}"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            fetch('/api/dashboard/user-stats')
+                .then(response => response.json())
+                .then(result => {
+                    const total = result.data.reduce((a, b) => a + b, 0);
+                    document.getElementById('totalUsers').textContent = total;
+
+                    const ctx = document.getElementById('userChart');
+                    new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: result.labels,
+                            datasets: [{
+                                data: result.data,
+                                backgroundColor: ['#4CAF50', '#F44336']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Active vs Inactive Users'
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'bottom'
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const label = context.label || '';
+                                            const value = context.raw || 0;
+                                            const percentage = ((value / total) * 100).toFixed(1);
+                                            return `${label}: ${value} (${percentage}%)`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+        </script>
+
+        <script>
+            fetch('/api/dashboard/user-location-stats')
+                .then(response => response.json())
+                .then(result => {
+                    const ctx = document.getElementById('locationChart');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: result.labels,
+                            datasets: [{
+                                label: 'Users',
+                                data: result.data,
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'User Count by District'
+                                },
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        stepSize: 1,
+                                        precision: 0
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+        </script>
     @endpush
 @endsection

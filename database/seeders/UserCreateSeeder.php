@@ -960,10 +960,7 @@ class UserCreateSeeder extends Seeder
                 'name' => strtolower($user),
                 'username' => User::generateUniqueUsername($user),
                 'email' => strtolower($user) . '@gmail.com',
-<<<<<<< HEAD
                 'profile_image' => 'images/user/' . rand(1, 15) . '.jpg',
-=======
->>>>>>> main
                 'role' => UserRole::USER->value,
                 'password' => Hash::make('Abc@1234'),
                 'remember_token' => Str::random(10),
