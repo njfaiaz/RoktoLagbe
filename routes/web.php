@@ -42,10 +42,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('404', [UserController::class, 'notFound'])->name('notFound');
 
 
-Route::get('auth/google', [SocialiteController::class, 'googleLogin'])->name('auth.google');
-Route::get('auth/google-callback', [SocialiteController::class, 'googleAuthentication'])->name('auth.google-callback');
-Route::get('auth/facebook', [SocialiteController::class, 'facebookLogin'])->name('auth.facebook');
-Route::get('auth/facebook-callback', [SocialiteController::class, 'facebookAuthentication'])->name('auth.facebook-callback');
+Route::controller(SocialiteController::class)->group(function () {
+    Route::get('auth/redirection/{provider}', 'authProviderRedirect')->name('auth.redirection');
+
+    Route::get('auth/{provider}/callback', 'socialAuthentication')->name('auth.callback');
+});
 
 Route::post('password/change', [PasswordChangeController::class, 'ChangeStore'])->name('admin.password.change');
 

@@ -147,7 +147,7 @@
                         </div>
                     </div>
 
-                    <div class="card ">
+                    {{-- <div class="card ">
                         <div class="header">
                             <h2><strong>Password</strong> Change</h2>
                         </div>
@@ -185,7 +185,7 @@
                                     value="Submit">Password Change</button>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
                 <div class="col-lg-6 col-md-12">
