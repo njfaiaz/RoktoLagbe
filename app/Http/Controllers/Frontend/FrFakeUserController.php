@@ -20,9 +20,13 @@ class FrFakeUserController extends Controller
 
     public function show($id)
     {
-        $user = User::with('fakeUsers')->findOrFail($id);
-        return view('frontend.fake.show', compact('user'));
+        $fakeUser = FakeUser::findOrFail($id);
+        $realUser = $fakeUser->user;
+        $allFakeUsers = $realUser->fakeUsers;
+
+        return view('frontend.fake.show', compact('fakeUser', 'allFakeUsers', 'realUser'));
     }
+
 
     public function create()
     {

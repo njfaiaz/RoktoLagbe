@@ -8,13 +8,13 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 my-2">
                 <div class="card_setting">
-                    <img class="card-img-top" src="https://i.imgur.com/K7A78We.jpg" alt="Card image cap">
+                    <img class="card-img-top" src="{{ asset('assets/frontend/img/cover.jpg') }}" alt="Card image cap">
                     <div class="card-body little-profile text-center">
                         <div class="pro-img">
                             @if ($user->profiles && $user->profiles->image)
                                 <img src="{{ asset($user->profiles->image) }}" width="60" height="60" />
                             @else
-                                <span>No Image</span>
+                                <img src="{{ asset('assets/frontend/img/profile-pic.png') }}">
                             @endif
                         </div>
                         <h3 class="m-b-0">{{ $user->name }}</h3>

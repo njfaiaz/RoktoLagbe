@@ -14,14 +14,16 @@ class FakeUserSeeder extends Seeder
         $users = User::all();
 
         foreach ($users as $user) {
-            FakeUser::updateOrCreate(
-                ['user_id' => $user->id],
-                [
+            $fakeUserCount = rand(2, 5);
+
+            for ($i = 0; $i < $fakeUserCount; $i++) {
+                FakeUser::create([
+                    'user_id' => $user->id,
                     'fake_user_name' => fake()->name(),
                     'fake_user_phone_number' => fake()->phoneNumber(),
                     'fake_user_details' => fake()->paragraph(),
-                ]
-            );
+                ]);
+            }
         }
     }
 }

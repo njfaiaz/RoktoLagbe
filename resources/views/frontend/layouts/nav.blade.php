@@ -58,9 +58,15 @@
                     </ul>
 
                 </div>
+                @php
+                    $profileImage =
+                        auth()->user()->profiles && auth()->user()->profiles->image
+                            ? asset(auth()->user()->profiles->image)
+                            : asset('images/profile_av.jpg');
+                @endphp
 
                 <div class="nav-user-icon online" onclick="settingsMenuToggle()">
-                    <img src="{{ asset('assets/frontend/img/profile-pic.png') }}">
+                    <img src="{{ $profileImage }}" width="60" height="60" alt="User Profile Picture">
                 </div>
 
                 <!--------------------- setting-menu ---------------------------------------->
@@ -70,10 +76,14 @@
                     </div>
                     <div class="setting-menu-inner">
                         <div class="user-profile">
-                            <a href=""> <img src="{{ asset('assets/frontend/img/profile-pic.png') }}"></a>
+                            <a href="">
+                                <img src="{{ $profileImage }}" width="60" height="60"
+                                    alt="User Profile Picture"></a>
                             <div>
                                 <p> Faiaz </p>
-                                <a href="profile.html">See Your Profile</a>
+                                <a href="profile.html">See Your Profile
+
+                                </a>
                             </div>
                         </div>
                         <hr>

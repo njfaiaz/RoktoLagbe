@@ -11,44 +11,37 @@
             <div class="row">
                 <div class="card bg-white">
                     <div class="body">
-                        <h1> Names of all fake users reported by **{{ $user->name ?? 'N/A' }}**</h1>
+                        <h1> Names of all fake users reported by ** {{ $realUser->name ?? 'Unknown User' }}**</h1>
                     </div>
                 </div>
             </div>
 
             <ul class="timeline pt-3">
-                @forelse($user->fakeUsers as $fakeUser)
+                @forelse($allFakeUsers as $fUser)
                     <li>
                         <div class="timeline-time">
-                            <span
-                                class="date">{{ optional($fakeUser)->created_at ? \Carbon\Carbon::parse($fakeUser->created_at)->format('d M Y') : 'N/A' }}</span>
-                            <span
-                                class="time">{{ optional($fakeUser)->created_at ? \Carbon\Carbon::parse($fakeUser->created_at)->format('h:i A') : 'N/A' }}</span>
+                            <span class="date">{{ $fUser->created_at->format('d M Y') }}</span>
+                            <span class="time">{{ $fUser->created_at->format('h:i A') }}</span>
                         </div>
 
                         <div class="timeline-icon">
                             <a href="javascript:;">&nbsp;</a>
                         </div>
                         <div class="timeline-body">
-                            <div class="timeline-header"> Fake User Name =
-                                <span class="username">
-                                    {{ $fakeUser->fake_user_name ?? 'No patient details.' }}<small></small></span>
+                            <div class="timeline-header">Fake User Name =
+                                <span class="username">{{ $fUser->fake_user_name ?? 'N/A' }}</span>
                             </div>
-                            <div class="timeline-header"> Fake User Number =
-                                <span
-                                    class="username">{{ $fakeUser->fake_user_phone_number ?? 'No patient details.' }}<small></small></span>
+                            <div class="timeline-header">Fake User Number =
+                                <span class="username">{{ $fUser->fake_user_phone_number ?? 'N/A' }}</span>
                             </div>
-
-                            <div class="timeline-header"> Fake User Details =
-                                <p class="username">
-                                    {{ $fakeUser->fake_user_details ?? 'No patient details.' }}
-                                </p>
+                            <div class="timeline-header">Fake User Details =
+                                <p class="username">{{ $fUser->fake_user_details ?? 'N/A' }}</p>
                             </div>
                         </div>
                     </li>
                 @empty
                     <li>
-                        <p>No donation history found.</p>
+                        <p>No fake users found.</p>
                     </li>
                 @endforelse
 
