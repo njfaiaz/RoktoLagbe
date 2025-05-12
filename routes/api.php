@@ -20,4 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/dashboard/user-stats', [AdminController::class, 'userStats']);
+Route::get('/dashboard/blood-group-stats', [AdminController::class, 'bloodGroupStats']);
 Route::get('/dashboard/user-location-stats', [AdminController::class, 'userLocationStats']);
+Route::get('/dashboard/top-donors', [AdminController::class, 'topDonors']);
+Route::get('/dashboard/blood-donation-stats', [AdminController::class, 'bloodDonationStats']);

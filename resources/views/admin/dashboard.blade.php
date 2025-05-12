@@ -61,12 +61,7 @@
                     <div class="card widget_2 big_icon">
                         <div class="body">
                             <h6>All User</h6>
-                            <h2>{{ $totalUsers }} <small class="info">of 1Tb</small></h2>
-                            <small>2% higher than last month</small>
-                            <div class="progress">
-                                <div class="progress-bar l-amber" role="progressbar" aria-valuenow="45" aria-valuemin="0"
-                                    aria-valuemax="100" style="width: 45%;"></div>
-                            </div>
+                            <h2>{{ $totalUsers }} <small class="info">of {{ $totalUsers }}</small></h2>
                         </div>
                     </div>
                 </div>
@@ -75,11 +70,6 @@
                         <div class="body">
                             <h6>All Active User</h6>
                             <h2>{{ $activeUserCount }} <small class="info">of {{ $totalUsers }}</small></h2>
-                            <small>6% higher than last month</small>
-                            <div class="progress">
-                                <div class="progress-bar l-blue" role="progressbar" aria-valuenow="38" aria-valuemin="0"
-                                    aria-valuemax="100" style="width: 38%;"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -88,11 +78,6 @@
                         <div class="body">
                             <h6>All Inactive User</h6>
                             <h2>{{ $inactiveUserCount }} <small class="info">of {{ $totalUsers }}</small></h2>
-                            <small>Total Registered email</small>
-                            <div class="progress">
-                                <div class="progress-bar l-purple" role="progressbar" aria-valuenow="39" aria-valuemin="0"
-                                    aria-valuemax="100" style="width: 39%;"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -101,11 +86,6 @@
                         <div class="body">
                             <h6>Profile Complete All User </h6>
                             <h2>{{ $profile }} <small class="info">of {{ $activeUserCount }}</small></h2>
-                            <small>Total Registered Domain</small>
-                            <div class="progress">
-                                <div class="progress-bar l-green" role="progressbar" aria-valuenow="89" aria-valuemin="0"
-                                    aria-valuemax="100" style="width: 89%;"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -115,30 +95,37 @@
 
                 <div class="container-fluid">
                     <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="card">
-                                <div class="header">
-                                    <h2><strong>All </strong> District Data</h2>
-
-                                </div>
                                 <div class="card-container">
                                     <h2>User Chart</h2>
-                                    <h4>Total Users: <span id="totalUsers">Loading...</span></h4>
                                     <canvas id="userChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-container">
+                                    <h2>Total Blood Group Chart</h2>
+                                    <canvas id="bloodGroupChart"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="dashboard-row">
-                        <!-- User Chart -->
+                    <div class="card-container my-3">
+                        <h2>Users by District</h2>
+                        <canvas id="locationChart"></canvas>
+                    </div>
 
+                    <div class="card-container my-3">
+                        <h2>Top 10 Blood Donors User-Name</h2>
+                        <canvas id="topDonorChart"></canvas>
+                    </div>
 
-                        <!-- Users by District -->
-                        <div class="card-container">
-                            <h2>Users by District</h2>
-                            <canvas id="locationChart"></canvas>
-                        </div>
+                    <div class="card-container my-3">
+                        <h2>Most Common Blood Group Name</h2>
+                        <canvas id="bloodDonationChart"></canvas>
                     </div>
 
                 </div>
@@ -148,91 +135,6 @@
 
     @push('footer_scripts')
         <script src="{{ asset('assets/coustom/js/chart.js') }}"></script>
-
-        <script>
-            fetch('/api/dashboard/user-stats')
-                .then(response => response.json())
-                .then(result => {
-                    const total = result.data.reduce((a, b) => a + b, 0);
-                    document.getElementById('totalUsers').textContent = total;
-
-                    const ctx = document.getElementById('userChart');
-                    new Chart(ctx, {
-                        type: 'pie',
-                        data: {
-                            labels: result.labels,
-                            datasets: [{
-                                data: result.data,
-                                backgroundColor: ['#4CAF50', '#F44336']
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    text: 'Active vs Inactive Users'
-                                },
-                                legend: {
-                                    display: true,
-                                    position: 'bottom'
-                                },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(context) {
-                                            const label = context.label || '';
-                                            const value = context.raw || 0;
-                                            const percentage = ((value / total) * 100).toFixed(1);
-                                            return `${label}: ${value} (${percentage}%)`;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-                });
-        </script>
-
-        <script>
-            fetch('/api/dashboard/user-location-stats')
-                .then(response => response.json())
-                .then(result => {
-                    const ctx = document.getElementById('locationChart');
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: result.labels,
-                            datasets: [{
-                                label: 'Users',
-                                data: result.data,
-                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    text: 'User Count by District'
-                                },
-                                legend: {
-                                    display: false
-                                }
-                            },
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    ticks: {
-                                        stepSize: 1,
-                                        precision: 0
-                                    }
-                                }
-                            }
-                        }
-                    });
-                });
-        </script>
+        <script src="{{ asset('assets/coustom/js/api.col.js') }}"></script>
     @endpush
 @endsection
