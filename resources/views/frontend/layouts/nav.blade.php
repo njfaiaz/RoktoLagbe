@@ -59,6 +59,7 @@
 
                 </div>
                 @php
+                    $user = auth()->user();
                     $profileImage =
                         auth()->user()->profiles && auth()->user()->profiles->image
                             ? asset(auth()->user()->profiles->image)
@@ -66,7 +67,7 @@
                 @endphp
 
                 <div class="nav-user-icon online" onclick="settingsMenuToggle()">
-                    <img src="{{ $profileImage }}" width="60" height="60" alt="User Profile Picture">
+                    <img src="{{ $profileImage }}" width="60" height="60">
                 </div>
 
                 <!--------------------- setting-menu ---------------------------------------->
@@ -76,12 +77,11 @@
                     </div>
                     <div class="setting-menu-inner">
                         <div class="user-profile">
-                            <a href="">
-                                <img src="{{ $profileImage }}" width="60" height="60"
-                                    alt="User Profile Picture"></a>
+                            <a href="{{ route('user.profile') }}">
+                                <img src="{{ $profileImage }}" width="60" height="60"></a>
                             <div>
-                                <p> Faiaz </p>
-                                <a href="profile.html">See Your Profile
+                                <p> {{ $user->name ?? 'Guest' }} </p>
+                                <a href="{{ route('user.profile') }}">See Your Profile
 
                                 </a>
                             </div>
@@ -91,23 +91,23 @@
                             <img src="{{ asset('assets/frontend/img') }}/feedback.png">
                             <div>
                                 <p> Giv Feed Back </p>
-                                <a href="">Help us</a>
+                                <a href="profile.html">Help us</a>
                             </div>
                         </div>
                         <hr>
                         <div class="setting-link">
                             <img src="{{ asset('assets/frontend/img') }}/setting.png" class="setting-icon">
-                            <a href="">Setting & Privacy <img src="{{ asset('assets/frontend/img') }}/arrow.png"
-                                    width="10px"></a>
+                            <a href="profile.html">Setting & Privacy <img
+                                    src="{{ asset('assets/frontend/img') }}/arrow.png" width="10px"></a>
                         </div>
                         <div class="setting-link">
                             <img src="{{ asset('assets/frontend/img') }}/help.png" class="setting-icon">
-                            <a href=""> Help & Support <img src="{{ asset('assets/frontend/img') }}/arrow.png"
-                                    width="10px"></a>
+                            <a href="profile.html"> Help & Support <img
+                                    src="{{ asset('assets/frontend/img') }}/arrow.png" width="10px"></a>
                         </div>
                         <div class="setting-link">
                             <img src="{{ asset('assets/frontend/img') }}/display.png" class="setting-icon">
-                            <a href=""> Display & Accessibility <img
+                            <a href="profile.html"> Display & Accessibility <img
                                     src="{{ asset('assets/frontend/img/arrow.png') }}" width="10px"></a>
                         </div>
 

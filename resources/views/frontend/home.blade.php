@@ -25,7 +25,7 @@
                                 @if ($user->profiles && $user->profiles->image)
                                     <img src="{{ asset($user->profiles->image) }}" width="60" height="60" />
                                 @else
-                                    <span>No Image</span>
+                                    <img src="{{ asset('images/profile_av.jpg') }}">
                                 @endif
 
                                 <p>{{ $user->addresses->district->district_name ?? 'N/A' }},
@@ -70,7 +70,8 @@
                                 @endphp
 
                                 @if ($endDate)
-                                    <div class="timer" data-endtime="{{ $endDate }}" data-userid="{{ $user->id }}"
+                                    <div class="timer" data-endtime="{{ $endDate }}"
+                                        data-userid="{{ $user->id }}"
                                         data-is-logged-in-user="{{ $isLoggedInUser ? 'yes' : 'no' }}">
                                     </div>
                                 @endif
