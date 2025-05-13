@@ -59,8 +59,6 @@
 
                         <div>
                             <button type="submit" class="btn filter_search">Search</button>
-                        </div>
-                        <div>
                             <a class="btn filter_search" href="{{ url()->current() }}">Reset </a>
                         </div>
                     </div>
