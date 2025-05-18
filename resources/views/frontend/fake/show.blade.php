@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="card bg-white">
                     <div class="body">
-                        <h1> Names of all fake users reported by ** {{ $realUser->name ?? 'Unknown User' }}**</h1>
+                        <h1> Reported by ({{ $realUser->name ?? 'Unknown User' }})</h1>
                     </div>
                 </div>
             </div>

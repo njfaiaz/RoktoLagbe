@@ -3,7 +3,7 @@
     <header class="header" id="header">
         <nav class="nav container">
             <a href="{{ route('user.dashboard') }}" class="">
-                <div class="nav__logo">RoktoLagbe<span class="dot">.com</span></div>
+                <div class="nav__logo">AponBlood<span class="dot">.com</span></div>
             </a>
 
             <div class="nav__menu" id="nav-menu">

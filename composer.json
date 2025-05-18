@@ -7,13 +7,10 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
-        "intervention/image": "2.7",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/socialite": "^5.20",
         "laravel/tinker": "^2.8",
-        "laravel/ui": "^4.6",
-        "spatie/laravel-medialibrary": "^10.0.0"
+        "laravel/ui": "^4.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",

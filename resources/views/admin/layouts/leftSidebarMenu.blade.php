@@ -12,7 +12,7 @@
                       <a class="image" href="{{ route('profile') }}"><img
                               src="{{ asset('assets/admin/images/profile_av.jpg') }}" alt="User"></a>
                       <div class="detail">
-                          <h4>Michael</h4>
+                          <h4>Faiaz</h4>
                           <small>Super Admin</small>
                       </div>
                   </div>

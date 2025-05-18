@@ -29,7 +29,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        if (Auth::user()->role == '1') {
+            return redirect()->route('admin.dashboard');
+        } else {
+            return redirect()->route('user.dashboard');
+        }
+    } else {
+        return redirect()->route('login');
+    }
 });
 
 Route::fallback(function () {

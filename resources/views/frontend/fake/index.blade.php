@@ -14,7 +14,7 @@
             <div class="">
                 <!-- Filter Section -->
                 <form action="{{ route('user.fake') }}" method="GET">
-                    <div class="filter-section" style="background-color: #ffcaca">
+                    <div class="filter-section" style="background-color: #828bb3">
 
                         <div>
                             <input type="text" name="name" class="form-control w-100" value="{{ request('name') }}"
@@ -36,19 +36,17 @@
                         </div>
 
                         <div>
-                            <button type="submit" class="btn filter_search w-100">Search</button>
-                            <a class="btn filter_search w-100" href="{{ url()->current() }}">Reset </a>
+                            <button type="submit" class="btn filter_search">Search</button>
+                            <a class="btn filter_search" href="{{ url()->current() }}">Reset </a>
                         </div>
                     </div>
                 </form>
 
 
-                <div class="">
+                <div class="table-responsive">
 
                     {{-- Table --------------------------------------------------------------------- --}}
-                    <table
-                        class="table table-hover product_item_list c_table theme-color mb-0 footable footable-1 footable-paging footable-paging-center breakpoint-lg"
-                        style="">
+                    <table class="table table-hover product_item_list c_table theme-color mb-0 footable" style="">
                         <thead>
                             <tr class="footable-header">
                                 <th class="footable-sortable" style="display: table-cell;">ID Name<span

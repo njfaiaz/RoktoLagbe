@@ -1,5 +1,23 @@
 @extends('app')
+@push('style')
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/bootstrap-select/css/bootstrap-select.css') }}">
+    <style>
+        .dropify-wrapper {
+            height: 180px;
+            width: 180px;
+            margin: 0 auto;
+            border-radius: 5%;
+        }
 
+        dl,
+        ol,
+        ul {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            margin-left: -38px;
+        }
+    </style>
+@endpush
 @section('title', 'Profile Edit')
 
 

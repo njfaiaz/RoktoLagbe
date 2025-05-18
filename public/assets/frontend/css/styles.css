@@ -360,25 +360,19 @@ main {
 #district-list-donate {
     max-height: 200px;
     overflow-y: auto;
-    position: fixed;
     z-index: 1000;
-    width: 34%;
     margin-left: -30px;
 }
 #upazila-list-donate {
     max-height: 200px;
     overflow-y: auto;
-    position: fixed;
     z-index: 1000;
-    width: 34%;
     margin-left: -30px;
 }
 #union-list-donate {
     max-height: 200px;
     overflow-y: auto;
-    position: fixed;
     z-index: 1000;
-    width: 34%;
     margin-left: -30px;
 }
 
@@ -872,25 +866,19 @@ p {
     #district-list-donate {
         max-height: 200px;
         overflow-y: auto;
-        position: fixed;
         z-index: 1000;
-        width: 68%;
         margin-left: -30px;
     }
     #upazila-list-donate {
         max-height: 200px;
         overflow-y: auto;
-        position: fixed;
         z-index: 1000;
-        width: 68%;
         margin-left: -30px;
     }
     #union-list-donate {
         max-height: 200px;
         overflow-y: auto;
-        position: fixed;
         z-index: 1000;
-        width: 68%;
         margin-left: -30px;
     }
     #district-list-profile {
